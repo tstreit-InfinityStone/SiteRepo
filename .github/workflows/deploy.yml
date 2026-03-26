@@ -30,11 +30,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
+      - name: Build site
+        run: npm run build
 
-      - name: Build and upload site
-        uses: withastro/action@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist/client
 
   deploy:
     needs: build

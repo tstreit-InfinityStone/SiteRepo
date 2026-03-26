@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import issLogoReversed from '@/assets/brand/iss-logo-reversed.png';
 import { brand } from '@/data/brand';
 import { contactNavigation, footerNavigation, legalNavigation } from '@/data/navigation';
+import { withBase } from '@/lib/paths';
 import { siteConfig } from '@/data/site';
 import Container from '@/components/ui/Container.astro';
 ---
@@ -18,7 +19,7 @@ import Container from '@/components/ui/Container.astro';
         <p>{siteConfig.location}</p>
       </div>
       <a
-        href={brand.assets.capabilityStatement}
+        href={withBase(brand.assets.capabilityStatement)}
         target="_blank"
         rel="noopener noreferrer"
         class="inline-flex items-center gap-2 text-sm font-semibold text-white transition hover:text-[var(--color-accent)]"
@@ -34,7 +35,7 @@ import Container from '@/components/ui/Container.astro';
       <ul class="mt-4 space-y-3">
         {footerNavigation.map((item) => (
           <li>
-            <a href={item.href} class="text-sm text-white/78 transition hover:text-white">
+            <a href={withBase(item.href)} class="text-sm text-white/78 transition hover:text-white">
               {item.label}
             </a>
           </li>
@@ -47,7 +48,7 @@ import Container from '@/components/ui/Container.astro';
       <ul class="mt-4 space-y-3">
         {contactNavigation.map((item) => (
           <li>
-            <a href={item.href} class="text-sm text-white/78 transition hover:text-white">
+            <a href={withBase(item.href)} class="text-sm text-white/78 transition hover:text-white">
               {item.label}
             </a>
           </li>
@@ -60,7 +61,7 @@ import Container from '@/components/ui/Container.astro';
       <ul class="mt-4 space-y-3">
         {legalNavigation.map((item) => (
           <li>
-            <a href={item.href} class="text-sm text-white/78 transition hover:text-white">
+            <a href={withBase(item.href)} class="text-sm text-white/78 transition hover:text-white">
               {item.label}
             </a>
           </li>

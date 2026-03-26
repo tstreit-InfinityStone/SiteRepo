@@ -4,6 +4,7 @@ import Container from '@/components/ui/Container.astro';
 import PageHero from '@/components/ui/PageHero.astro';
 import { brand } from '@/data/brand';
 import { capabilityStatementData } from '@/data/capability-statement';
+import { withBase } from '@/lib/paths';
 import { buildBreadcrumbSchema, buildOrganizationSchema } from '@/lib/seo';
 
 const { registration, overview, competencies, differentiators, highlights, pastPerformance } = capabilityStatementData;
@@ -97,7 +98,7 @@ const { registration, overview, competencies, differentiators, highlights, pastP
         </div>
         <div class="flex flex-col gap-2 sm:flex-row">
           <a
-            href={brand.assets.capabilityStatement}
+            href={withBase(brand.assets.capabilityStatement)}
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex flex-shrink-0 items-center gap-2 rounded-full bg-[var(--color-secondary)] px-5 py-2.5 text-sm font-semibold !text-white transition hover:bg-[var(--color-primary)]"
@@ -110,7 +111,7 @@ const { registration, overview, competencies, differentiators, highlights, pastP
             Full Version
           </a>
           <a
-            href={brand.assets.capabilityStatementOnePage}
+            href={withBase(brand.assets.capabilityStatementOnePage)}
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex flex-shrink-0 items-center gap-2 rounded-full border border-[var(--color-secondary)] px-5 py-2.5 text-sm font-semibold text-[var(--color-secondary)] transition hover:bg-[var(--color-secondary)] hover:!text-white"

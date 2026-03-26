@@ -1,6 +1,7 @@
 ---
 import { credentials } from '@/data/credentials';
 import { pastPerformanceHighlights } from '@/data/proof';
+import { withBase } from '@/lib/paths';
 import Container from '@/components/ui/Container.astro';
 import SectionHeading from '@/components/ui/SectionHeading.astro';
 ---
@@ -23,7 +24,7 @@ import SectionHeading from '@/components/ui/SectionHeading.astro';
           ))}
         </div>
         <div class="flex justify-end">
-          <a href="/case-studies" class="text-sm font-semibold text-[var(--color-secondary)] transition-colors hover:text-[var(--color-primary)]">
+          <a href={withBase('/case-studies')} class="text-sm font-semibold text-[var(--color-secondary)] transition-colors hover:text-[var(--color-primary)]">
             View all case studies →
           </a>
         </div>

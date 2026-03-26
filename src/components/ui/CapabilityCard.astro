@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { withBase } from '@/lib/paths';
 
 interface Props {
   capability: CollectionEntry<'capabilities'>;
@@ -73,7 +74,7 @@ const cardId = `card-${capability.id}`;
         </div>
 
         <a
-          href={`/capabilities/${capability.id}`}
+          href={withBase(`/capabilities/${capability.id}`)}
           class="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)] transition hover:text-[var(--color-secondary)]"
         >
           Explore capability

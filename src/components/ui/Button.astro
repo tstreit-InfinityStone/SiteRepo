@@ -1,4 +1,6 @@
 ---
+import { withBase } from '@/lib/paths';
+
 interface Props {
   href?: string;
   variant?: 'primary' | 'secondary' | 'ghost';
@@ -35,11 +37,13 @@ const analyticsAttributes = analyticsEvent
       'data-track-label': analyticsLabel ?? '',
     }
   : {};
+
+const resolvedHref = href ? withBase(href) : undefined;
 ---
 
 {
-  href ? (
-    <a href={href} target={target} rel={target === '_blank' ? 'noopener noreferrer' : undefined} class={`${sharedClasses} ${variantClasses} ${className}`.trim()} {...analyticsAttributes}>
+  resolvedHref ? (
+    <a href={resolvedHref} target={target} rel={target === '_blank' ? 'noopener noreferrer' : undefined} class={`${sharedClasses} ${variantClasses} ${className}`.trim()} {...analyticsAttributes}>
       <slot />
     </a>
   ) : (

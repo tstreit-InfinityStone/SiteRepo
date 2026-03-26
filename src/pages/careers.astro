@@ -1,0 +1,251 @@
+---
+export const prerender = false;
+
+import { actions, isInputError } from 'astro:actions';
+
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Container from '@/components/ui/Container.astro';
+import PageHero from '@/components/ui/PageHero.astro';
+import { buildBreadcrumbSchema, buildOrganizationSchema } from '@/lib/seo';
+
+const result = Astro.getActionResult(actions.careers.submit);
+const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+---
+
+<BaseLayout
+  title="Careers"
+  description="Join Infinity Stone Solutions — a woman-veteran-owned technology firm supporting federal missions. Submit your resume and we'll reach out when the right opportunity opens."
+  canonicalPath="/careers"
+  structuredData={[
+    buildOrganizationSchema(),
+    buildBreadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Careers', path: '/careers' },
+    ]),
+  ]}
+>
+  <PageHero
+    title="Build something that matters."
+    description="ISS isn't always hiring — but we're always looking for exceptional people. Submit your resume and we'll reach out when the right opportunity opens."
+  />
+
+  <section class="section-space">
+    <Container className="grid gap-10 xl:grid-cols-[0.75fr_1.25fr]">
+      <aside class="space-y-6">
+        <article class="panel-muted p-8">
+          <p class="eyebrow">Why ISS</p>
+          <div class="mt-5 space-y-3">
+            <p class="flex items-start gap-3 text-sm">
+              <span class="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[var(--color-accent)]"></span>
+              <span>Mission-driven work supporting federal agencies</span>
+            </p>
+            <p class="flex items-start gap-3 text-sm">
+              <span class="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[var(--color-accent)]"></span>
+              <span>Small-team culture</span>
+            </p>
+            <p class="flex items-start gap-3 text-sm">
+              <span class="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[var(--color-accent)]"></span>
+              <span>Room for growth across disciplines</span>
+            </p>
+            <p class="flex items-start gap-3 text-sm">
+              <span class="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[var(--color-accent)]"></span>
+              <span>Remote flexibility (some exclusions apply)</span>
+            </p>
+          </div>
+        </article>
+
+        <article class="panel p-8">
+          <p class="eyebrow">What we look for</p>
+          <div class="mt-5 space-y-3">
+            <p class="flex items-start gap-3 text-sm">
+              <span class="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[var(--color-primary)]"></span>
+              <span>Cleared or clearance-eligible professionals</span>
+            </p>
+            <p class="flex items-start gap-3 text-sm">
+              <span class="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[var(--color-primary)]"></span>
+              <span>Experience in federal IT, cybersecurity, cloud, or analytics</span>
+            </p>
+            <p class="flex items-start gap-3 text-sm">
+              <span class="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[var(--color-primary)]"></span>
+              <span>Self-starters who thrive in small, accountable teams</span>
+            </p>
+            <p class="flex items-start gap-3 text-sm">
+              <span class="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[var(--color-primary)]"></span>
+              <span>People who care about the mission, not just the contract</span>
+            </p>
+          </div>
+        </article>
+
+        <article class="panel p-8">
+          <p class="eyebrow">What to expect</p>
+          <p class="mt-4">ISS reviews every submission. When a role opens that matches your background and experience, our team will reach out directly.</p>
+          <p class="mt-4 text-sm">Include your background, areas of expertise, and any relevant certifications or clearances.</p>
+        </article>
+      </aside>
+
+      <div class="panel-static p-8">
+        {result && !result.error && (
+          <div class="mb-6 rounded-2xl border border-[var(--color-success)]/30 bg-[var(--color-success)]/10 p-4">
+            <p class="font-semibold text-[var(--color-ink)]">Thank you for your interest in ISS. We've received your resume and will be in touch if a role matches your background.</p>
+          </div>
+        )}
+
+        {result?.error && !isInputError(result.error) && (
+          <div class="mb-6 rounded-2xl border border-red-300 bg-red-50 p-4">
+            <p class="font-semibold text-[var(--color-ink)]">The form could not be submitted.</p>
+            <p class="mt-2 text-sm">
+              {result.error.message || 'Please try again or email ISS directly.'}
+            </p>
+          </div>
+        )}
+
+        <form method="POST" action={actions.careers.submit} enctype="multipart/form-data" class="space-y-5" data-careers-form>
+          <div class="grid gap-5 md:grid-cols-2">
+            <label class="space-y-2 text-sm font-semibold text-[var(--color-ink)]">
+              Full Name
+              <input
+                name="fullName"
+                type="text"
+                required
+                class="w-full rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3 font-normal text-[var(--color-ink)]"
+              />
+              {inputErrors.fullName && <span class="text-sm font-normal text-red-700">{inputErrors.fullName.join(', ')}</span>}
+            </label>
+
+            <label class="space-y-2 text-sm font-semibold text-[var(--color-ink)]">
+              Email
+              <input
+                name="email"
+                type="email"
+                required
+                class="w-full rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3 font-normal text-[var(--color-ink)]"
+              />
+              {inputErrors.email && <span class="text-sm font-normal text-red-700">{inputErrors.email.join(', ')}</span>}
+            </label>
+          </div>
+
+          <div class="grid gap-5 md:grid-cols-2">
+            <label class="space-y-2 text-sm font-semibold text-[var(--color-ink)]">
+              Phone
+              <input
+                name="phone"
+                type="tel"
+                class="w-full rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3 font-normal text-[var(--color-ink)]"
+              />
+              {inputErrors.phone && <span class="text-sm font-normal text-red-700">{inputErrors.phone.join(', ')}</span>}
+            </label>
+
+            <label class="space-y-2 text-sm font-semibold text-[var(--color-ink)]">
+              Area of Interest
+              <select
+                name="areaOfInterest"
+                class="w-full rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3 font-normal text-[var(--color-ink)]"
+              >
+                <option value="">Select an area</option>
+                <option value="IT Modernization">IT Modernization</option>
+                <option value="Cybersecurity">Cybersecurity</option>
+                <option value="Cloud & Infrastructure">Cloud & Infrastructure</option>
+                <option value="Data & Analytics">Data & Analytics</option>
+                <option value="Program Support">Program Support</option>
+                <option value="Other">Other</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="space-y-3 text-sm font-semibold text-[var(--color-ink)]">
+            Tell us about yourself
+            <textarea
+              name="message"
+              required
+              rows={6}
+              class="mt-1 w-full rounded-3xl border border-[var(--color-border)] bg-white px-4 py-3 font-normal text-[var(--color-ink)]"
+            />
+            {inputErrors.message && <span class="text-sm font-normal text-red-700">{inputErrors.message.join(', ')}</span>}
+          </label>
+
+          <label class="space-y-2 text-sm font-semibold text-[var(--color-ink)]">
+            Resume
+            <span class="ml-1 font-normal text-[var(--color-ink-soft)]">(PDF or Word, max 10 MB)</span>
+            <input
+              name="resume"
+              type="file"
+              required
+              accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+              class="w-full rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3 font-normal text-[var(--color-ink)] file:mr-4 file:rounded-full file:border-0 file:bg-[var(--color-primary)] file:px-4 file:py-1.5 file:text-sm file:font-semibold file:text-white hover:file:bg-[var(--color-secondary)]"
+            />
+            {inputErrors.resume && <span class="text-sm font-normal text-red-700">{inputErrors.resume.join(', ')}</span>}
+          </label>
+
+          <input
+            name="company"
+            type="text"
+            tabindex="-1"
+            autocomplete="off"
+            class="hidden"
+            aria-hidden="true"
+          />
+
+          <input name="turnstileToken" id="careersTurnstileToken" type="hidden" />
+
+          {turnstileSiteKey ? (
+            <>
+              <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer />
+              <div
+                class="cf-turnstile"
+                data-sitekey={turnstileSiteKey}
+                data-callback="issCareersTurnstileCallback"
+              />
+              <script is:inline>
+                window.issCareersTurnstileCallback = function(token) {
+                  var input = document.getElementById('careersTurnstileToken');
+                  if (input) input.value = token;
+                };
+              </script>
+            </>
+          ) : (
+            <p class="rounded-2xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm">
+              Turnstile is not configured in this environment yet. Add <code>PUBLIC_TURNSTILE_SITE_KEY</code> and <code>TURNSTILE_SECRET_KEY</code> before launch.
+            </p>
+          )}
+
+          <div class="flex justify-end">
+            <Button type="submit" analyticsEvent="cta_click" analyticsLabel="careers-submit">
+              Submit Application
+            </Button>
+          </div>
+        </form>
+      </div>
+    </Container>
+  </section>
+
+  {result && !result.error && (
+    <script is:inline>
+      if (window.google_tag_manager) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'careers_form_success' });
+      }
+
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'careers_form_success', {
+          event_category: 'engagement',
+        });
+      }
+    </script>
+  )}
+
+  <script is:inline>
+    document.addEventListener('astro:page-load', function () {
+      var form = document.querySelector('[data-careers-form]');
+      if (!form) return;
+
+      form.addEventListener('submit', function () {
+        var btn = form.querySelector('[type="submit"]');
+        if (!btn) return;
+        btn.disabled = true;
+        btn.textContent = 'Sending\u2026';
+      });
+    });
+  </script>
+</BaseLayout>

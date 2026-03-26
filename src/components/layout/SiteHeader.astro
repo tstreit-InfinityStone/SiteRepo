@@ -1,0 +1,39 @@
+---
+import { Image } from 'astro:assets';
+import issLogo from '@/assets/brand/iss-logo-transparent.png';
+import { brand } from '@/data/brand';
+import { mainNavigation } from '@/data/navigation';
+import Container from '@/components/ui/Container.astro';
+import Button from '@/components/ui/Button.astro';
+import MobileNav from '@/components/islands/MobileNav.astro';
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-40 border-b border-[var(--color-border)]/70 bg-white/95 backdrop-blur">
+  <Container className="flex min-h-[7rem] items-center justify-between gap-6">
+    <a href="/" class="flex items-center" aria-label={brand.name}>
+      <Image src={issLogo} alt={brand.name} class="h-36 w-auto" loading="eager" fetchpriority="high" />
+    </a>
+
+    <nav class="hidden items-center gap-6 lg:flex" aria-label="Primary navigation">
+      {mainNavigation.map((item) => (
+        <a
+          href={item.href}
+          aria-current={currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href)) ? 'page' : undefined}
+          class="nav-link text-center text-sm font-semibold text-[var(--color-ink)] transition hover:text-[var(--color-primary)]"
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="hidden lg:block">
+      <Button href="/contact" analyticsEvent="cta_click" analyticsLabel="header-contact">
+        {brand.ctas.primary}
+      </Button>
+    </div>
+
+    <MobileNav items={mainNavigation} ctaHref="/contact" ctaLabel={brand.ctas.primary} />
+  </Container>
+</header>

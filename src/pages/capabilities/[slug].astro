@@ -1,0 +1,164 @@
+---
+import { getCollection, render } from 'astro:content';
+
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Container from '@/components/ui/Container.astro';
+import PageHero from '@/components/ui/PageHero.astro';
+import CapabilityCard from '@/components/ui/CapabilityCard.astro';
+import CapabilityStatementCta from '@/components/sections/CapabilityStatementCta.astro';
+import FinalCtaSection from '@/components/sections/FinalCtaSection.astro';
+import AnimatedCounter from '@/components/islands/AnimatedCounter.astro';
+import { proofSignals } from '@/data/proof';
+import { getCapabilities, getRelatedCapabilities } from '@/lib/content';
+import { buildBreadcrumbSchema, buildOrganizationSchema } from '@/lib/seo';
+
+export async function getStaticPaths() {
+  const capabilities = await getCollection('capabilities');
+
+  return capabilities.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const capabilities = await getCapabilities();
+const relatedCapabilities = getRelatedCapabilities(capabilities, entry.id, entry.data.relatedCapabilities);
+const relatedProof = proofSignals.filter((signal) => entry.data.proofReferences.includes(signal.id));
+---
+
+<BaseLayout
+  title={entry.data.title}
+  description={entry.data.heroDescription}
+  canonicalPath={`/capabilities/${entry.id}`}
+  structuredData={[
+    buildOrganizationSchema(),
+    buildBreadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Capabilities', path: '/capabilities' },
+      { name: entry.data.title, path: `/capabilities/${entry.id}` },
+    ]),
+  ]}
+>
+  <PageHero title={entry.data.title} description={entry.data.heroDescription} />
+
+  <section class="section-space">
+    <Container className="grid gap-10 xl:grid-cols-[1.1fr_0.9fr]">
+      <!-- Left column: staggered panel reveals -->
+      <div class="stagger-children space-y-8">
+        <article class="panel fade-up p-8">
+          <p class="eyebrow">Overview</p>
+          <p class="mt-4 text-lg">{entry.data.summary}</p>
+
+          <div class="mt-8 grid gap-6 md:grid-cols-2">
+            <div>
+              <h2 class="text-2xl">Buyer problems</h2>
+              <div class="mt-4 space-y-3">
+                {entry.data.buyerProblems.map((item) => (
+                  <p class="flex items-start gap-3">
+                    <span class="mt-1 h-2.5 w-2.5 rounded-full bg-[var(--color-accent)]" />
+                    <span>{item}</span>
+                  </p>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h2 class="text-2xl">Outcomes</h2>
+              <div class="mt-4 space-y-3">
+                {entry.data.outcomes.map((item) => (
+                  <p class="flex items-start gap-3">
+                    <span class="mt-1 h-2.5 w-2.5 rounded-full bg-[var(--color-primary)]" />
+                    <span>{item}</span>
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel fade-up p-8">
+          <p class="eyebrow">Included work</p>
+          <div class="mt-5 grid gap-4 md:grid-cols-2">
+            {entry.data.includedWork.map((item) => (
+              <div class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
+                <p class="text-sm font-semibold text-[var(--color-ink)]">{item}</p>
+              </div>
+            ))}
+          </div>
+        </article>
+
+        <article class="panel fade-up p-8">
+          <p class="eyebrow">Delivery context</p>
+          <div class="rich-copy mt-5">
+            <Content />
+          </div>
+        </article>
+      </div>
+
+      <!-- Right column: staggered sidebar reveals -->
+      <div class="stagger-children space-y-8">
+        <article class="panel-muted fade-up p-8">
+          <h2 class="text-2xl">Who this capability supports</h2>
+          <div class="mt-5 space-y-3">
+            {entry.data.idealBuyers.map((item) => (
+              <p class="flex items-start gap-3">
+                <span class="mt-1 h-2.5 w-2.5 rounded-full bg-[var(--color-accent)]" />
+                <span>{item}</span>
+              </p>
+            ))}
+          </div>
+          <Button href="/contact" className="mt-6" analyticsEvent="cta_click" analyticsLabel={`capability-${entry.id}`}>
+            {entry.data.ctaText}
+          </Button>
+        </article>
+
+        <article class="panel fade-up p-8">
+          <p class="eyebrow">Proof signals</p>
+          <div class="mt-5 space-y-4">
+            {relatedProof.map((signal) => (
+              <div class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
+                {signal.stat && (
+                  <div class="mb-2">
+                    <AnimatedCounter
+                      value={signal.stat.value}
+                      suffix={signal.stat.suffix}
+                      prefix={signal.stat.prefix}
+                      label={signal.label}
+                    />
+                  </div>
+                )}
+                <h2 class="text-xl">{signal.label}</h2>
+                <p class="mt-2 text-sm">{signal.detail}</p>
+              </div>
+            ))}
+          </div>
+        </article>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Capability Statement CTA -->
+  <CapabilityStatementCta />
+
+  {relatedCapabilities.length > 0 && (
+    <section class="section-space-tight">
+      <Container className="space-y-8">
+        <div class="max-w-3xl fade-up">
+          <h2 class="text-3xl">Explore adjacent areas that often connect to this work.</h2>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 stagger-children">
+          {relatedCapabilities.map((capability) => (
+            <CapabilityCard capability={capability} />
+          ))}
+        </div>
+      </Container>
+    </section>
+  )}
+
+  <!-- Final CTA -->
+  <FinalCtaSection />
+</BaseLayout>

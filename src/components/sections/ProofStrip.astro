@@ -1,0 +1,30 @@
+---
+import { featuredProofIds, proofSignals } from '@/data/proof';
+import AnimatedCounter from '@/components/islands/AnimatedCounter.astro';
+import Container from '@/components/ui/Container.astro';
+
+const featuredProof = proofSignals.filter((signal) => featuredProofIds.includes(signal.id));
+---
+
+<section class="section-space-tight">
+  <Container>
+    <div class="stagger-children grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      {featuredProof.map((signal) => (
+        <article class="panel-muted fade-up p-5 text-center">
+          {signal.stat && (
+            <div class="mt-3">
+              <AnimatedCounter
+                value={signal.stat.value}
+                suffix={signal.stat.suffix}
+                prefix={signal.stat.prefix}
+                label={signal.label}
+              />
+            </div>
+          )}
+          <h2 class={signal.stat ? 'mt-1 text-xl' : 'mt-3 text-xl'}>{signal.label}</h2>
+          <p class="mt-3 text-sm">{signal.shortDescription}</p>
+        </article>
+      ))}
+    </div>
+  </Container>
+</section>

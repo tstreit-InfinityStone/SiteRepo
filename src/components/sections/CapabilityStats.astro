@@ -1,0 +1,61 @@
+---
+import AnimatedCounter from '@/components/islands/AnimatedCounter.astro';
+import Container from '@/components/ui/Container.astro';
+
+const stats = [
+  {
+    eyebrow: 'Credentials',
+    value: 25,
+    suffix: '+',
+    label: 'Professional credentials',
+    description: 'PMP, SAFe, ScrumMaster, ITIL, Azure, and more — held by the delivery team, not a staffing bench.',
+  },
+  {
+    eyebrow: 'Past performance',
+    value: 6,
+    suffix: '',
+    label: 'Named federal agencies',
+    description: 'U.S. Navy, SPAWAR, ICE/HSI, DOI/BLM, and more — verifiable, not anonymized.',
+  },
+  {
+    eyebrow: 'Scale',
+    value: 245,
+    suffix: 'M',
+    label: 'Acres of federal land managed',
+    description: 'Enterprise GIS implementation for one of the largest land-managing agencies in the federal government.',
+  },
+  {
+    eyebrow: 'Intelligence',
+    value: 20,
+    suffix: 'K+',
+    label: 'SIGINT targets exploited',
+    description: 'Mission delivery at NIOC San Diego, an NSA-affiliated command — recognized with Sailor of the Year.',
+  },
+];
+---
+
+<section class="bg-[var(--color-ink)] py-16 md:py-20">
+  <Container>
+    <div class="mb-10 max-w-2xl">
+      <p class="text-xs font-semibold uppercase tracking-[0.18em] text-white/50">By the numbers</p>
+      <h2 class="mt-3 text-3xl text-white md:text-4xl">Named delivery. Measured outcomes.</h2>
+    </div>
+
+    <div class="stagger-children grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+      {stats.map((stat) => (
+        <article class="fade-up rounded-2xl border border-white/10 bg-white/5 p-6">
+          <p class="text-xs font-semibold uppercase tracking-[0.14em] text-white/40">{stat.eyebrow}</p>
+          <div class="mt-3">
+            <AnimatedCounter
+              value={stat.value}
+              suffix={stat.suffix}
+              label={stat.label}
+            />
+          </div>
+          <h3 class="mt-1 text-lg font-semibold text-white">{stat.label}</h3>
+          <p class="mt-3 text-sm text-white/60">{stat.description}</p>
+        </article>
+      ))}
+    </div>
+  </Container>
+</section>

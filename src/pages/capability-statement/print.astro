@@ -1,0 +1,565 @@
+---
+import PrintLayout from '@/layouts/PrintLayout.astro';
+import { capabilityStatementData } from '@/data/capability-statement';
+
+const { registration, overview, competencies, differentiators, pastPerformance } = capabilityStatementData;
+---
+
+<PrintLayout title="Capability Statement — Infinity Stone Solutions Inc.">
+
+  <!-- Document styles (scoped to this page) -->
+  <style>
+    /* ── Document Header ── */
+    .doc-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--color-border);
+      margin-bottom: 24px;
+    }
+
+    .doc-header__brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .doc-header__logo {
+      height: 72px;
+      width: auto;
+    }
+
+    .doc-header__right {
+      text-align: right;
+    }
+
+    .doc-header__eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin: 0 0 4px;
+    }
+
+    .doc-header__title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 900;
+      color: var(--color-ink);
+      margin: 0 0 2px;
+      line-height: 1.2;
+    }
+
+    .doc-header__domain {
+      font-size: 12px;
+      color: var(--color-ink-soft);
+      margin: 0;
+    }
+
+    /* ── Registration Block ── */
+    .reg-block {
+      background: color-mix(in srgb, var(--color-primary) 7%, white);
+      border: 1px solid color-mix(in srgb, var(--color-primary) 35%, white);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-bottom: 28px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+    }
+
+    .reg-block__label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-ink-soft);
+      margin: 0 0 6px;
+    }
+
+    .reg-block__uei {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin: 0 0 2px;
+    }
+
+    .reg-block__cage {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--color-ink-soft);
+      margin: 0 0 6px;
+    }
+
+    .reg-block__naics-num {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin: 0 0 2px;
+    }
+
+    .reg-block__naics-desc {
+      font-size: 11px;
+      color: var(--color-ink-soft);
+      margin: 0 0 8px;
+    }
+
+    .cert-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 4px;
+    }
+
+    .cert-badge {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid color-mix(in srgb, var(--color-primary) 40%, white);
+      color: var(--color-primary);
+      background: color-mix(in srgb, var(--color-primary) 10%, white);
+    }
+
+    .reg-block__contact-row {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      color: var(--color-ink);
+      margin-bottom: 4px;
+      text-decoration: none;
+    }
+
+    .reg-block__contact-row svg {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+      color: var(--color-ink-soft);
+    }
+
+    /* ── Two-column doc grid ── */
+    .doc-grid {
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .doc-col { display: flex; flex-direction: column; gap: 24px; }
+
+    /* ── Section ── */
+    .doc-section { }
+
+    .section-eyebrow {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin: 0 0 6px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin: 0 0 10px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--color-primary);
+    }
+
+    /* ── Overview ── */
+    .overview-text {
+      font-size: 12px;
+      line-height: 1.65;
+      color: var(--color-ink-soft);
+      margin: 0;
+    }
+
+    /* ── Competencies ── */
+    .comp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .comp-card {
+      border: 1px solid var(--color-border);
+      border-radius: 7px;
+      padding: 10px 12px;
+      background: var(--color-surface);
+    }
+
+    .comp-card__title {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin: 0 0 4px;
+    }
+
+    .comp-card__desc {
+      font-size: 10.5px;
+      line-height: 1.55;
+      color: var(--color-ink-soft);
+      margin: 0;
+    }
+
+    /* ── Differentiators ── */
+    .diff-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      counter-reset: diff-counter;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .diff-list li {
+      counter-increment: diff-counter;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 11px;
+      line-height: 1.55;
+      color: var(--color-ink-soft);
+    }
+
+    .diff-list li::before {
+      content: counter(diff-counter, decimal-leading-zero);
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--color-accent);
+      flex-shrink: 0;
+      margin-top: 1px;
+      min-width: 18px;
+    }
+
+    /* ── Past Performance ── */
+    .pp-entry {
+      border-left: 3px solid var(--color-primary);
+      padding-left: 12px;
+      margin-bottom: 12px;
+    }
+
+    .pp-entry:last-child { margin-bottom: 0; }
+
+    .pp-entry__client {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-ink);
+      margin: 0 0 4px;
+    }
+
+    .pp-entry__summary {
+      font-size: 10.5px;
+      line-height: 1.6;
+      color: var(--color-ink-soft);
+      margin: 0;
+    }
+
+    /* ── Tables (NAICS / PSC / CIE) ── */
+    .doc-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10.5px;
+    }
+
+    .doc-table thead th {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-ink-soft);
+      text-align: left;
+      padding: 0 6px 6px 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .doc-table tbody td {
+      padding: 5px 6px 5px 0;
+      vertical-align: top;
+      border-bottom: 1px solid color-mix(in srgb, var(--color-border) 60%, white);
+    }
+
+    .doc-table tbody tr:nth-child(even) td {
+      background: var(--color-surface-muted);
+    }
+
+    .doc-table .code-cell {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--color-primary);
+      white-space: nowrap;
+      padding-right: 10px;
+    }
+
+    .doc-table .desc-cell {
+      color: var(--color-ink-soft);
+      line-height: 1.4;
+    }
+
+    /* Primary NAICS badge */
+    .primary-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      font-weight: 700;
+      color: #fff;
+      background: var(--color-primary);
+      border-radius: 999px;
+      padding: 2px 8px;
+      margin-bottom: 8px;
+    }
+
+    /* ── Document Footer (print only) ── */
+    .doc-footer {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--color-border);
+      margin-top: 32px;
+    }
+
+    .doc-footer__left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .doc-footer__logo {
+      height: 40px;
+      width: auto;
+    }
+
+    .doc-footer__domain {
+      font-size: 10px;
+      color: var(--color-ink-soft);
+    }
+
+    .doc-footer__right {
+      font-size: 10px;
+      color: var(--color-ink-soft);
+      text-align: right;
+    }
+
+    /* ── CIE table note ── */
+    .cie-note {
+      font-size: 10px;
+      color: var(--color-ink-soft);
+      margin: 0 0 8px;
+      font-style: italic;
+    }
+  </style>
+
+  <!-- ══ DOCUMENT HEADER ══ -->
+  <header class="doc-header">
+    <div class="doc-header__brand">
+      <img src="/brand/iss-logo-transparent.png" alt="Infinity Stone Solutions" class="doc-header__logo" />
+    </div>
+    <div class="doc-header__right">
+      <p class="doc-header__eyebrow">Capability Statement</p>
+      <p class="doc-header__title">Infinity Stone Solutions Inc.</p>
+      <p class="doc-header__domain">infinitystonesolutions.com</p>
+    </div>
+  </header>
+
+  <!-- ══ REGISTRATION BLOCK ══ -->
+  <section class="reg-block">
+    <!-- UEI / CAGE -->
+    <div>
+      <p class="reg-block__label">UEI / CAGE</p>
+      <p class="reg-block__uei">QMM4G5XMSMD7</p>
+      <p class="reg-block__cage">CAGE: 0B9Q0</p>
+      <p style="font-size:10px;color:var(--color-ink-soft);margin:0;">Active SAM registration</p>
+    </div>
+
+    <!-- Primary NAICS + Certs -->
+    <div>
+      <p class="reg-block__label">Primary NAICS</p>
+      <p class="reg-block__naics-num">{registration.primaryNaics}</p>
+      <p class="reg-block__naics-desc">Computer Systems Design Services</p>
+      <div class="cert-badges">
+        <span class="cert-badge">WOSB</span>
+        <span class="cert-badge">SDVOSB</span>
+        <span class="cert-badge">SB</span>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div>
+      <p class="reg-block__label">Contract Contact</p>
+      <a href={`tel:${registration.phone}`} class="reg-block__contact-row">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+        </svg>
+        {registration.phone}
+      </a>
+      <a href={`mailto:${registration.email}`} class="reg-block__contact-row">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+        {registration.email}
+      </a>
+      <a href={registration.samProfile} class="reg-block__contact-row">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+        </svg>
+        SAM.gov Profile
+      </a>
+    </div>
+  </section>
+
+  <!-- ══ TWO-COLUMN CONTENT ══ -->
+  <div class="doc-grid">
+
+    <!-- LEFT COLUMN -->
+    <div class="doc-col">
+
+      <!-- Company Overview -->
+      <div class="doc-section">
+        <p class="section-eyebrow">Company Overview</p>
+        <h2 class="section-title">About ISS</h2>
+        <p class="overview-text">{overview}</p>
+      </div>
+
+      <!-- Core Competencies -->
+      <div class="doc-section">
+        <p class="section-eyebrow">Core Competencies</p>
+        <h2 class="section-title">Service Areas</h2>
+        <div class="comp-grid">
+          {competencies.map((item) => (
+            <div class="comp-card">
+              <h3 class="comp-card__title">{item.title}</h3>
+              <p class="comp-card__desc">{item.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Differentiators -->
+      <div class="doc-section">
+        <p class="section-eyebrow">Differentiators</p>
+        <h2 class="section-title">Why ISS</h2>
+        <ol class="diff-list">
+          {differentiators.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ol>
+      </div>
+
+      <!-- Past Performance -->
+      <div class="doc-section">
+        <p class="section-eyebrow">Past Performance</p>
+        <h2 class="section-title">Delivery History</h2>
+        {pastPerformance.map((entry) => (
+          <div class="pp-entry">
+            <h3 class="pp-entry__client">{entry.client}</h3>
+            <p class="pp-entry__summary">{entry.summary}</p>
+          </div>
+        ))}
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="doc-col">
+
+      <!-- NAICS Codes -->
+      <div class="doc-section">
+        <p class="section-eyebrow">NAICS Codes</p>
+        <h2 class="section-title">North American Industry Classification</h2>
+        <div class="primary-badge">{registration.primaryNaics} — Computer Systems Design Services — Primary</div>
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {registration.naicsWithDescriptions.filter((n) => n.code !== registration.primaryNaics).map((naics) => (
+              <tr>
+                <td class="code-cell">{naics.code}</td>
+                <td class="desc-cell">{naics.description}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- PSC Codes -->
+      <div class="doc-section">
+        <p class="section-eyebrow">PSC Codes</p>
+        <h2 class="section-title">Product &amp; Service Codes</h2>
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {registration.pscWithDescriptions.map((psc) => (
+              <tr>
+                <td class="code-cell">{psc.code}</td>
+                <td class="desc-cell">{psc.description}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <!-- City of Denver CIE -->
+      <div class="doc-section">
+        <p class="section-eyebrow">City of Denver</p>
+        <h2 class="section-title">NAICS &amp; Corresponding Index Entries</h2>
+        <p class="cie-note">CIE codes used by the City and County of Denver procurement system.</p>
+        <table class="doc-table">
+          <thead>
+            <tr>
+              <th>NAICS</th>
+              <th>CIE Index Entries</th>
+            </tr>
+          </thead>
+          <tbody>
+            {registration.naicsWithDescriptions.filter((n) => n.cie).map((naics) => (
+              <tr>
+                <td class="code-cell">{naics.code}</td>
+                <td class="desc-cell">{naics.cie}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ DOCUMENT FOOTER (print only) ══ -->
+  <footer class="doc-footer">
+    <div class="doc-footer__left">
+      <img src="/brand/iss-logo-transparent.png" alt="" class="doc-footer__logo" />
+      <span class="doc-footer__domain">infinitystonesolutions.com &nbsp;·&nbsp; {registration.email}</span>
+    </div>
+    <div class="doc-footer__right">
+      &copy; {new Date().getFullYear()} Infinity Stone Solutions Inc. All rights reserved.
+    </div>
+  </footer>
+
+</PrintLayout>

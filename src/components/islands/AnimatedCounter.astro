@@ -1,0 +1,74 @@
+---
+interface Props {
+  value: number;
+  suffix?: string;
+  prefix?: string;
+  duration?: number;
+  label: string;
+}
+
+const { value, suffix = '', prefix = '', duration = 1200, label } = Astro.props;
+const id = `counter-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<span
+  id={id}
+  data-counter
+  data-value={value}
+  data-suffix={suffix}
+  data-prefix={prefix}
+  data-duration={duration}
+  aria-label={`${prefix}${value}${suffix} ${label}`}
+  class="font-display text-3xl font-bold text-[var(--color-primary)]"
+>
+  {prefix}0{suffix}
+</span>
+
+<script is:inline>
+  document.addEventListener('astro:page-load', function () {
+    var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          observer.unobserve(entry.target);
+
+          var el = entry.target;
+          var target = parseInt(el.getAttribute('data-value') || '0', 10);
+          var suffix = el.getAttribute('data-suffix') || '';
+          var prefix = el.getAttribute('data-prefix') || '';
+          var duration = parseInt(el.getAttribute('data-duration') || '1200', 10);
+
+          if (prefersReducedMotion) {
+            el.textContent = prefix + target + suffix;
+            return;
+          }
+
+          var start = null;
+
+          function step(timestamp) {
+            if (!start) start = timestamp;
+            var elapsed = timestamp - start;
+            var progress = Math.min(elapsed / duration, 1);
+            var eased = 1 - Math.pow(1 - progress, 3);
+            var current = Math.round(eased * target);
+            el.textContent = prefix + current + suffix;
+
+            if (progress < 1) {
+              requestAnimationFrame(step);
+            }
+          }
+
+          requestAnimationFrame(step);
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    document.querySelectorAll('[data-counter]:not([data-counted])').forEach(function (el) {
+      el.setAttribute('data-counted', '');
+      observer.observe(el);
+    });
+  });
+</script>

@@ -1,0 +1,246 @@
+---
+export const prerender = false;
+
+import { actions, isInputError } from 'astro:actions';
+
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Container from '@/components/ui/Container.astro';
+import PageHero from '@/components/ui/PageHero.astro';
+import { siteConfig } from '@/data/site';
+import { buildBreadcrumbSchema, buildOrganizationSchema } from '@/lib/seo';
+
+const result = Astro.getActionResult(actions.vendor.submit);
+const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+---
+
+<BaseLayout
+  title="Partners & Vendors"
+  description="Partner with Infinity Stone Solutions — a dual-certified WOSB and SDVOSB with active federal contracts across defense, civilian, and intelligence agencies. Supply vendors, technology partners, and teaming partners welcome."
+  canonicalPath="/partners"
+  structuredData={[
+    buildOrganizationSchema(),
+    buildBreadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Partners & Vendors', path: '/partners' },
+    ]),
+  ]}
+>
+  <PageHero
+    title="Grow with us."
+    description="ISS is expanding its federal portfolio and building a network of trusted vendors, technology partners, and teaming allies. If you deliver products or services that support government missions, we want to hear from you."
+  />
+
+  <section class="section-space">
+    <Container className="grid gap-10 xl:grid-cols-[0.75fr_1.25fr]">
+      <aside class="space-y-6">
+        <article class="panel-muted p-8">
+          <p class="eyebrow">Why partner with ISS</p>
+          <div class="mt-5 space-y-3">
+            <p class="flex items-start gap-3 text-sm">
+              <span class="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[var(--color-accent)]"></span>
+              <span>Dual WOSB + SDVOSB certification — supply chain diversity credit for primes</span>
+            </p>
+            <p class="flex items-start gap-3 text-sm">
+              <span class="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[var(--color-accent)]"></span>
+              <span>Named past performance at U.S. Navy, SPAWAR, ICE/HSI, and DOI/BLM</span>
+            </p>
+            <p class="flex items-start gap-3 text-sm">
+              <span class="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[var(--color-accent)]"></span>
+              <span>Growing portfolio with room for long-term vendor relationships</span>
+            </p>
+          </div>
+        </article>
+
+        <article class="panel p-8">
+          <p class="eyebrow">Partnerships we're looking for</p>
+          <div class="mt-5 space-y-3">
+            <p class="flex items-start gap-3 text-sm">
+              <span class="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[var(--color-primary)]"></span>
+              <span><strong>Supply vendors</strong> — office, equipment, materials</span>
+            </p>
+            <p class="flex items-start gap-3 text-sm">
+              <span class="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[var(--color-primary)]"></span>
+              <span><strong>Technology partners</strong> — software, hardware, cloud services</span>
+            </p>
+            <p class="flex items-start gap-3 text-sm">
+              <span class="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[var(--color-primary)]"></span>
+              <span><strong>Professional services subcontractors</strong></span>
+            </p>
+            <p class="flex items-start gap-3 text-sm">
+              <span class="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[var(--color-primary)]"></span>
+              <span><strong>Teaming partners</strong> — joint ventures or mentor-protege</span>
+            </p>
+          </div>
+        </article>
+
+        <article class="panel p-8">
+          <p class="eyebrow">What to expect</p>
+          <p class="mt-4">ISS reviews every vendor inquiry. If there is a fit — either for a current contract or an upcoming opportunity — our team will reach out to discuss next steps.</p>
+          <p class="mt-4 text-sm">Include your company background, products or services offered, and any relevant certifications or contract vehicles.</p>
+        </article>
+      </aside>
+
+      <div class="panel-static p-8">
+        {result && !result.error && (
+          <div class="mb-6 rounded-2xl border border-[var(--color-success)]/30 bg-[var(--color-success)]/10 p-4">
+            <p class="font-semibold text-[var(--color-ink)]">Thank you for reaching out. ISS will review your inquiry and respond if there is a fit.</p>
+          </div>
+        )}
+
+        {result?.error && !isInputError(result.error) && (
+          <div class="mb-6 rounded-2xl border border-red-300 bg-red-50 p-4">
+            <p class="font-semibold text-[var(--color-ink)]">The form could not be submitted.</p>
+            <p class="mt-2 text-sm">
+              {result.error.message || 'Please try again or email ISS directly.'}
+            </p>
+          </div>
+        )}
+
+        <form method="POST" action={actions.vendor.submit} class="space-y-5" data-vendor-form>
+          <div class="grid gap-5 md:grid-cols-2">
+            <label class="space-y-2 text-sm font-semibold text-[var(--color-ink)]">
+              Company Name
+              <input
+                name="companyName"
+                type="text"
+                required
+                class="w-full rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3 font-normal text-[var(--color-ink)]"
+              />
+              {inputErrors.companyName && <span class="text-sm font-normal text-red-700">{inputErrors.companyName.join(', ')}</span>}
+            </label>
+
+            <label class="space-y-2 text-sm font-semibold text-[var(--color-ink)]">
+              Contact Name
+              <input
+                name="contactName"
+                type="text"
+                required
+                class="w-full rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3 font-normal text-[var(--color-ink)]"
+              />
+              {inputErrors.contactName && <span class="text-sm font-normal text-red-700">{inputErrors.contactName.join(', ')}</span>}
+            </label>
+          </div>
+
+          <div class="grid gap-5 md:grid-cols-2">
+            <label class="space-y-2 text-sm font-semibold text-[var(--color-ink)]">
+              Email
+              <input
+                name="email"
+                type="email"
+                required
+                class="w-full rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3 font-normal text-[var(--color-ink)]"
+              />
+              {inputErrors.email && <span class="text-sm font-normal text-red-700">{inputErrors.email.join(', ')}</span>}
+            </label>
+
+            <label class="space-y-2 text-sm font-semibold text-[var(--color-ink)]">
+              Phone
+              <input
+                name="phone"
+                type="tel"
+                class="w-full rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3 font-normal text-[var(--color-ink)]"
+              />
+              {inputErrors.phone && <span class="text-sm font-normal text-red-700">{inputErrors.phone.join(', ')}</span>}
+            </label>
+          </div>
+
+          <label class="space-y-2 text-sm font-semibold text-[var(--color-ink)]">
+            Partnership Type
+            <select
+              name="partnershipType"
+              class="w-full rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3 font-normal text-[var(--color-ink)]"
+            >
+              <option value="">Select a partnership type</option>
+              <option value="Supply Vendor">Supply Vendor</option>
+              <option value="Technology Partner">Technology Partner</option>
+              <option value="Subcontractor">Subcontractor</option>
+              <option value="Teaming / Joint Venture">Teaming / Joint Venture</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+
+          <label class="space-y-3 text-sm font-semibold text-[var(--color-ink)]">
+            Describe your products or services
+            <textarea
+              name="description"
+              required
+              rows={7}
+              class="mt-1 w-full rounded-3xl border border-[var(--color-border)] bg-white px-4 py-3 font-normal text-[var(--color-ink)]"
+            />
+            {inputErrors.description && <span class="text-sm font-normal text-red-700">{inputErrors.description.join(', ')}</span>}
+          </label>
+
+          <input
+            name="company"
+            type="text"
+            tabindex="-1"
+            autocomplete="off"
+            class="hidden"
+            aria-hidden="true"
+          />
+
+          <input name="turnstileToken" id="vendorTurnstileToken" type="hidden" />
+
+          {turnstileSiteKey ? (
+            <>
+              <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer />
+              <div
+                class="cf-turnstile"
+                data-sitekey={turnstileSiteKey}
+                data-callback="issVendorTurnstileCallback"
+              />
+              <script is:inline>
+                window.issVendorTurnstileCallback = function(token) {
+                  var input = document.getElementById('vendorTurnstileToken');
+                  if (input) input.value = token;
+                };
+              </script>
+            </>
+          ) : (
+            <p class="rounded-2xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm">
+              Turnstile is not configured in this environment yet. Add <code>PUBLIC_TURNSTILE_SITE_KEY</code> and <code>TURNSTILE_SECRET_KEY</code> before launch.
+            </p>
+          )}
+
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <p class="text-sm">{siteConfig.contactExpectation}</p>
+            <Button type="submit" analyticsEvent="cta_click" analyticsLabel="vendor-submit">
+              Send Partnership Inquiry
+            </Button>
+          </div>
+        </form>
+      </div>
+    </Container>
+  </section>
+
+  {result && !result.error && (
+    <script is:inline>
+      if (window.google_tag_manager) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'vendor_form_success' });
+      }
+
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'vendor_form_success', {
+          event_category: 'engagement',
+        });
+      }
+    </script>
+  )}
+
+  <script is:inline>
+    document.addEventListener('astro:page-load', function () {
+      var form = document.querySelector('[data-vendor-form]');
+      if (!form) return;
+
+      form.addEventListener('submit', function () {
+        var btn = form.querySelector('[type="submit"]');
+        if (!btn) return;
+        btn.disabled = true;
+        btn.textContent = 'Sending\u2026';
+      });
+    });
+  </script>
+</BaseLayout>

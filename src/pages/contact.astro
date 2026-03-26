@@ -1,0 +1,217 @@
+---
+export const prerender = false;
+
+import { actions, isInputError } from 'astro:actions';
+
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Container from '@/components/ui/Container.astro';
+import PageHero from '@/components/ui/PageHero.astro';
+import { contactConfig } from '@/data/contact';
+import { siteConfig } from '@/data/site';
+import { getCapabilities } from '@/lib/content';
+import { buildBreadcrumbSchema, buildOrganizationSchema } from '@/lib/seo';
+
+const capabilities = await getCapabilities();
+const result = Astro.getActionResult(actions.contact.submit);
+const inputErrors = isInputError(result?.error) ? result.error.fields : {};
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+---
+
+<BaseLayout
+  title="Contact"
+  description="Start a capability discussion with Infinity Stone Solutions."
+  canonicalPath="/contact"
+  structuredData={[
+    buildOrganizationSchema(),
+    buildBreadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Contact', path: '/contact' },
+    ]),
+  ]}
+>
+  <PageHero title={contactConfig.title} description={contactConfig.intro} />
+
+  <section class="section-space">
+    <Container className="grid gap-10 xl:grid-cols-[0.75fr_1.25fr]">
+      <aside class="space-y-6">
+        <article class="panel-muted p-8">
+          <p class="eyebrow">Direct contact</p>
+          <div class="mt-5 space-y-2">
+            <p class="text-lg font-semibold text-[var(--color-ink)]">{siteConfig.phone}</p>
+            <p class="text-lg font-semibold text-[var(--color-ink)]">{siteConfig.email}</p>
+            <p>{siteConfig.location}</p>
+          </div>
+        </article>
+
+        <article class="panel p-8">
+          <p class="eyebrow">What to expect</p>
+          <p class="mt-4">{contactConfig.reassurance}</p>
+          <p class="mt-4 text-sm">
+            Share your priority, your program context, or the Capability area you want to discuss. The first response is intended to clarify fit and next-step options.
+          </p>
+        </article>
+      </aside>
+
+      <div class="panel-static p-8">
+        {result && !result.error && (
+          <div class="mb-6 rounded-2xl border border-[var(--color-success)]/30 bg-[var(--color-success)]/10 p-4">
+            <p class="font-semibold text-[var(--color-ink)]">{contactConfig.successMessage}</p>
+          </div>
+        )}
+
+        {result?.error && !isInputError(result.error) && (
+          <div class="mb-6 rounded-2xl border border-red-300 bg-red-50 p-4">
+            <p class="font-semibold text-[var(--color-ink)]">The form could not be submitted.</p>
+            <p class="mt-2 text-sm">
+              {result.error.message || 'Please try again or email ISS directly.'}
+            </p>
+          </div>
+        )}
+
+        <form method="POST" action={actions.contact.submit} class="space-y-5" data-contact-form>
+          <div class="grid gap-5 md:grid-cols-2">
+            <label class="space-y-2 text-sm font-semibold text-[var(--color-ink)]">
+              Name
+              <input
+                name="name"
+                type="text"
+                required
+                class="w-full rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3 font-normal text-[var(--color-ink)]"
+              />
+              {inputErrors.name && <span class="text-sm font-normal text-red-700">{inputErrors.name.join(', ')}</span>}
+            </label>
+
+            <label class="space-y-2 text-sm font-semibold text-[var(--color-ink)]">
+              Organization
+              <input
+                name="organization"
+                type="text"
+                required
+                class="w-full rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3 font-normal text-[var(--color-ink)]"
+              />
+              {inputErrors.organization && (
+                <span class="text-sm font-normal text-red-700">{inputErrors.organization.join(', ')}</span>
+              )}
+            </label>
+          </div>
+
+          <div class="grid gap-5 md:grid-cols-2">
+            <label class="space-y-2 text-sm font-semibold text-[var(--color-ink)]">
+              Email
+              <input
+                name="email"
+                type="email"
+                required
+                class="w-full rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3 font-normal text-[var(--color-ink)]"
+              />
+              {inputErrors.email && <span class="text-sm font-normal text-red-700">{inputErrors.email.join(', ')}</span>}
+            </label>
+
+            <label class="space-y-2 text-sm font-semibold text-[var(--color-ink)]">
+              Phone
+              <input
+                name="phone"
+                type="tel"
+                class="w-full rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3 font-normal text-[var(--color-ink)]"
+              />
+              {inputErrors.phone && <span class="text-sm font-normal text-red-700">{inputErrors.phone.join(', ')}</span>}
+            </label>
+          </div>
+
+          <label class="space-y-2 text-sm font-semibold text-[var(--color-ink)]">
+            Capability interest
+            <select
+              name="capabilityInterest"
+              class="w-full rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3 font-normal text-[var(--color-ink)]"
+            >
+              <option value="">Select a Capability area</option>
+              {capabilities.map((capability) => (
+                <option value={capability.data.title}>{capability.data.title}</option>
+              ))}
+            </select>
+          </label>
+
+          <label class="space-y-2 text-sm font-semibold text-[var(--color-ink)]">
+            Message
+            <textarea
+              name="message"
+              required
+              rows={7}
+              class="w-full rounded-3xl border border-[var(--color-border)] bg-white px-4 py-3 font-normal text-[var(--color-ink)]"
+            />
+            {inputErrors.message && <span class="text-sm font-normal text-red-700">{inputErrors.message.join(', ')}</span>}
+          </label>
+
+          <input
+            name="company"
+            type="text"
+            tabindex="-1"
+            autocomplete="off"
+            class="hidden"
+            aria-hidden="true"
+          />
+
+          <input name="turnstileToken" id="turnstileToken" type="hidden" />
+
+          {turnstileSiteKey ? (
+            <>
+              <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer />
+              <div
+                class="cf-turnstile"
+                data-sitekey={turnstileSiteKey}
+                data-callback="issTurnstileCallback"
+              />
+              <script is:inline>
+                window.issTurnstileCallback = function(token) {
+                  var input = document.getElementById('turnstileToken');
+                  if (input) input.value = token;
+                };
+              </script>
+            </>
+          ) : (
+            <p class="rounded-2xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm">
+              Turnstile is not configured in this environment yet. Add <code>PUBLIC_TURNSTILE_SITE_KEY</code> and <code>TURNSTILE_SECRET_KEY</code> before launch.
+            </p>
+          )}
+
+          <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <p class="text-sm">{siteConfig.contactExpectation}</p>
+            <Button type="submit" analyticsEvent="cta_click" analyticsLabel="contact-submit">
+              Send inquiry
+            </Button>
+          </div>
+        </form>
+      </div>
+    </Container>
+  </section>
+
+  {result && !result.error && (
+    <script is:inline>
+      if (window.google_tag_manager) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: 'contact_form_success' });
+      }
+
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', 'contact_form_success', {
+          event_category: 'engagement',
+        });
+      }
+    </script>
+  )}
+
+  <script is:inline>
+    document.addEventListener('astro:page-load', function () {
+      var form = document.querySelector('[data-contact-form]');
+      if (!form) return;
+
+      form.addEventListener('submit', function () {
+        var btn = form.querySelector('[type="submit"]');
+        if (!btn) return;
+        btn.disabled = true;
+        btn.textContent = 'Sending\u2026';
+      });
+    });
+  </script>
+</BaseLayout>

@@ -1,0 +1,33 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CapabilityHighlights from '@/components/sections/CapabilityHighlights.astro';
+import CapabilityStatementCta from '@/components/sections/CapabilityStatementCta.astro';
+import CredibilitySection from '@/components/sections/CredibilitySection.astro';
+import DualCertSection from '@/components/sections/DualCertSection.astro';
+import FinalCtaSection from '@/components/sections/FinalCtaSection.astro';
+import HeroSection from '@/components/sections/HeroSection.astro';
+import PlatformsStrip from '@/components/sections/PlatformsStrip.astro';
+import ProofStrip from '@/components/sections/ProofStrip.astro';
+import WhoWeServePreview from '@/components/sections/WhoWeServePreview.astro';
+import WhyIssSection from '@/components/sections/WhyIssSection.astro';
+import { getCapabilities } from '@/lib/content';
+import { buildOrganizationSchema, buildWebsiteSchema } from '@/lib/seo';
+
+const capabilities = await getCapabilities();
+---
+
+<BaseLayout
+  description="Government-focused technology support spanning modernization, cloud, cybersecurity, analytics, geospatial workflows, and program delivery."
+  structuredData={[buildOrganizationSchema(), buildWebsiteSchema()]}
+>
+  <HeroSection />
+  <ProofStrip />
+  <DualCertSection />
+  <CapabilityHighlights capabilities={capabilities} />
+  <PlatformsStrip />
+  <WhyIssSection />
+  <WhoWeServePreview />
+  <CapabilityStatementCta />
+  <CredibilitySection />
+  <FinalCtaSection />
+</BaseLayout>

@@ -1,0 +1,72 @@
+---
+import Container from '@/components/ui/Container.astro';
+---
+
+<section class="section-space bg-[var(--color-ink)]">
+  <Container className="space-y-10">
+    <div class="max-w-3xl">
+      <p class="font-mono text-xs font-semibold uppercase tracking-[0.15em] text-white/40">Procurement Ready</p>
+      <h2 class="mt-3 text-3xl font-semibold text-white md:text-4xl">What dual certification means for your program</h2>
+      <p class="mt-4 text-lg text-white/70">ISS holds both WOSB and SDVOSB certifications simultaneously — a rare combination that gives federal buyers access to two separate set-aside procurement pools from a single vendor.</p>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2">
+      <div class="space-y-5 rounded-3xl border border-white/10 bg-white/5 p-8">
+        <span class="inline-block rounded-full border border-[var(--color-accent)]/50 bg-[var(--color-accent)]/10 px-4 py-1.5 font-mono text-sm font-semibold text-[var(--color-accent)]">WOSB</span>
+        <div>
+          <h3 class="text-xl font-semibold text-white">Women-Owned Small Business</h3>
+          <p class="mt-2 text-sm text-white/50">SBA program for businesses at least 51% owned and controlled by women.</p>
+        </div>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3 text-sm text-white/75">
+            <span class="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[var(--color-accent)]"></span>
+            Contracting officers may set-aside awards without full-and-open competition
+          </li>
+          <li class="flex items-start gap-3 text-sm text-white/75">
+            <span class="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[var(--color-accent)]"></span>
+            <span>Sole-source authority up to <strong class="text-white">$4.5M</strong> for services contracts</span>
+          </li>
+          <li class="flex items-start gap-3 text-sm text-white/75">
+            <span class="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[var(--color-accent)]"></span>
+            Applies in NAICS codes where women-owned firms are underrepresented
+          </li>
+          <li class="flex items-start gap-3 text-sm text-white/75">
+            <span class="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[var(--color-accent)]"></span>
+            Counts toward agency SBA WOSB annual goal (5% of eligible contract dollars)
+          </li>
+        </ul>
+      </div>
+
+      <div class="space-y-5 rounded-3xl border border-white/10 bg-white/5 p-8">
+        <span class="inline-block rounded-full border border-[var(--color-secondary)]/50 bg-[var(--color-secondary)]/10 px-4 py-1.5 font-mono text-sm font-semibold text-[var(--color-secondary)]">SDVOSB</span>
+        <div>
+          <h3 class="text-xl font-semibold text-white">Service-Disabled Veteran-Owned Small Business</h3>
+          <p class="mt-2 text-sm text-white/50">SBA program for businesses at least 51% owned by service-disabled veterans.</p>
+        </div>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3 text-sm text-white/75">
+            <span class="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[var(--color-secondary)]"></span>
+            VA's Vets First rule: mandatory first consideration before full-and-open competition
+          </li>
+          <li class="flex items-start gap-3 text-sm text-white/75">
+            <span class="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[var(--color-secondary)]"></span>
+            <span>Sole-source authority up to <strong class="text-white">$4.5M</strong> for services contracts</span>
+          </li>
+          <li class="flex items-start gap-3 text-sm text-white/75">
+            <span class="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[var(--color-secondary)]"></span>
+            Verified through SBA VetCert — the authoritative source for contracting officers
+          </li>
+          <li class="flex items-start gap-3 text-sm text-white/75">
+            <span class="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-[var(--color-secondary)]"></span>
+            Counts toward agency SBA SDVOSB annual goal (3% of eligible contract dollars)
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="rounded-3xl border border-white/10 bg-white/5 px-8 py-6">
+      <p class="text-xs font-bold uppercase tracking-[0.15em] text-white/40">For prime contractors</p>
+      <p class="mt-2 text-white/80">ISS qualifies your team for <strong class="text-white">both WOSB and SDVOSB</strong> subcontracting credit lines simultaneously — a combination most teaming partners cannot offer. One vendor, two set-aside categories, zero duplication.</p>
+    </div>
+  </Container>
+</section>

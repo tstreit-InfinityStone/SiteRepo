@@ -1,0 +1,28 @@
+---
+import { siteConfig } from '@/data/site';
+import Container from '@/components/ui/Container.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+---
+
+<section class="section-space bg-white/80">
+  <Container className="space-y-10">
+    <SectionHeading
+      title="The partner that arrives ready."
+      description="Dual WOSB and SDVOSB certification — a rare combination in federal contracting — opens set-aside and sole-source procurement channels before the first proposal is written. Pair that with a team that has operated inside classified programs, integrated missile-defense networks, and led enterprise modernization under federal oversight, and you have a firm that doesn't need time to get up to speed."
+    />
+
+    <div class="divide-y divide-[var(--color-border)]">
+      {siteConfig.differentiators.map((item, i) => (
+        <div class="group flex items-start gap-8 py-8 fade-up">
+          <span class="font-display min-w-[3rem] select-none text-right text-5xl font-black leading-none text-[var(--color-accent)]/20 transition-colors duration-300 group-hover:text-[var(--color-accent)]/60">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <div class="flex-1 pt-1">
+            <h2 class="text-xl font-semibold text-[var(--color-ink)]">{item.title}</h2>
+            <p class="mt-2 text-[var(--color-ink-soft)]">{item.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Container>
+</section>

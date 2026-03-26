@@ -1,0 +1,27 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import CapabilityCard from '@/components/ui/CapabilityCard.astro';
+import Container from '@/components/ui/Container.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+
+interface Props {
+  capabilities: CollectionEntry<'capabilities'>[];
+}
+
+const { capabilities } = Astro.props;
+---
+
+<section class="section-space">
+  <Container className="space-y-10">
+    <SectionHeading
+      title="Diverse capabilities"
+    />
+
+    <div class="section-grid stagger-children">
+      {capabilities.map((capability) => (
+        <CapabilityCard capability={capability} />
+      ))}
+    </div>
+  </Container>
+</section>

@@ -1,0 +1,67 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CapabilityCard from '@/components/ui/CapabilityCard.astro';
+import CapabilityShowcase from '@/components/islands/CapabilityShowcase.astro';
+import CapabilityStats from '@/components/sections/CapabilityStats.astro';
+import CapabilityStatementCta from '@/components/sections/CapabilityStatementCta.astro';
+import Container from '@/components/ui/Container.astro';
+import FinalCtaSection from '@/components/sections/FinalCtaSection.astro';
+import PlatformsStrip from '@/components/sections/PlatformsStrip.astro';
+import PageHero from '@/components/ui/PageHero.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+import { getCapabilities } from '@/lib/content';
+import { buildBreadcrumbSchema, buildOrganizationSchema } from '@/lib/seo';
+
+const capabilities = await getCapabilities();
+---
+
+<BaseLayout
+  title="Capabilities"
+  description="Six capability areas backed by named past performance at U.S. Navy, SPAWAR, ICE/HSI, and DOI/BLM — with specific outcomes, proof signals, and procurement-ready detail."
+  canonicalPath="/capabilities"
+  structuredData={[
+    buildOrganizationSchema(),
+    buildBreadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Capabilities', path: '/capabilities' },
+    ]),
+  ]}
+>
+  <!-- Section 1: Hero -->
+  <PageHero
+    title="Many Capabilities. One focused delivery team."
+    description="Each area is backed by named past performance, specific outcomes, and the proof signals federal evaluators look for — organized so you can evaluate fit without wading through disconnected service lists."
+  />
+
+  <!-- Section 2: Interactive Capability Showcase -->
+  <CapabilityShowcase capabilities={capabilities} />
+
+  <!-- Section 3: Animated Stats Strip -->
+  <CapabilityStats />
+
+  <!-- Section 4: Full Capability Card Grid -->
+  <section class="section-space">
+    <Container className="space-y-10">
+      <SectionHeading
+        eyebrow="Deep dive"
+        title="Explore each capability in detail."
+        description="Expand any card to preview outcomes and included work, or click through to the full capability page with buyer problems, proof signals, and past performance."
+      />
+
+      <div class="section-grid stagger-children">
+        {capabilities.map((capability) => (
+          <CapabilityCard capability={capability} />
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- Section 5: Platforms Strip -->
+  <PlatformsStrip />
+
+  <!-- Section 6: Capability Statement CTA -->
+  <CapabilityStatementCta />
+
+  <!-- Section 7: Final CTA -->
+  <FinalCtaSection />
+</BaseLayout>

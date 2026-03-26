@@ -1,0 +1,48 @@
+---
+import { brand } from '@/data/brand';
+import { capabilityStatementData } from '@/data/capability-statement';
+import Button from '@/components/ui/Button.astro';
+import Container from '@/components/ui/Container.astro';
+---
+
+<section class="section-space-tight">
+  <Container>
+    <div class="panel p-8 text-center md:p-12">
+      <div class="mx-auto max-w-2xl space-y-2">
+        <h2 class="text-3xl font-semibold md:text-4xl">Download our Capability Statement.</h2>
+        <p class="text-lg text-[var(--color-ink-soft)]">Built for procurement evaluation.</p>
+        <p class="text-sm text-[var(--color-ink-soft)]/70">Available to download for your convenience.</p>
+        <p class="pt-1 font-mono text-xs text-[var(--color-ink-soft)]">
+          {capabilityStatementData.registration.ueicage} &middot; Primary NAICS {capabilityStatementData.registration.primaryNaics}
+        </p>
+      </div>
+      <div class="mt-8 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
+        <Button
+          href="/capability-statement"
+          variant="secondary"
+          analyticsEvent="cta_click"
+          analyticsLabel="capability-page"
+        >
+          View Capability Statement
+        </Button>
+        <Button
+          href={brand.assets.capabilityStatement}
+          target="_blank"
+          analyticsEvent="capability_statement_download"
+          analyticsLabel="cta-panel-pdf"
+        >
+          Full Version PDF
+        </Button>
+        <Button
+          href={brand.assets.capabilityStatementOnePage}
+          target="_blank"
+          variant="secondary"
+          analyticsEvent="capability_statement_download"
+          analyticsLabel="cta-panel-onepage"
+        >
+          1-Page Summary PDF
+        </Button>
+      </div>
+    </div>
+  </Container>
+</section>

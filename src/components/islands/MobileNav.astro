@@ -1,0 +1,129 @@
+---
+import type { NavigationItem } from '@/types/site';
+
+interface Props {
+  items: NavigationItem[];
+  ctaLabel: string;
+  ctaHref: string;
+}
+
+const { items, ctaLabel, ctaHref } = Astro.props as Props;
+---
+
+<div class="lg:hidden" data-mobile-nav-root>
+  <button
+    type="button"
+    aria-expanded="false"
+    class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-[var(--color-border)] bg-white text-[var(--color-ink)] shadow-sm"
+    data-mobile-nav-toggle
+  >
+    <span class="sr-only">Toggle navigation</span>
+    <span class="flex flex-col gap-1.5" aria-hidden="true">
+      <span class="h-0.5 w-5 bg-current transition-transform duration-200" data-mobile-nav-line="top" />
+      <span class="h-0.5 w-5 bg-current transition-opacity duration-200" data-mobile-nav-line="middle" />
+      <span class="h-0.5 w-5 bg-current transition-transform duration-200" data-mobile-nav-line="bottom" />
+    </span>
+  </button>
+
+  <div
+    class="fixed inset-0 z-50 hidden bg-[rgba(17,34,53,0.7)] px-5 py-6 backdrop-blur-sm"
+    data-mobile-nav-panel
+  >
+    <div class="panel ml-auto flex max-w-sm flex-col gap-6 p-6">
+      <div class="flex items-center justify-between">
+        <span class="font-semibold uppercase tracking-[0.16em] text-[var(--color-secondary)]">
+          Navigation
+        </span>
+        <button
+          type="button"
+          class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-ink)]"
+          data-mobile-nav-close
+        >
+          <span class="sr-only">Close navigation</span>
+          &times;
+        </button>
+      </div>
+
+      <nav class="flex flex-col gap-2" aria-label="Mobile navigation">
+        {items.map((item) => (
+          <a
+            href={item.href}
+            class="rounded-2xl px-4 py-3 text-lg font-semibold text-[var(--color-ink)] transition hover:bg-[var(--color-surface-muted)]"
+            data-mobile-nav-link
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
+
+      <a
+        href={ctaHref}
+        class="inline-flex items-center justify-center rounded-full bg-[var(--color-primary)] px-5 py-3 text-sm font-semibold text-white"
+        data-mobile-nav-link
+      >
+        {ctaLabel}
+      </a>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  function initMobileNav() {
+    document.querySelectorAll('[data-mobile-nav-root]').forEach(function (root) {
+      if (!(root instanceof HTMLElement)) return;
+
+      var panel = root.querySelector('[data-mobile-nav-panel]');
+      var button = root.querySelector('[data-mobile-nav-toggle]');
+
+      if (!(panel instanceof HTMLElement) || !(button instanceof HTMLButtonElement)) return;
+
+      var topLine = button.querySelector('[data-mobile-nav-line="top"]');
+      var middleLine = button.querySelector('[data-mobile-nav-line="middle"]');
+      var bottomLine = button.querySelector('[data-mobile-nav-line="bottom"]');
+      var closeButtons = panel.querySelectorAll('[data-mobile-nav-close], [data-mobile-nav-link]');
+
+      function setOpen(open) {
+        panel.classList.toggle('hidden', !open);
+        button.setAttribute('aria-expanded', String(open));
+        document.body.style.overflow = open ? 'hidden' : '';
+
+        if (topLine instanceof HTMLElement) {
+          topLine.classList.toggle('translate-y-2', open);
+          topLine.classList.toggle('rotate-45', open);
+        }
+
+        if (middleLine instanceof HTMLElement) {
+          middleLine.classList.toggle('opacity-0', open);
+        }
+
+        if (bottomLine instanceof HTMLElement) {
+          bottomLine.classList.toggle('-translate-y-2', open);
+          bottomLine.classList.toggle('-rotate-45', open);
+        }
+      }
+
+      button.addEventListener('click', function () {
+        var currentlyOpen = button.getAttribute('aria-expanded') === 'true';
+        setOpen(!currentlyOpen);
+      });
+
+      closeButtons.forEach(function (element) {
+        element.addEventListener('click', function () { setOpen(false); });
+      });
+
+      panel.addEventListener('click', function (event) {
+        if (event.target === panel) {
+          setOpen(false);
+        }
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          setOpen(false);
+        }
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', initMobileNav);
+</script>

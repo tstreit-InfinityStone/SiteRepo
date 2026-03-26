@@ -1,0 +1,14 @@
+:root {
+  --color-ink: #112235;
+  --color-ink-soft: #42556a;
+  --color-primary: #155fa0;
+  --color-secondary: #1e78c8;
+  --color-accent: #c7962f;
+  --color-surface: #f7f9fc;
+  --color-surface-muted: #eaf0f6;
+  --color-border: #d6e1ec;
+  --color-success: #1f7a52;
+  --font-display: "Merriweather", Georgia, serif;
+  --font-body: "Source Sans 3", "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "Cascadia Code", monospace;
+}

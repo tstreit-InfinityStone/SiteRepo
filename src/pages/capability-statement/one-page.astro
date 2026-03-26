@@ -1,0 +1,517 @@
+---
+import PrintLayout from '@/layouts/PrintLayout.astro';
+import { capabilityStatementData } from '@/data/capability-statement';
+
+const { registration, overviewCondensed, competencies, differentiators, pastPerformance } = capabilityStatementData;
+
+const secondaryNaics = registration.naicsWithDescriptions.filter(
+  (n) => n.code !== registration.primaryNaics
+);
+
+// 2-sentence summaries: more detail than 1-liners, stays within one page
+const govconPerformance = [
+  {
+    client: 'U.S. Navy',
+    summary: 'Exploited 20,000+ high-value SIGINT targets using CAINES, OSCOPE, and Spectrum Analyzer; managed USCG joint missions targeting transnational crime. Created an interagency criminal intelligence database now used by CIA, DEA, ATF, DoD, and local law enforcement — founder recognized as 2005 Sailor of the Year, NIOC San Diego.',
+  },
+  {
+    client: 'SPAWAR',
+    summary: 'Supported BMD and THAAD test events as systems operator, configuring Aegis Weapon Suite, SHF satellite systems, and KG-84 encryption devices. Designed alternate EHF/SHF communications paths enabling launch-on-TADIL scenarios and authored SOP-based training programs that reduced staff onboarding time.',
+  },
+  {
+    client: 'ICE / HSI',
+    summary: 'Delivered mobile device forensics integrated into Palantir for leadership structure mapping; generated intelligence packages enabling multiple arrests and testified as a court-qualified digital forensics expert. Led records digitization replacing NARA-bound storage, reducing retrieval times from weeks to hours.',
+  },
+  {
+    client: 'DOI / BLM',
+    summary: 'Led HR benefits system adoptions, GIS data conversion, UNIX-to-Linux server migrations, EIS network migration, and enterprise ticketing deployment across the agency. Delivered ePlanning modernization requirements and strategic planning support for a national resource management mapping prototype.',
+  },
+  {
+    client: 'SourceGas',
+    summary: 'Provided Tier 1/2 centralized service desk for a large energy provider; led SharePoint-to-Exchange ticketing migration resolving legacy backlogs within 60 days. Created SCCM imaging packages for rapid standardized workstation provisioning across distributed remote sites.',
+  },
+];
+
+const competencyDescriptions: Record<string, string> = {
+  'Enterprise IT Solutions': 'Enterprise app design, integration, deployment; Workday, Oracle, ServiceNow; complex data migration',
+  'Cloud Infrastructure & Migration': 'Azure cloud adoption, hybrid-cloud architecture, UNIX-to-Linux migration, governance frameworks',
+  'AI & Advanced Analytics': 'AI/ML analytics, anomaly detection, predictive intelligence; Palantir link analysis and investigative intelligence',
+  'Agile Program & Project Management': 'PMP, SAFe, Scrum, Kanban-certified; full lifecycle oversight, risk analysis, sprint execution',
+  'Cybersecurity & Compliance': 'NIST RMF, FISMA, FedRAMP-aligned architecture; VPAT creation and WCAG 2.1 AA accessibility',
+  'Geospatial Solutions': 'Esri ArcGIS Enterprise implementation, CAD/PDF/JPEG-to-GIS conversion, custom GIS web and mobile apps',
+};
+---
+
+<PrintLayout title="Capability Statement (One Page) — Infinity Stone Solutions Inc.">
+
+  <style>
+    /* ── Header ── */
+    .op-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--color-border);
+      margin-bottom: 6px;
+    }
+
+    .op-header__logo { height: 40px; width: auto; }
+
+    .op-header__right { text-align: right; }
+
+    .op-header__eyebrow {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin: 0 0 2px;
+    }
+
+    .op-header__title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--color-ink);
+      margin: 0 0 1px;
+      line-height: 1.2;
+    }
+
+    .op-header__domain {
+      font-size: 10px;
+      color: var(--color-ink-soft);
+      margin: 0;
+    }
+
+    /* ── Registration Strip ── */
+    .op-reg {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 5px 12px;
+      background: color-mix(in srgb, var(--color-primary) 7%, white);
+      border: 1px solid color-mix(in srgb, var(--color-primary) 35%, white);
+      border-radius: 8px;
+      padding: 7px 12px;
+      margin-bottom: 8px;
+      font-size: 10px;
+    }
+
+    .op-reg__item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .op-reg__label {
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-ink-soft);
+    }
+
+    .op-reg__value {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 10px;
+      color: var(--color-primary);
+    }
+
+    .op-reg__badges {
+      display: flex;
+      gap: 4px;
+    }
+
+    .op-reg__badge {
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid color-mix(in srgb, var(--color-primary) 40%, white);
+      color: var(--color-primary);
+      background: color-mix(in srgb, var(--color-primary) 10%, white);
+    }
+
+    .op-reg__contact {
+      font-size: 10px;
+      color: var(--color-ink);
+      text-decoration: none;
+    }
+
+    /* ── Two-column grid ── */
+    .op-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 16px;
+      align-items: start;
+    }
+
+    .op-col { display: flex; flex-direction: column; gap: 8px; }
+
+    /* ── Section titles ── */
+    .op-section-title {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin: 0 0 4px;
+      padding-bottom: 3px;
+      border-bottom: 1.5px solid var(--color-primary);
+    }
+
+    .op-eyebrow {
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin: 0 0 2px;
+    }
+
+    /* ── Overview ── */
+    .op-overview {
+      font-size: 10px;
+      line-height: 1.5;
+      color: var(--color-ink-soft);
+      margin: 0;
+    }
+
+    /* ── Competencies (stacked cards) ── */
+    .op-comp-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .op-comp-card {
+      border: 1px solid var(--color-border);
+      border-radius: 5px;
+      padding: 4px 7px;
+      background: var(--color-surface);
+    }
+
+    .op-comp-card__title {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin: 0;
+      line-height: 1.3;
+    }
+
+    .op-comp-card__desc {
+      font-size: 8px;
+      line-height: 1.35;
+      color: var(--color-ink-soft);
+      margin: 1px 0 0;
+    }
+
+    /* ── Differentiators ── */
+    .op-diff-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      counter-reset: diff;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .op-diff-list li {
+      counter-increment: diff;
+      display: flex;
+      align-items: flex-start;
+      gap: 5px;
+      font-size: 8.5px;
+      line-height: 1.4;
+      color: var(--color-ink-soft);
+    }
+
+    .op-diff-list li::before {
+      content: counter(diff, decimal-leading-zero);
+      font-family: var(--font-mono);
+      font-size: 7.5px;
+      font-weight: 700;
+      color: var(--color-accent);
+      flex-shrink: 0;
+      min-width: 14px;
+      margin-top: 1px;
+    }
+
+    /* ── Past Performance ── */
+    .op-pp {
+      margin-bottom: 4px;
+      font-size: 8.5px;
+      line-height: 1.4;
+    }
+    .op-pp:last-child { margin-bottom: 0; }
+
+    .op-pp__client {
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--color-ink);
+    }
+
+    .op-pp__summary {
+      color: var(--color-ink-soft);
+      margin: 0;
+    }
+
+    /* ── Right column: code lists ── */
+    .op-primary-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 4px;
+    }
+
+    .op-primary-badge__code {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      font-weight: 700;
+      color: #fff;
+      background: var(--color-accent);
+      border-radius: 999px;
+      padding: 2px 7px;
+    }
+
+    .op-primary-badge__desc {
+      font-size: 8px;
+      color: var(--color-ink-soft);
+    }
+
+    .op-code-list {
+      font-family: var(--font-mono);
+      font-size: 8px;
+      line-height: 1.5;
+      color: var(--color-ink-soft);
+      margin: 0;
+      word-break: break-word;
+    }
+
+    /* ── SAM / Contact block ── */
+    .op-contact {
+      background: color-mix(in srgb, var(--color-primary) 5%, white);
+      border: 1px solid color-mix(in srgb, var(--color-primary) 25%, white);
+      border-radius: 6px;
+      padding: 8px 10px;
+    }
+
+    .op-contact__row {
+      display: flex;
+      align-items: baseline;
+      gap: 5px;
+      font-size: 8.5px;
+      line-height: 1.6;
+      color: var(--color-ink);
+      text-decoration: none;
+    }
+
+    .op-contact__row a {
+      color: var(--color-ink);
+      text-decoration: none;
+    }
+
+    .op-contact__label {
+      font-size: 7.5px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-ink-soft);
+      min-width: 42px;
+      flex-shrink: 0;
+    }
+
+    /* ── Footer ── */
+    .op-footer {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 6px;
+      border-top: 1px solid var(--color-border);
+      margin-top: 8px;
+    }
+
+    .op-footer__left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .op-footer__logo { height: 24px; width: auto; }
+
+    .op-footer__text {
+      font-size: 8px;
+      color: var(--color-ink-soft);
+    }
+
+    /* ── Print overrides ── */
+    @media print {
+      .op-footer { display: flex !important; }
+    }
+  </style>
+
+  <!-- HEADER -->
+  <header class="op-header">
+    <div>
+      <img src="/brand/iss-logo-transparent.png" alt="Infinity Stone Solutions" class="op-header__logo" />
+    </div>
+    <div class="op-header__right">
+      <p class="op-header__eyebrow">Capability Statement</p>
+      <p class="op-header__title">Infinity Stone Solutions Inc.</p>
+      <p class="op-header__domain">infinitystonesolutions.com</p>
+    </div>
+  </header>
+
+  <!-- REGISTRATION STRIP -->
+  <div class="op-reg">
+    <div class="op-reg__item">
+      <span class="op-reg__label">UEI</span>
+      <span class="op-reg__value">QMM4G5XMSMD7</span>
+    </div>
+    <div class="op-reg__item">
+      <span class="op-reg__label">CAGE</span>
+      <span class="op-reg__value">0B9Q0</span>
+    </div>
+    <div class="op-reg__item">
+      <span class="op-reg__label">Primary NAICS</span>
+      <span class="op-reg__value">{registration.primaryNaics}</span>
+    </div>
+    <div class="op-reg__badges">
+      <span class="op-reg__badge">WOSB</span>
+      <span class="op-reg__badge">SDVOSB</span>
+      <span class="op-reg__badge">SB</span>
+    </div>
+    <div class="op-reg__item">
+      <span class="op-reg__contact">{registration.phone}</span>
+    </div>
+    <div class="op-reg__item">
+      <span class="op-reg__contact">{registration.email}</span>
+    </div>
+  </div>
+
+  <!-- TWO-COLUMN CONTENT -->
+  <div class="op-grid">
+
+    <!-- LEFT COLUMN: Narrative -->
+    <div class="op-col">
+
+      <!-- Overview -->
+      <div>
+        <p class="op-eyebrow">Company Overview</p>
+        <h2 class="op-section-title">About ISS</h2>
+        <p class="op-overview">{overviewCondensed}</p>
+      </div>
+
+      <!-- Differentiators -->
+      <div>
+        <p class="op-eyebrow">Differentiators</p>
+        <h2 class="op-section-title">Why ISS</h2>
+        <ol class="op-diff-list">
+          {differentiators.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ol>
+      </div>
+
+      <!-- Past Performance -->
+      <div>
+        <p class="op-eyebrow">Past Performance</p>
+        <h2 class="op-section-title">Delivery History</h2>
+        {govconPerformance.map((entry) => (
+          <div class="op-pp">
+            <span class="op-pp__client">{entry.client}</span>
+            <p class="op-pp__summary">{entry.summary}</p>
+          </div>
+        ))}
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN: Competencies + Codes + Contact -->
+    <div class="op-col">
+
+      <!-- Core Competencies -->
+      <div>
+        <p class="op-eyebrow">Core Competencies</p>
+        <h2 class="op-section-title">Service Areas</h2>
+        <div class="op-comp-stack">
+          {competencies.map((item) => (
+            <div class="op-comp-card">
+              <p class="op-comp-card__title">{item.title}</p>
+              <p class="op-comp-card__desc">{competencyDescriptions[item.title] || item.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- NAICS Codes -->
+      <div>
+        <p class="op-eyebrow">NAICS Codes</p>
+        <h2 class="op-section-title">Industry Classification</h2>
+        <div class="op-primary-badge">
+          <span class="op-primary-badge__code">{registration.primaryNaics}</span>
+          <span class="op-primary-badge__desc">Primary</span>
+        </div>
+        <p class="op-code-list">
+          {secondaryNaics.map((n) => n.code).join(', ')}
+        </p>
+      </div>
+
+      <!-- PSC Codes -->
+      <div>
+        <p class="op-eyebrow">PSC Codes</p>
+        <h2 class="op-section-title">Product & Service Codes</h2>
+        <p class="op-code-list">
+          {registration.pscCodes.join(', ')}
+        </p>
+      </div>
+
+      <!-- SAM / Contact -->
+      <div>
+        <p class="op-eyebrow">Registration & Contact</p>
+        <h2 class="op-section-title">SAM.gov & Reach</h2>
+        <div class="op-contact">
+          <div class="op-contact__row">
+            <span class="op-contact__label">SAM</span>
+            <a href={registration.samProfile}>sam.gov/entity/QMM4G5XMSMD7</a>
+          </div>
+          <div class="op-contact__row">
+            <span class="op-contact__label">Web</span>
+            <span>infinitystonesolutions.com</span>
+          </div>
+          <div class="op-contact__row">
+            <span class="op-contact__label">Phone</span>
+            <a href={`tel:${registration.phone}`}>{registration.phone}</a>
+          </div>
+          <div class="op-contact__row">
+            <span class="op-contact__label">Email</span>
+            <a href={`mailto:${registration.email}`}>{registration.email}</a>
+          </div>
+          <div class="op-contact__row">
+            <span class="op-contact__label">Status</span>
+            <span>Active SAM registration — procurement-ready</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOOTER (print only) -->
+  <footer class="op-footer">
+    <div class="op-footer__left">
+      <img src="/brand/iss-logo-transparent.png" alt="" class="op-footer__logo" />
+      <span class="op-footer__text">infinitystonesolutions.com &middot; {registration.email}</span>
+    </div>
+    <div class="op-footer__text">
+      &copy; {new Date().getFullYear()} Infinity Stone Solutions Inc.
+    </div>
+  </footer>
+
+</PrintLayout>

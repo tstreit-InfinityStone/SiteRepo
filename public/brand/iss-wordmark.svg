@@ -1,0 +1,8 @@
+<svg width="388" height="64" viewBox="0 0 388 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="64" height="64" rx="16" fill="#112235"/>
+  <rect x="5" y="5" width="54" height="54" rx="12" stroke="#C7962F" stroke-width="2"/>
+  <path d="M20 20H44V27H36V46H28V27H20V20Z" fill="#F7F9FC"/>
+  <path d="M18 50C21.6 46.6 26.1 44.9 31.4 44.9C36.8 44.9 41.3 46.6 44.9 50" stroke="#C7962F" stroke-width="4.5" stroke-linecap="round"/>
+  <text x="82" y="28" fill="#112235" font-size="22" font-family="Source Sans 3, Segoe UI, sans-serif" font-weight="700" letter-spacing="0.03em">INFINITY STONE</text>
+  <text x="82" y="50" fill="#1D5F93" font-size="19" font-family="Source Sans 3, Segoe UI, sans-serif" font-weight="600" letter-spacing="0.08em">SOLUTIONS INC.</text>
+</svg>

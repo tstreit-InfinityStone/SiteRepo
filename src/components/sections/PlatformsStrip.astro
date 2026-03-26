@@ -1,0 +1,38 @@
+---
+import Container from '@/components/ui/Container.astro';
+
+const platforms = [
+  { name: 'Palantir', category: 'Analytics & Intelligence', logo: 'palantir.svg' },
+  { name: 'ArcGIS Enterprise', category: 'Geospatial', logo: 'arcgis.svg' },
+  { name: 'Microsoft Azure', category: 'Cloud', logo: 'azure.svg' },
+  { name: 'AWS', category: 'Cloud', logo: 'aws.svg' },
+  { name: 'ServiceNow', category: 'ITSM', logo: 'servicenow.svg' },
+  { name: 'Workday', category: 'Enterprise', logo: 'workday.svg' },
+  { name: 'Oracle', category: 'Enterprise', logo: 'oracle.svg' },
+  { name: 'UNIX / Linux', category: 'Infrastructure', logo: 'linux.svg' },
+  { name: 'SCCM', category: 'Infrastructure', logo: 'sccm.svg' },
+];
+---
+
+<section class="section-space bg-[var(--color-surface)]">
+  <Container className="space-y-8">
+    <div>
+      <p class="eyebrow">Platforms We Deliver On</p>
+      <p class="mt-2 text-[var(--color-ink-soft)]">ISS has deployed these platforms in production government and regulated-sector environments.</p>
+    </div>
+    <div class="flex flex-wrap gap-3">
+      {platforms.map((p) => (
+        <div class="relative overflow-hidden rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3">
+          <img
+            src={`/logos/${p.logo}`}
+            alt=""
+            aria-hidden="true"
+            class="pointer-events-none absolute inset-0 h-full w-full object-contain opacity-[0.07]"
+          />
+          <p class="relative font-mono text-sm font-semibold text-[var(--color-ink)]">{p.name}</p>
+          <p class="relative mt-0.5 text-xs text-[var(--color-ink-soft)]">{p.category}</p>
+        </div>
+      ))}
+    </div>
+  </Container>
+</section>

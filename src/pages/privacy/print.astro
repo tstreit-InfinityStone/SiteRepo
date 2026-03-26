@@ -1,0 +1,357 @@
+---
+import PrintLayout from '@/layouts/PrintLayout.astro';
+---
+
+<PrintLayout title="Privacy Policy — Infinity Stone Solutions Inc.">
+
+  <style>
+    /* ── Document Header ── */
+    .doc-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--color-border);
+      margin-bottom: 14px;
+    }
+
+    .doc-header__logo {
+      height: 42px;
+      width: auto;
+    }
+
+    .doc-header__right {
+      text-align: right;
+    }
+
+    .doc-header__eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin: 0 0 3px;
+    }
+
+    .doc-header__title {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 900;
+      color: var(--color-ink);
+      margin: 0 0 2px;
+      line-height: 1.2;
+    }
+
+    .doc-header__domain {
+      font-size: 10px;
+      color: var(--color-ink-soft);
+      margin: 0;
+    }
+
+    /* ── Section headings ── */
+    .policy-section {
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin: 0 0 5px;
+      padding-bottom: 3px;
+      border-bottom: 1.5px solid var(--color-border);
+    }
+
+    .subsection-title {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--color-ink);
+      margin: 8px 0 3px;
+    }
+
+    /* ── Body text ── */
+    .policy-section p {
+      font-size: 10.5px;
+      line-height: 1.55;
+      color: var(--color-ink-soft);
+      margin: 0 0 4px;
+    }
+
+    .policy-section ul {
+      margin: 0 0 4px;
+      padding-left: 14px;
+    }
+
+    .policy-section ul li {
+      font-size: 10.5px;
+      line-height: 1.5;
+      color: var(--color-ink-soft);
+      margin-bottom: 2px;
+    }
+
+    strong {
+      color: var(--color-ink);
+      font-weight: 600;
+    }
+
+    /* ── Attribute table ── */
+    .attr-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10.5px;
+      margin: 6px 0 8px;
+    }
+
+    .attr-table td {
+      padding: 4px 8px;
+      border-bottom: 1px solid var(--color-border);
+      vertical-align: top;
+    }
+
+    .attr-table td:first-child {
+      font-weight: 700;
+      color: var(--color-ink);
+      white-space: nowrap;
+      width: 130px;
+      background: var(--color-surface);
+    }
+
+    .attr-table td:last-child {
+      color: var(--color-ink-soft);
+    }
+
+    /* ── Two-column grid for Data Collection subsections ── */
+    .data-collection-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 20px;
+    }
+
+    /* ── Footer block ── */
+    .policy-footer-block {
+      margin-top: 8px;
+      padding: 8px 12px;
+      border: 1px solid var(--color-border);
+      border-radius: 6px;
+      background: var(--color-surface);
+    }
+
+    .policy-footer-block p {
+      margin: 0 0 3px;
+      font-size: 10.5px;
+      line-height: 1.5;
+      color: var(--color-ink-soft);
+    }
+
+    .policy-footer-block p:last-child { margin: 0; }
+
+    .policy-footer-block strong {
+      color: var(--color-ink);
+    }
+
+    /* ── Document footer (print only) ── */
+    .doc-footer {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: 10px;
+      border-top: 1px solid var(--color-border);
+      margin-top: 14px;
+    }
+
+    .doc-footer__left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .doc-footer__logo {
+      height: 30px;
+      width: auto;
+    }
+
+    .doc-footer__domain {
+      font-size: 9.5px;
+      color: var(--color-ink-soft);
+    }
+
+    .doc-footer__right {
+      font-size: 9.5px;
+      color: var(--color-ink-soft);
+      text-align: right;
+    }
+
+    @media print {
+      @page { margin: 0.55in 0.65in; size: letter; }
+      .doc-footer { display: flex !important; }
+      a { color: inherit; text-decoration: none; }
+    }
+  </style>
+
+  <!-- Document Header -->
+  <header class="doc-header">
+    <img src="/brand/iss-logo-transparent.png" alt="Infinity Stone Solutions" class="doc-header__logo" />
+    <div class="doc-header__right">
+      <p class="doc-header__eyebrow">Privacy Policy</p>
+      <p class="doc-header__title">Infinity Stone Solutions Inc.</p>
+      <p class="doc-header__domain">infinitystonesolutions.com</p>
+    </div>
+  </header>
+
+  <!-- Privacy Commitment -->
+  <div class="policy-section">
+    <h2 class="section-title">Privacy Commitment</h2>
+    <p>
+      For Infinity Stone Solutions Inc. (ISS), data protection is not merely a regulatory checkbox; it is a
+      fundamental strategic requirement for a partner within the U.S. Defense Industrial Base (DIB). Our
+      organizational philosophy is anchored by our core values: <strong>Innovation, Integrity, and Mission
+      Success</strong>. We believe that "Integrity" in how we handle stakeholder information is the prerequisite
+      for the "Mission Success" we deliver to the federal government. This policy serves as a transparent roadmap
+      of our commitment to data stewardship.
+    </p>
+    <table class="attr-table">
+      <tbody>
+        <tr>
+          <td>Legal Entity</td>
+          <td>Infinity Stone Solutions Inc. (ISS)</td>
+        </tr>
+        <tr>
+          <td>Service Pillars</td>
+          <td>Cloud & IT Modernization, AI & Analytics, GIS & Geospatial, Cybersecurity, Program Management</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Strategic Alignment -->
+  <div class="policy-section">
+    <h2 class="section-title">Strategic Alignment: Federal Transparency</h2>
+    <p>
+      As a trusted provider for agencies including the DoD, DHS, and DOI, ISS is held to a higher standard of data
+      stewardship than traditional commercial entities. Because we operate at the intersection of national security
+      and technological innovation, our privacy protocols are designed to protect the integrity of the information
+      ecosystem surrounding our federal engagements. This ensures that every stakeholder — from a citizen visitor
+      to a government contracting officer — can interact with our digital presence with absolute confidence.
+    </p>
+  </div>
+
+  <!-- Data Collection — two-column subsections -->
+  <div class="policy-section">
+    <h2 class="section-title">Data Collection: Voluntary vs. Automatic</h2>
+    <p>ISS categorizes information collection into distinct streams to maintain full transparency.</p>
+
+    <div class="data-collection-grid">
+      <!-- Left column -->
+      <div>
+        <p class="subsection-title">Voluntary Information</p>
+        <p>Collected when you interact with ISS through the contact inquiry form or direct email.</p>
+        <ul>
+          <li><strong>Engagement data:</strong> Name, professional email, company or organization, phone (optional), area of interest (optional), and message content.</li>
+          <li><strong>Processing:</strong> Submitted inquiries are processed through a third-party transactional email service and delivered to the ISS business inbox solely to respond to your request.</li>
+        </ul>
+
+        <p class="subsection-title">Automatic Technical Data — Hosting</p>
+        <p>
+          This website is hosted on <strong>Cloudflare's</strong> infrastructure. Cloudflare automatically logs
+          technical indicators during user sessions — including IP addresses, browser type, and request metadata —
+          for security, performance, and reliability purposes.
+        </p>
+      </div>
+
+      <!-- Right column -->
+      <div>
+        <p class="subsection-title">Automatic Technical Data — Analytics</p>
+        <p>
+          This website uses <strong>Google Analytics</strong> to understand how visitors engage with the site.
+          Google Analytics collects standard usage data — page views, session duration, browser type, approximate
+          geographic location — and high-level interaction events like CTA clicks and form completions. Google
+          Analytics uses cookies to distinguish unique visitors and maintain session state. Analytics data is
+          processed by Google as a service provider for ISS marketing measurement only.
+        </p>
+
+        <p class="subsection-title">Automatic Technical Data — Spam Prevention</p>
+        <p>
+          The contact form uses an automated verification service to confirm that submissions are from human users.
+          This process may collect limited browser signals and is used solely for spam prevention purposes.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data Utilization -->
+  <div class="policy-section">
+    <h2 class="section-title">Data Utilization and Ethical Constraints</h2>
+    <p>
+      ISS operates under a strict <strong>"No Sale of Data" pledge</strong>. We do not sell, rent, or trade
+      personal information to third parties. The utilization of collected information is strictly limited to
+      three primary objectives:
+    </p>
+    <ul>
+      <li><strong>Business Inquiry Response:</strong> Facilitating professional outreach and the delivery of mission-critical services.</li>
+      <li><strong>Website Security and Integrity:</strong> Monitoring the digital environment to prevent unauthorized access, system degradation, or cyber threats.</li>
+      <li><strong>Legal and Regulatory Compliance:</strong> Ensuring all data handling aligns with federal mandates and existing legal obligations.</li>
+    </ul>
+  </div>
+
+  <!-- CMMC -->
+  <div class="policy-section">
+    <h2 class="section-title">CMMC Alignment and Technical Security Architecture</h2>
+    <p>
+      As a contributor to the U.S. Defense Industrial Base, ISS has architected its security posture to align with
+      the Cybersecurity Maturity Model Certification (CMMC) and NIST standards. We employ a "defense-in-depth"
+      strategy to protect sensitive information from evolving global threats. Key technical controls include:
+    </p>
+    <ul>
+      <li><strong>Internal Enclave Strategy:</strong> Strict physical and logical separation between the public-facing website and the internal contract enclave. All contract-related data and CUI are processed in a secure environment isolated from the commercial website infrastructure.</li>
+      <li><strong>Identity and Access Management:</strong> Multi-Factor Authentication (MFA) and "least privilege" access controls ensure only authorized personnel interact with sensitive systems.</li>
+      <li><strong>Advanced Encryption:</strong> Industry-standard encryption for all data at rest and in transit.</li>
+      <li><strong>Vetted Cloud Architecture:</strong> ISS exclusively utilizes cloud providers vetted against rigorous federal security benchmarks.</li>
+    </ul>
+    <p>
+      By maintaining logical isolation between the commercial website and the CMMC-regulated contract enclave, ISS
+      effectively minimizes the attack surface, ensuring that website user data never enters the secure enclave
+      where government-sensitive information is stored.
+    </p>
+  </div>
+
+  <!-- Individual Rights -->
+  <div class="policy-section">
+    <h2 class="section-title">Individual Data Rights and External Governance</h2>
+    <p>
+      ISS facilitates the ability for individuals to exercise the rights of <strong>Access</strong>,
+      <strong>Correction</strong>, and <strong>Deletion</strong> of personal data held by ISS, regardless of
+      location. To exercise these rights, contact us at the address below. This website may contain links to
+      external platforms; ISS is not responsible for the privacy practices of these external sites.
+    </p>
+  </div>
+
+  <!-- Policy Governance -->
+  <div class="policy-section">
+    <h2 class="section-title">Policy Governance and Contact Information</h2>
+    <p>
+      This Privacy Policy and Security Compliance Statement is a living security artifact, reviewed periodically
+      and updated to reflect the latest in federal regulatory requirements and cybersecurity best practices.
+    </p>
+
+    <div class="policy-footer-block">
+      <p><strong>Last Updated:</strong> March 15, 2026 &nbsp;·&nbsp; <strong>Authority:</strong> ISS Security Office (Lead ISSO)</p>
+      <p>For inquiries regarding this policy or our data protection protocols, contact ISS security leadership at info@infinitystonesolutions.com.</p>
+    </div>
+  </div>
+
+  <!-- Document Footer (print only) -->
+  <footer class="doc-footer">
+    <div class="doc-footer__left">
+      <img src="/brand/iss-logo-transparent.png" alt="" class="doc-footer__logo" />
+      <span class="doc-footer__domain">infinitystonesolutions.com &nbsp;·&nbsp; info@infinitystonesolutions.com</span>
+    </div>
+    <div class="doc-footer__right">
+      Last Updated: March 15, 2026
+    </div>
+  </footer>
+
+</PrintLayout>

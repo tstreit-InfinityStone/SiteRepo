@@ -1,0 +1,18 @@
+---
+import Container from '@/components/ui/Container.astro';
+import SectionHeading from '@/components/ui/SectionHeading.astro';
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description: string;
+}
+
+const { eyebrow, title, description } = Astro.props;
+---
+
+<section class="section-space border-b border-[var(--color-border)]/70">
+  <Container>
+    <SectionHeading eyebrow={eyebrow} title={title} description={description} />
+  </Container>
+</section>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 125">
+  <!-- Tux the Linux penguin -->
+  <!-- Body -->
+  <ellipse cx="50" cy="87" rx="29" ry="27" fill="#1D1D1B"/>
+  <!-- Head -->
+  <circle cx="50" cy="42" r="24" fill="#1D1D1B"/>
+  <!-- White belly -->
+  <ellipse cx="50" cy="89" rx="17" ry="19" fill="white"/>
+  <!-- Eyes -->
+  <ellipse cx="42" cy="36" rx="5" ry="6" fill="white"/>
+  <ellipse cx="58" cy="36" rx="5" ry="6" fill="white"/>
+  <circle cx="43" cy="37" r="2.5" fill="#1D1D1B"/>
+  <circle cx="59" cy="37" r="2.5" fill="#1D1D1B"/>
+  <!-- Beak -->
+  <ellipse cx="50" cy="48" rx="7" ry="4" fill="#FFC125"/>
+  <!-- Feet -->
+  <ellipse cx="37" cy="116" rx="11" ry="5" fill="#FFC125"/>
+  <ellipse cx="63" cy="116" rx="11" ry="5" fill="#FFC125"/>
+  <!-- Wings -->
+  <path d="M21 74 C11 61 13 83 21 91" stroke="#1D1D1B" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <path d="M79 74 C89 61 87 83 79 91" stroke="#1D1D1B" stroke-width="7" fill="none" stroke-linecap="round"/>
+</svg>

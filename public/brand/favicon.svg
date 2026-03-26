@@ -1,0 +1,18 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Navy circle background -->
+  <circle cx="16" cy="16" r="16" fill="#112235"/>
+  <!-- Yin-yang base circle -->
+  <circle cx="16" cy="17" r="11" fill="#1a3a5c" stroke="#2a5a8c" stroke-width="0.5"/>
+  <!-- Light half -->
+  <path d="M16 6C9.9 6 5 10.9 5 17c0 3.3 1.5 6.3 3.8 8.3C11.5 22.5 13.5 17 16 17s4.5 5.5 7.2 8.3C25.5 23.3 27 20.3 27 17c0-6.1-4.9-11-11-11z" fill="#3a7ab8" opacity="0.3"/>
+  <!-- Infinity symbol -->
+  <path d="M9.5 17c0-2.2 1.5-4 3.5-4 1.5 0 2.5 1 3 2 .5-1 1.5-2 3-2 2 0 3.5 1.8 3.5 4s-1.5 4-3.5 4c-1.5 0-2.5-1-3-2-.5 1-1.5 2-3 2-2 0-3.5-1.8-3.5-4z" fill="none" stroke="#e8eef4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Cross-over detail -->
+  <path d="M13.5 15c.8-1.2 1.7-2 2.5-2 .8 0 1.7.8 2.5 2" fill="none" stroke="#1e78c8" stroke-width="1.2" stroke-linecap="round"/>
+  <path d="M13.5 19c.8 1.2 1.7 2 2.5 2 .8 0 1.7-.8 2.5-2" fill="none" stroke="#1e78c8" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- Top accent stone -->
+  <circle cx="16" cy="5.5" r="2" fill="#1e78c8"/>
+  <circle cx="16" cy="5.5" r="1" fill="#5aa0e0" opacity="0.6"/>
+  <!-- Bottom accent stone -->
+  <circle cx="16" cy="28" r="1.5" fill="#c0c8d0" opacity="0.4"/>
+</svg>

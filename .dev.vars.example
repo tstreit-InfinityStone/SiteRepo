@@ -1,0 +1,12 @@
+# Copy this file to `.dev.vars` when testing Cloudflare-backed features locally.
+# Do not commit the real `.dev.vars` file.
+
+PUBLIC_SITE_URL=https://www.infinitystonesolutions.com
+PUBLIC_GTM_CONTAINER_ID=GTM-XXXXXXX
+PUBLIC_GA4_MEASUREMENT_ID=G-XXXXXXXXXX
+PUBLIC_TURNSTILE_SITE_KEY=0x4AAAAAAAReplaceWithYourSiteKey
+
+RESEND_API_KEY=re_replace_with_real_resend_api_key
+CONTACT_FROM_ADDRESS=website@infinitystonesolutions.com
+CONTACT_TO_ADDRESS=info@infinitystonesolutions.com
+TURNSTILE_SECRET_KEY=0x4AAAAAAAReplaceWithYourSecretKey

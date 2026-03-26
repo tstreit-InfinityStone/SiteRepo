@@ -1,0 +1,50 @@
+---
+import { Image } from 'astro:assets';
+import issLogo from '@/assets/brand/iss-logo-transparent.png';
+import { brand } from '@/data/brand';
+import { siteConfig } from '@/data/site';
+import Button from '@/components/ui/Button.astro';
+import Container from '@/components/ui/Container.astro';
+---
+
+<section class="section-space">
+  <Container>
+    <div class="panel fade-up relative overflow-hidden bg-[linear-gradient(135deg,var(--color-secondary),var(--color-primary))] p-8 text-white md:p-10">
+      <Image
+        src={issLogo}
+        alt=""
+        aria-hidden="true"
+        class="pointer-events-none absolute -right-8 top-1/2 h-96 w-auto -translate-y-1/2 select-none opacity-[0.08]"
+      />
+      <div class="relative max-w-3xl space-y-5">
+        <h2 class="text-4xl text-white md:text-5xl">Ready to move a program forward?</h2>
+        <p class="text-lg text-white/78">{siteConfig.contactExpectation}</p>
+        <div class="flex flex-col gap-3 sm:flex-row">
+          <Button href="/contact" variant="ghost" className="bg-white !text-[var(--color-secondary)] hover:!bg-[var(--color-surface-muted)]" analyticsEvent="cta_click" analyticsLabel="final-contact">
+            {brand.ctas.primary}
+          </Button>
+          <Button
+            href={brand.assets.capabilityStatement}
+            target="_blank"
+            variant="ghost"
+            className="border border-white/40 !text-white hover:border-white"
+            analyticsEvent="capability_statement_download"
+            analyticsLabel="final-pdf"
+          >
+            Download Capability Statement
+          </Button>
+          <Button
+            href={brand.assets.capabilityStatementOnePage}
+            target="_blank"
+            variant="ghost"
+            className="border border-white/40 !text-white hover:border-white"
+            analyticsEvent="capability_statement_onepage_download"
+            analyticsLabel="final-pdf-1page"
+          >
+            1-Page Summary
+          </Button>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>

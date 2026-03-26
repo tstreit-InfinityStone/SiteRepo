@@ -1,0 +1,140 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Button from '@/components/ui/Button.astro';
+import Container from '@/components/ui/Container.astro';
+import PageHero from '@/components/ui/PageHero.astro';
+import TabGroup from '@/components/islands/TabGroup.astro';
+import { sectors } from '@/data/sectors';
+import { pastPerformanceHighlights } from '@/data/proof';
+import { buildBreadcrumbSchema, buildOrganizationSchema } from '@/lib/seo';
+---
+
+<BaseLayout
+  title="Who We Serve"
+  description="ISS supports defense, intelligence, law enforcement, federal civilian, and regulated-infrastructure programs where security, accountability, and mission continuity are non-negotiable baselines."
+  canonicalPath="/who-we-serve"
+  structuredData={[
+    buildOrganizationSchema(),
+    buildBreadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Who We Serve', path: '/who-we-serve' },
+    ]),
+  ]}
+>
+  <!-- Section A: Hero -->
+  <PageHero
+    title="Built for the programs that can't afford to get it wrong."
+    description="ISS supports defense, intelligence, law enforcement, federal civilian, and regulated-infrastructure programs where security, accountability, and mission continuity are non-negotiable baselines — not optional add-ons."
+  />
+
+  <!-- Section B: WOSB/SDVOSB Certification Strip -->
+  <section class="bg-[var(--color-ink)] text-white">
+    <Container className="grid gap-10 py-14 lg:grid-cols-[1.5fr_1fr]">
+      <div class="space-y-4">
+        <p class="eyebrow !text-white/60">Socioeconomic certifications</p>
+        <h2 class="text-3xl text-white md:text-4xl">Two set-aside categories. One vendor relationship.</h2>
+        <p class="max-w-xl text-base text-white/75">
+          Federal agencies carry annual small business contracting goals set by the SBA. Working with ISS helps programs
+          meet Women-Owned and Service-Disabled Veteran-Owned targets — while receiving credentialed, mission-tested
+          delivery. Under the VA's Vets First rule, ISS receives priority consideration ahead of full and open competition.
+        </p>
+        <p class="text-sm text-white/60">
+          Prime contractors with SB subcontracting plans can count ISS toward both WOSB and SDVOSB credit lines simultaneously.
+        </p>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <div class="rounded-2xl border border-white/15 bg-white/8 p-6">
+          <p class="text-xs font-semibold uppercase tracking-widest text-white/50">WOSB</p>
+          <h3 class="mt-2 text-lg font-semibold text-white">Women-Owned Small Business</h3>
+          <p class="mt-2 text-sm text-white/70">
+            SBA-certified. Enables set-aside awards and sole-source contracts up to $4.5M. Helps agencies meet their
+            mandatory 5% WOSB annual contracting goal.
+          </p>
+        </div>
+        <div class="rounded-2xl border border-white/15 bg-white/8 p-6">
+          <p class="text-xs font-semibold uppercase tracking-widest text-white/50">SDVOSB</p>
+          <h3 class="mt-2 text-lg font-semibold text-white">Service-Disabled Veteran-Owned Small Business</h3>
+          <p class="mt-2 text-sm text-white/70">
+            SBA VetCert-verified. VA Vets First mandated consideration. Enables set-aside awards and sole-source contracts
+            up to $4.5M. Helps agencies meet their mandatory 3% SDVOSB annual goal.
+          </p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Section C: Buyer Segments Tab Group -->
+  <section class="section-space">
+    <Container>
+      <div class="mb-8 max-w-3xl space-y-3">
+        <p class="eyebrow">Buyer segments</p>
+        <h2 class="text-3xl md:text-4xl">Where ISS has delivered — and where we're positioned to work next.</h2>
+      </div>
+      <TabGroup sectors={sectors} />
+    </Container>
+  </section>
+
+  <!-- Section D: Is this the right fit? -->
+  <section class="section-space-tight">
+    <Container>
+      <div class="panel overflow-hidden p-8 md:p-10">
+        <div class="mb-8 max-w-2xl space-y-3">
+          <p class="eyebrow">Honest qualification</p>
+          <h2 class="text-3xl">ISS is the right call when:</h2>
+        </div>
+
+        <ul class="space-y-3">
+          {[
+            'Your program operates in a government or regulated environment with formal oversight',
+            'You need verifiable past performance across named federal agencies',
+            'Your SOW qualifies for WOSB or SDVOSB set-aside, or your prime carries SB subcontracting goals',
+            'You need Palantir, ArcGIS, or applied AI/ML grounded in real government program use',
+            'Your modernization requires coordination across IT, security, and program stakeholders',
+            'You value a team whose leadership has held security clearances and understands mission tempo',
+          ].map((item) => (
+            <li class="flex items-start gap-3 text-sm">
+              <span class="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-[var(--color-success)]" />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Section E: Named Past Performance -->
+  <section class="section-space-tight">
+    <Container>
+      <div class="mb-8 max-w-3xl space-y-3">
+        <p class="eyebrow">Past performance</p>
+        <h2 class="text-3xl md:text-4xl">Named delivery history across defense, intelligence, and federal programs.</h2>
+      </div>
+      <div class="section-grid">
+        {pastPerformanceHighlights.map((entry) => (
+          <article class="panel-muted p-6">
+            <h3 class="text-lg font-semibold">{entry.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-[var(--color-ink-soft)]">{entry.summary}</p>
+          </article>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- Section F: CTA -->
+  <section class="section-space-tight">
+    <Container>
+      <div class="panel flex flex-col gap-5 p-8 md:flex-row md:items-center md:justify-between">
+        <div class="max-w-2xl">
+          <p class="eyebrow">Start the conversation</p>
+          <h2 class="mt-3 text-3xl">
+            If your program needs credible delivery and qualifying socioeconomic certification, ISS is ready to talk.
+          </h2>
+        </div>
+        <Button href="/contact" analyticsEvent="cta_click" analyticsLabel="who-we-serve-contact">
+          Start a Capability Discussion
+        </Button>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

@@ -1,0 +1,50 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'ghost';
+  className?: string;
+  type?: 'button' | 'submit' | 'reset';
+  target?: string;
+  analyticsEvent?: string;
+  analyticsLabel?: string;
+}
+
+const {
+  href,
+  variant = 'primary',
+  className = '',
+  type = 'button',
+  target,
+  analyticsEvent,
+  analyticsLabel,
+} = Astro.props;
+
+const sharedClasses =
+  'inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition duration-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--color-primary)]';
+
+const variantClasses =
+  variant === 'primary'
+    ? 'bg-[var(--color-secondary)] !text-white hover:bg-[var(--color-primary)]'
+    : variant === 'secondary'
+      ? 'border border-[var(--color-border)] bg-white text-[var(--color-ink)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]'
+      : 'text-[var(--color-primary)] hover:text-[var(--color-secondary)]';
+
+const analyticsAttributes = analyticsEvent
+  ? {
+      'data-track-event': analyticsEvent,
+      'data-track-label': analyticsLabel ?? '',
+    }
+  : {};
+---
+
+{
+  href ? (
+    <a href={href} target={target} rel={target === '_blank' ? 'noopener noreferrer' : undefined} class={`${sharedClasses} ${variantClasses} ${className}`.trim()} {...analyticsAttributes}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type} class={`${sharedClasses} ${variantClasses} ${className}`.trim()} {...analyticsAttributes}>
+      <slot />
+    </button>
+  )
+}

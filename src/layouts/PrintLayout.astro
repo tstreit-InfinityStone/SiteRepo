@@ -1,0 +1,164 @@
+---
+interface Props {
+  title?: string;
+}
+const { title = 'Capability Statement — Infinity Stone Solutions Inc.' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Source+Sans+3:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Design tokens */
+      :root {
+        --color-ink: #112235;
+        --color-ink-soft: #42556a;
+        --color-primary: #155fa0;
+        --color-secondary: #1e78c8;
+        --color-accent: #c7962f;
+        --color-surface: #f7f9fc;
+        --color-surface-muted: #eaf0f6;
+        --color-border: #d6e1ec;
+        --font-display: 'Merriweather', Georgia, serif;
+        --font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
+        --font-mono: 'IBM Plex Mono', 'Cascadia Code', monospace;
+      }
+
+      *, *::before, *::after { box-sizing: border-box; }
+
+      body {
+        font-family: var(--font-body);
+        color: var(--color-ink);
+        background: #fff;
+        margin: 0;
+        padding: 0;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Floating print bar (screen only) */
+      .print-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 10px 24px;
+        background: var(--color-ink);
+        color: #fff;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+      }
+
+      .print-bar__left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .print-bar__logo-wrap {
+        background: white;
+        border-radius: 8px;
+        padding: 3px 10px;
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .print-bar__logo {
+        height: 40px;
+        width: auto;
+      }
+
+      .print-bar__message {
+        font-size: 13px;
+        color: rgba(255,255,255,0.75);
+      }
+
+      .print-bar__btn {
+        flex-shrink: 0;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 18px;
+        border-radius: 999px;
+        border: none;
+        background: var(--color-accent);
+        color: #fff;
+        font-family: var(--font-body);
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: opacity 0.15s ease;
+      }
+
+      .print-bar__btn:hover { opacity: 0.88; }
+
+      /* Offset body for fixed bar */
+      .print-bar-spacer { height: 68px; }
+
+      /* Screen layout */
+      @media screen {
+        .doc-content {
+          max-width: 960px;
+          margin: 0 auto;
+          padding: 40px 32px 64px;
+        }
+        .doc-footer { display: none; }
+      }
+
+      /* Print styles */
+      @media print {
+        .print-bar,
+        .print-bar-spacer { display: none !important; }
+        .doc-footer { display: flex !important; }
+
+        @page {
+          margin: 0.75in;
+          size: letter;
+        }
+
+        body { font-size: 10pt; }
+
+        a { text-decoration: none; color: inherit; }
+
+        h2, h3 { page-break-after: avoid; }
+
+        .pp-entry,
+        table,
+        .comp-card,
+        .reg-block { page-break-inside: avoid; }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Floating print bar -->
+    <div class="print-bar no-print">
+      <div class="print-bar__left">
+        <div class="print-bar__logo-wrap">
+          <img src="/brand/iss-logo-transparent.png" alt="Infinity Stone Solutions" class="print-bar__logo" />
+        </div>
+        <span class="print-bar__message">Formatted for printing — use your browser's Print dialog to save as PDF.</span>
+      </div>
+      <button class="print-bar__btn" onclick="window.print()">
+        Save as PDF &rarr;
+      </button>
+    </div>
+    <div class="print-bar-spacer no-print"></div>
+
+    <div class="doc-content">
+      <slot />
+    </div>
+  </body>
+</html>

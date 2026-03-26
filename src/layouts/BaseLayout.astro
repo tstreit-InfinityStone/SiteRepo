@@ -1,0 +1,205 @@
+---
+import '@/styles/global.css';
+
+import { ClientRouter } from 'astro:transitions';
+import { brand } from '@/data/brand';
+import { siteConfig } from '@/data/site';
+import SiteFooter from '@/components/layout/SiteFooter.astro';
+import SiteHeader from '@/components/layout/SiteHeader.astro';
+import ScrollAnimations from '@/components/islands/ScrollAnimations.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  noindex?: boolean;
+  canonicalPath?: string;
+  structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
+}
+
+const {
+  title,
+  description = siteConfig.positioning,
+  image = brand.assets.socialPreview,
+  noindex = false,
+  canonicalPath,
+  structuredData = [],
+} = Astro.props;
+
+const pageTitle = title
+  ? `${title} | ${siteConfig.businessName}`
+  : `${siteConfig.businessName} | Mission-ready technology support`;
+const schemas = Array.isArray(structuredData) ? structuredData : [structuredData];
+const siteUrl = import.meta.env.PUBLIC_SITE_URL || siteConfig.domain;
+const gtmId = import.meta.env.PUBLIC_GTM_CONTAINER_ID;
+const ga4Id = import.meta.env.PUBLIC_GA4_MEASUREMENT_ID;
+const gtmEnabled = Boolean(gtmId);
+const directGa4Enabled = Boolean(ga4Id) && !gtmId;
+const canonicalUrl = new URL(canonicalPath ?? Astro.url.pathname, siteUrl).toString();
+const ogImage = new URL(image, siteUrl).toString();
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" href="/brand/iss-mark.svg" type="image/svg+xml" />
+    <link rel="icon" href="/brand/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/brand/apple-touch-icon.png" />
+    <meta name="theme-color" content={brand.colors.primary} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content={siteConfig.businessName} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <style define:vars={{
+      colorInk: brand.colors.ink,
+      colorInkSoft: brand.colors.inkSoft,
+      colorPrimary: brand.colors.primary,
+      colorSecondary: brand.colors.secondary,
+      colorAccent: brand.colors.accent,
+      colorSurface: brand.colors.surface,
+      colorSurfaceMuted: brand.colors.surfaceMuted,
+      colorBorder: brand.colors.border,
+      colorSuccess: brand.colors.success,
+      fontDisplay: brand.typography.display,
+      fontBody: brand.typography.body,
+      fontMono: brand.typography.mono,
+    }}>
+      :root {
+        --color-ink: var(--colorInk);
+        --color-ink-soft: var(--colorInkSoft);
+        --color-primary: var(--colorPrimary);
+        --color-secondary: var(--colorSecondary);
+        --color-accent: var(--colorAccent);
+        --color-surface: var(--colorSurface);
+        --color-surface-muted: var(--colorSurfaceMuted);
+        --color-border: var(--colorBorder);
+        --color-success: var(--colorSuccess);
+        --font-display: var(--fontDisplay);
+        --font-body: var(--fontBody);
+        --font-mono: var(--fontMono);
+      }
+    </style>
+
+    {gtmId && (
+      <script
+        is:inline
+        set:html={`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${gtmId}');`}
+      />
+    )}
+
+    {directGa4Enabled && (
+      <>
+        <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`} />
+        <script is:inline define:vars={{ ga4MeasurementId: ga4Id }}>
+          window.dataLayer = window.dataLayer || [];
+          window.gtag = window.gtag || function() {
+            window.dataLayer.push(arguments);
+          };
+          window.gtag('js', new Date());
+          window.gtag('config', ga4MeasurementId, {
+            page_title: document.title,
+            page_location: window.location.href,
+          });
+        </script>
+      </>
+    )}
+
+    {schemas.filter(Boolean).map((schema) => (
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
+
+    <ClientRouter />
+  </head>
+  <body class="site-shell">
+    {gtmId && (
+      <noscript>
+        <iframe
+          src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+          height="0"
+          width="0"
+          style="display:none;visibility:hidden"
+          title="Google Tag Manager"
+        />
+      </noscript>
+    )}
+
+    <SiteHeader />
+
+    <main class="site-main">
+      <slot />
+    </main>
+
+    <SiteFooter />
+
+    <ScrollAnimations />
+
+    <script is:inline define:vars={{ directGa4Enabled, gtmEnabled }}>
+      if (gtmEnabled || directGa4Enabled) {
+        window.dataLayer = window.dataLayer || [];
+      }
+
+      /* Track page views on client-side navigations (ClientRouter) */
+      var _issInitialLoad = true;
+      document.addEventListener('astro:page-load', function () {
+        if (_issInitialLoad) { _issInitialLoad = false; return; }
+
+        if (directGa4Enabled && typeof window.gtag === 'function') {
+          window.gtag('event', 'page_view', {
+            page_title: document.title,
+            page_location: window.location.href,
+          });
+        }
+
+        if (gtmEnabled) {
+          window.dataLayer.push({
+            event: 'astro_page_view',
+            page_title: document.title,
+            page_location: window.location.href,
+          });
+        }
+      });
+
+      document.addEventListener('click', (event) => {
+        const target = event.target instanceof Element ? event.target.closest('[data-track-event]') : null;
+        if (!target) return;
+
+        const eventName = target.getAttribute('data-track-event');
+        const eventLabel = target.getAttribute('data-track-label') || undefined;
+        const href = target.getAttribute('href') || undefined;
+
+        if (!eventName) return;
+
+        if (gtmEnabled) {
+          window.dataLayer.push({
+            event: eventName,
+            label: eventLabel,
+            href,
+          });
+        }
+
+        if (directGa4Enabled && typeof window.gtag === 'function') {
+          window.gtag('event', eventName, {
+            event_label: eventLabel,
+            link_url: href,
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -8,6 +8,7 @@ import { redirectMap } from './src/data/redirects';
 const githubRepository = process.env.GITHUB_REPOSITORY;
 const [githubOwner = '', githubRepo = ''] = githubRepository?.split('/') ?? [];
 const isUserPagesRepo = githubOwner !== '' && githubRepo === `${githubOwner}.github.io`;
+const isGitHubPagesBuild = process.env.GITHUB_ACTIONS === 'true' && Boolean(githubRepository);
 const githubPagesSite =
   githubOwner && githubRepo
     ? `https://${githubOwner}.github.io`
@@ -21,10 +22,12 @@ export default defineConfig({
   site: githubPagesSite ?? 'https://www.infinitystonesolutions.com',
   base: githubPagesBase,
   output: 'static',
-  adapter: cloudflare({
-    prerenderEnvironment: 'node',
-    imageService: 'passthrough',
-  }),
+  adapter: isGitHubPagesBuild
+    ? undefined
+    : cloudflare({
+        prerenderEnvironment: 'node',
+        imageService: 'passthrough',
+      }),
   integrations: [
     react(),
     sitemap({

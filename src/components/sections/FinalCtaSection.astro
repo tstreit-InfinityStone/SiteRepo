@@ -20,7 +20,7 @@ import Container from '@/components/ui/Container.astro';
         <h2 class="text-4xl text-white md:text-5xl">Ready to move a program forward?</h2>
         <p class="text-lg text-white/78">{siteConfig.contactExpectation}</p>
         <div class="flex flex-col gap-3 sm:flex-row">
-          <Button href="/contact" variant="ghost" className="bg-white !text-[var(--color-secondary)] hover:!bg-[var(--color-surface-muted)]" analyticsEvent="cta_click" analyticsLabel="final-contact">
+          <Button href="/contact" variant="ghost" className="whitespace-nowrap bg-white !text-[var(--color-secondary)] hover:!bg-[var(--color-surface-muted)]" analyticsEvent="cta_click" analyticsLabel="final-contact">
             {brand.ctas.primary}
           </Button>
           <Button

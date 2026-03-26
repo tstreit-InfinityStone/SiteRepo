@@ -5,6 +5,7 @@ export const mainNavigation: NavigationItem[] = [
   { label: 'Capabilities', href: '/capabilities' },
   { label: 'Who We Serve', href: '/who-we-serve' },
   { label: 'Past Performance', href: '/past-performance' },
+  { label: 'Insights', href: '/insights' },
   { label: 'Capability Statement', href: '/capability-statement' },
   { label: 'About', href: '/about' },
   { label: 'Partners', href: '/partners' },

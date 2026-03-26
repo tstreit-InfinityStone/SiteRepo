@@ -138,6 +138,42 @@ img {
     @apply list-disc space-y-2 pl-5;
   }
 
+  .rich-copy ol {
+    @apply list-decimal space-y-2 pl-5;
+  }
+
+  .rich-copy h3 {
+    @apply mt-8 text-xl font-semibold;
+  }
+
+  .rich-copy table {
+    @apply mt-6 w-full border-collapse text-sm;
+  }
+
+  .rich-copy thead th {
+    @apply border-b-2 border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[var(--color-ink-soft)];
+  }
+
+  .rich-copy tbody td {
+    @apply border-b border-[var(--color-border)] px-4 py-3 text-[var(--color-ink)];
+  }
+
+  .rich-copy tbody tr:hover {
+    background: var(--color-surface);
+  }
+
+  .rich-copy strong {
+    @apply font-semibold text-[var(--color-ink)];
+  }
+
+  .rich-copy blockquote {
+    @apply border-l-4 border-[var(--color-primary)] pl-4 italic text-[var(--color-ink-soft)];
+  }
+
+  .rich-copy hr {
+    @apply my-8 border-[var(--color-border)];
+  }
+
   /* Scroll animation utilities */
   .fade-up {
     opacity: 0;

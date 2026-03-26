@@ -30,7 +30,7 @@ const currentPath = stripBase(Astro.url.pathname);
     </nav>
 
     <div class="hidden lg:block">
-      <Button href="/contact" analyticsEvent="cta_click" analyticsLabel="header-contact">
+      <Button href="/contact" className="whitespace-nowrap" analyticsEvent="cta_click" analyticsLabel="header-contact">
         {brand.ctas.primary}
       </Button>
     </div>

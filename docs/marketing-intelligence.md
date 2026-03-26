@@ -42,6 +42,8 @@ ISS is a technology and intelligence solutions firm that delivers across six cor
 
 The critical differentiator: ISS is not a staffing body shop. It is a solutions provider with named past performance, a credentialed team, and dual socioeconomic certification status that gives federal buyers a procurement advantage.
 
+**Staffing model note:** ISS operates with a blended staffing model — a core of direct employees supplemented by long-term contracted professionals who are managed, retained, and accountable through ISS. Content and marketing materials should emphasize ISS's management accountability and personnel continuity rather than a strict W-2-only or direct-employee-only staffing model.
+
 ### Leadership Background
 
 The founder and principal of ISS holds:

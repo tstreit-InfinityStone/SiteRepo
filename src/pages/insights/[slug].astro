@@ -1,0 +1,66 @@
+---
+import { getCollection, render } from 'astro:content';
+
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/ui/Container.astro';
+import PageHero from '@/components/ui/PageHero.astro';
+import FinalCtaSection from '@/components/sections/FinalCtaSection.astro';
+import { buildBreadcrumbSchema, buildOrganizationSchema } from '@/lib/seo';
+import { withBase } from '@/lib/paths';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('insights');
+  return entries
+    .filter((e) => !e.data.draft)
+    .map((entry) => ({
+      params: { slug: entry.id },
+      props: { entry },
+    }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<BaseLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  canonicalPath={`/insights/${entry.id}`}
+  structuredData={[
+    buildOrganizationSchema(),
+    buildBreadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Insights', path: '/insights' },
+      { name: entry.data.title, path: `/insights/${entry.id}` },
+    ]),
+  ]}
+>
+  <PageHero title={entry.data.title} description={entry.data.description} />
+
+  <section class="section-space">
+    <Container className="max-w-4xl">
+      <article class="panel-static p-8">
+        <p class="eyebrow mb-6">
+          {entry.data.publishDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+        </p>
+        <div class="rich-copy">
+          <Content />
+        </div>
+      </article>
+
+      <div class="mt-8">
+        <a
+          href={withBase('/insights')}
+          class="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-primary)] transition hover:text-[var(--color-secondary)]"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+          Back to all insights
+        </a>
+      </div>
+    </Container>
+  </section>
+
+  <FinalCtaSection />
+</BaseLayout>

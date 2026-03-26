@@ -9,7 +9,7 @@ export const siteConfig: SiteConfig = {
   email: 'info@infinitystonesolutions.com',
   location: 'Denver, CO 80203',
   serviceArea: 'United States',
-  heroHeadline: "Built for programs that can't afford to fail.",
+  heroHeadline: "Built for programs that can't afford to get it wrong.",
   heroSubheadline:
     'WOSB and SDVOSB certified. Proven delivery across defense, intelligence, and civilian programs. Operational accountability — not generalist promises.',
   positioning:

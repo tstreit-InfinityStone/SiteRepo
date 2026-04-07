@@ -1,18 +1,18 @@
 ---
-export const prerender = false;
-
-import { actions, isInputError } from 'astro:actions';
-
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
 import Container from '@/components/ui/Container.astro';
+import FieldError from '@/components/form/FieldError.astro';
+import FormScripts from '@/components/form/FormScripts.astro';
+import FormStatusBanners from '@/components/form/FormStatusBanners.astro';
+import HoneypotField from '@/components/form/HoneypotField.astro';
 import PageHero from '@/components/ui/PageHero.astro';
+import TurnstileWidget from '@/components/form/TurnstileWidget.astro';
+import { withBase } from '@/lib/paths';
 import { siteConfig } from '@/data/site';
 import { buildBreadcrumbSchema, buildOrganizationSchema } from '@/lib/seo';
 
-const result = Astro.getActionResult(actions.vendor.submit);
-const inputErrors = isInputError(result?.error) ? result.error.fields : {};
-const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+const formEndpoint = withBase('/api/forms/vendor');
 ---
 
 <BaseLayout
@@ -82,23 +82,10 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
         </article>
       </aside>
 
-      <div class="panel-static p-8">
-        {result && !result.error && (
-          <div class="mb-6 rounded-2xl border border-[var(--color-success)]/30 bg-[var(--color-success)]/10 p-4">
-            <p class="font-semibold text-[var(--color-ink)]">Thank you for reaching out. ISS will review your inquiry and respond if there is a fit.</p>
-          </div>
-        )}
+      <div class="panel-static self-start p-8" data-form-root>
+        <FormStatusBanners successMessage="Thank you for reaching out. ISS will review your inquiry and respond if there is a fit." />
 
-        {result?.error && !isInputError(result.error) && (
-          <div class="mb-6 rounded-2xl border border-red-300 bg-red-50 p-4">
-            <p class="font-semibold text-[var(--color-ink)]">The form could not be submitted.</p>
-            <p class="mt-2 text-sm">
-              {result.error.message || 'Please try again or email ISS directly.'}
-            </p>
-          </div>
-        )}
-
-        <form method="POST" action={actions.vendor.submit} class="space-y-5" data-vendor-form>
+        <form method="POST" action={formEndpoint} class="space-y-5" data-vendor-form>
           <div class="grid gap-5 md:grid-cols-2">
             <label class="space-y-2 text-sm font-semibold text-[var(--color-ink)]">
               Company Name
@@ -108,7 +95,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
                 required
                 class="w-full rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3 font-normal text-[var(--color-ink)]"
               />
-              {inputErrors.companyName && <span class="text-sm font-normal text-red-700">{inputErrors.companyName.join(', ')}</span>}
+              <FieldError name="companyName" />
             </label>
 
             <label class="space-y-2 text-sm font-semibold text-[var(--color-ink)]">
@@ -119,7 +106,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
                 required
                 class="w-full rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3 font-normal text-[var(--color-ink)]"
               />
-              {inputErrors.contactName && <span class="text-sm font-normal text-red-700">{inputErrors.contactName.join(', ')}</span>}
+              <FieldError name="contactName" />
             </label>
           </div>
 
@@ -132,7 +119,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
                 required
                 class="w-full rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3 font-normal text-[var(--color-ink)]"
               />
-              {inputErrors.email && <span class="text-sm font-normal text-red-700">{inputErrors.email.join(', ')}</span>}
+              <FieldError name="email" />
             </label>
 
             <label class="space-y-2 text-sm font-semibold text-[var(--color-ink)]">
@@ -142,7 +129,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
                 type="tel"
                 class="w-full rounded-2xl border border-[var(--color-border)] bg-white px-4 py-3 font-normal text-[var(--color-ink)]"
               />
-              {inputErrors.phone && <span class="text-sm font-normal text-red-700">{inputErrors.phone.join(', ')}</span>}
+              <FieldError name="phone" />
             </label>
           </div>
 
@@ -159,6 +146,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
               <option value="Teaming / Joint Venture">Teaming / Joint Venture</option>
               <option value="Other">Other</option>
             </select>
+            <FieldError name="partnershipType" />
           </label>
 
           <label class="space-y-3 text-sm font-semibold text-[var(--color-ink)]">
@@ -169,40 +157,11 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
               rows={7}
               class="mt-1 w-full rounded-3xl border border-[var(--color-border)] bg-white px-4 py-3 font-normal text-[var(--color-ink)]"
             />
-            {inputErrors.description && <span class="text-sm font-normal text-red-700">{inputErrors.description.join(', ')}</span>}
+            <FieldError name="description" />
           </label>
 
-          <input
-            name="company"
-            type="text"
-            tabindex="-1"
-            autocomplete="off"
-            class="hidden"
-            aria-hidden="true"
-          />
-
-          <input name="turnstileToken" id="vendorTurnstileToken" type="hidden" />
-
-          {turnstileSiteKey ? (
-            <>
-              <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer />
-              <div
-                class="cf-turnstile"
-                data-sitekey={turnstileSiteKey}
-                data-callback="issVendorTurnstileCallback"
-              />
-              <script is:inline>
-                window.issVendorTurnstileCallback = function(token) {
-                  var input = document.getElementById('vendorTurnstileToken');
-                  if (input) input.value = token;
-                };
-              </script>
-            </>
-          ) : (
-            <p class="rounded-2xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm">
-              Turnstile is not configured in this environment yet. Add <code>PUBLIC_TURNSTILE_SITE_KEY</code> and <code>TURNSTILE_SECRET_KEY</code> before launch.
-            </p>
-          )}
+          <HoneypotField />
+          <TurnstileWidget tokenInputId="vendorTurnstileToken" />
 
           <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <p class="text-sm">{siteConfig.contactExpectation}</p>
@@ -215,32 +174,9 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     </Container>
   </section>
 
-  {result && !result.error && (
-    <script is:inline>
-      if (window.google_tag_manager) {
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({ event: 'vendor_form_success' });
-      }
-
-      if (typeof window.gtag === 'function') {
-        window.gtag('event', 'vendor_form_success', {
-          event_category: 'engagement',
-        });
-      }
-    </script>
-  )}
-
-  <script is:inline>
-    document.addEventListener('astro:page-load', function () {
-      var form = document.querySelector('[data-vendor-form]');
-      if (!form) return;
-
-      form.addEventListener('submit', function () {
-        var btn = form.querySelector('[type="submit"]');
-        if (!btn) return;
-        btn.disabled = true;
-        btn.textContent = 'Sending\u2026';
-      });
-    });
-  </script>
+  <FormScripts
+    formSelector="[data-vendor-form]"
+    endpoint={formEndpoint}
+    analyticsEvent="vendor_form_success"
+  />
 </BaseLayout>

@@ -1,0 +1,40 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/ui/Container.astro';
+import AssessmentIsland from '@/components/islands/Assessment.astro';
+import { withBase } from '@/lib/paths';
+import { buildBreadcrumbSchema, buildOrganizationSchema } from '@/lib/seo';
+---
+
+<BaseLayout
+  title="IT Modernization Readiness Assessment"
+  description="Seven questions across cloud adoption, cybersecurity posture, data maturity, legacy systems, and geospatial capability. Results map your program to ISS capability areas with named past performance evidence. URL-shareable."
+  canonicalPath="/tools/assessment"
+  structuredData={[
+    buildOrganizationSchema(),
+    buildBreadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Tools & Calculators', path: '/tools' },
+      { name: 'Readiness Assessment', path: '/tools/assessment' },
+    ]),
+  ]}
+>
+  <section class="section-space">
+    <Container className="max-w-3xl">
+      <div class="mb-10 fade-up">
+        <a href={withBase('/tools')} class="mb-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-secondary)] hover:text-[var(--color-primary)] transition">
+          ← All Tools
+        </a>
+        <p class="eyebrow mb-3">Program Managers & Contracting Officers</p>
+        <h1 class="mb-4 font-display text-3xl font-bold text-[var(--color-ink)] md:text-4xl">
+          IT Modernization Readiness Assessment
+        </h1>
+        <p class="max-w-2xl text-lg text-[var(--color-ink-soft)]">
+          Eight steps — sector selection plus six questions covering legacy systems, cloud adoption, data maturity, cybersecurity posture, requirements management, and geospatial capability. Results are shareable via URL.
+        </p>
+      </div>
+
+      <AssessmentIsland />
+    </Container>
+  </section>
+</BaseLayout>

@@ -31,16 +31,14 @@ import { buildBreadcrumbSchema, buildOrganizationSchema } from '@/lib/seo';
     <Container className="grid gap-10 xl:grid-cols-[1.1fr_0.9fr]">
       <div class="space-y-8">
         <article class="panel p-8">
-          <p class="eyebrow">Positioning</p>
-          <p class="mt-4 text-lg">{siteConfig.positioning}</p>
+          <p class="text-lg">{siteConfig.positioning}</p>
           <p class="mt-4">
             The public website experience is designed for buyers who need to move quickly from first impression to capability fit, not for visitors browsing generic marketing copy.
           </p>
         </article>
 
         <article class="panel p-8">
-          <p class="eyebrow">How ISS works</p>
-          <div class="mt-5 space-y-3">
+          <div class="space-y-3">
             {siteConfig.differentiators.map((item) => (
               <div class="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-4">
                 <h2 class="text-xl">{item.title}</h2>
@@ -53,8 +51,7 @@ import { buildBreadcrumbSchema, buildOrganizationSchema } from '@/lib/seo';
 
       <div class="space-y-8">
         <article class="panel-muted p-8">
-          <p class="eyebrow">Credibility markers</p>
-          <div class="mt-5 space-y-4">
+          <div class="space-y-4">
             {proofSignals.slice(0, 4).map((signal) => (
               <div class="rounded-2xl border border-white/70 bg-white/80 p-4">
                 <h2 class="text-xl">{signal.label}</h2>
@@ -85,22 +82,33 @@ import { buildBreadcrumbSchema, buildOrganizationSchema } from '@/lib/seo';
   <section class="section-space bg-[var(--color-surface)]">
     <Container className="space-y-10">
       <SectionHeading
-        title="Our Team"
+        title="Our Leadership Team"
         description="ISS is led by professionals with firsthand experience in the programs they now support. Named delivery history and cleared backgrounds — not resumes built around titles."
       />
       <div class="grid gap-8 md:grid-cols-2">
         {teamMembers.map((member) => (
-          <article class="panel p-8">
-            <div class="flex items-start gap-6">
-              <div class="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full border border-[var(--color-border)] bg-[var(--color-surface-muted)]">
-                <span class="text-2xl font-bold text-[var(--color-ink-soft)]">
+          <div>
+            {member.image ? (
+              <div class="mx-auto mb-6 w-3/4">
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  width="800"
+                  height="800"
+                  class="aspect-square w-full rounded-2xl object-cover"
+                />
+              </div>
+            ) : (
+              <div class="mx-auto mb-6 flex aspect-square w-3/4 items-center justify-center rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface-muted)]">
+                <span class="text-6xl font-bold text-[var(--color-ink-soft)]">
                   {member.name.startsWith('[') ? '?' : member.name.split(' ').map((n) => n[0]).join('')}
                 </span>
               </div>
-              <div class="pt-1">
-                <h2 class="text-xl font-semibold text-[var(--color-ink)]">{member.name}</h2>
-                <p class="mt-1 text-sm font-semibold text-[var(--color-secondary)]">{member.title}</p>
-              </div>
+            )}
+          <article class="panel p-8">
+            <div>
+              <h2 class="text-xl font-semibold text-[var(--color-ink)]">{member.name}</h2>
+              <p class="mt-1 text-sm font-semibold text-[var(--color-secondary)]">{member.title}</p>
             </div>
             {member.bio && (
               <p class="mt-5 text-[var(--color-ink-soft)]">{member.bio}</p>
@@ -119,6 +127,7 @@ import { buildBreadcrumbSchema, buildOrganizationSchema } from '@/lib/seo';
               </div>
             )}
           </article>
+          </div>
         ))}
       </div>
     </Container>

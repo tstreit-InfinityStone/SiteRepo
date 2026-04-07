@@ -21,10 +21,10 @@ const { sectors } = Astro.props;
         aria-controls={`panel-${sector.id}`}
         aria-selected={i === 0 ? 'true' : 'false'}
         data-tab={sector.id}
-        class={`rounded-t-xl border border-b-0 px-5 py-3 text-sm font-semibold transition focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] ${
+        class={`cursor-pointer rounded-t-xl border border-b-0 px-6 py-4 text-base font-semibold transition focus-visible:outline-2 focus-visible:outline-[var(--color-primary)] ${
           i === 0
             ? 'border-[var(--color-border)] bg-white text-[var(--color-primary)]'
-            : 'border-transparent bg-transparent text-[var(--color-ink-soft)] hover:text-[var(--color-ink)]'
+            : 'border-[var(--color-border)]/30 bg-[var(--color-surface)]/60 text-[var(--color-ink-soft)]/70 hover:bg-white hover:text-[var(--color-primary)] hover:border-[var(--color-border)]'
         }`}
       >
         {sector.title}
@@ -78,10 +78,10 @@ const { sectors } = Astro.props;
           t.setAttribute('aria-selected', isActive ? 'true' : 'false');
           if (isActive) {
             t.classList.add('border-[var(--color-border)]', 'bg-white', 'text-[var(--color-primary)]');
-            t.classList.remove('border-transparent', 'bg-transparent', 'text-[var(--color-ink-soft)]');
+            t.classList.remove('border-[var(--color-border)]/30', 'bg-[var(--color-surface)]/60', 'text-[var(--color-ink-soft)]/70');
           } else {
             t.classList.remove('border-[var(--color-border)]', 'bg-white', 'text-[var(--color-primary)]');
-            t.classList.add('border-transparent', 'bg-transparent', 'text-[var(--color-ink-soft)]');
+            t.classList.add('border-[var(--color-border)]/30', 'bg-[var(--color-surface)]/60', 'text-[var(--color-ink-soft)]/70');
           }
         });
 

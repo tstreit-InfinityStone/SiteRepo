@@ -1,0 +1,398 @@
+---
+import { withBase } from '@/lib/paths';
+---
+
+<div data-subcontract-calc class="space-y-8">
+  <!-- Inputs -->
+  <div class="panel-static rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 md:p-8">
+    <h2 class="mb-6 font-display text-xl font-bold text-[var(--color-ink)]">Your subcontracting plan inputs</h2>
+
+    <div class="grid gap-5 sm:grid-cols-2">
+      <div>
+        <label class="mb-1.5 block text-sm font-semibold text-[var(--color-ink)]" for="sc-contract-value">
+          Total prime contract value
+        </label>
+        <div class="relative">
+          <span class="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-[var(--color-ink-soft)]">$</span>
+          <input
+            id="sc-contract-value"
+            type="text"
+            inputmode="numeric"
+            placeholder="12,500,000"
+            class="w-full rounded-xl border border-[var(--color-border)] bg-white py-2.5 pl-8 pr-4 text-sm text-[var(--color-ink)] focus:border-[var(--color-primary)] focus:outline-none"
+            data-sc-input="contractValue"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label class="mb-1.5 block text-sm font-semibold text-[var(--color-ink)]" for="sc-sub-value">
+          Planned subcontract work value
+        </label>
+        <div class="relative">
+          <span class="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-[var(--color-ink-soft)]">$</span>
+          <input
+            id="sc-sub-value"
+            type="text"
+            inputmode="numeric"
+            placeholder="4,000,000"
+            class="w-full rounded-xl border border-[var(--color-border)] bg-white py-2.5 pl-8 pr-4 text-sm text-[var(--color-ink)] focus:border-[var(--color-primary)] focus:outline-none"
+            data-sc-input="subValue"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label class="mb-1.5 block text-sm font-semibold text-[var(--color-ink)]" for="sc-current-wosb">
+          Current WOSB subcontract spend
+        </label>
+        <div class="relative">
+          <span class="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-[var(--color-ink-soft)]">$</span>
+          <input
+            id="sc-current-wosb"
+            type="text"
+            inputmode="numeric"
+            placeholder="0"
+            class="w-full rounded-xl border border-[var(--color-border)] bg-white py-2.5 pl-8 pr-4 text-sm text-[var(--color-ink)] focus:border-[var(--color-primary)] focus:outline-none"
+            data-sc-input="currentWosb"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label class="mb-1.5 block text-sm font-semibold text-[var(--color-ink)]" for="sc-current-sdvosb">
+          Current SDVOSB subcontract spend
+        </label>
+        <div class="relative">
+          <span class="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-[var(--color-ink-soft)]">$</span>
+          <input
+            id="sc-current-sdvosb"
+            type="text"
+            inputmode="numeric"
+            placeholder="0"
+            class="w-full rounded-xl border border-[var(--color-border)] bg-white py-2.5 pl-8 pr-4 text-sm text-[var(--color-ink)] focus:border-[var(--color-primary)] focus:outline-none"
+            data-sc-input="currentSdvosb"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label class="mb-1.5 block text-sm font-semibold text-[var(--color-ink)]" for="sc-iss-value">
+          Proposed ISS engagement value
+        </label>
+        <div class="relative">
+          <span class="pointer-events-none absolute inset-y-0 left-3.5 flex items-center text-[var(--color-ink-soft)]">$</span>
+          <input
+            id="sc-iss-value"
+            type="text"
+            inputmode="numeric"
+            placeholder="750,000"
+            class="w-full rounded-xl border border-[var(--color-border)] bg-white py-2.5 pl-8 pr-4 text-sm text-[var(--color-ink)] focus:border-[var(--color-primary)] focus:outline-none"
+            data-sc-input="issValue"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label class="mb-1.5 block text-sm font-semibold text-[var(--color-ink)]" for="sc-tier">
+          Subcontract tier
+        </label>
+        <select
+          id="sc-tier"
+          class="w-full rounded-xl border border-[var(--color-border)] bg-white py-2.5 pl-4 pr-4 text-sm text-[var(--color-ink)] focus:border-[var(--color-primary)] focus:outline-none"
+          data-sc-input="tier"
+        >
+          <option value="1">1st-tier (direct subcontract)</option>
+          <option value="2">2nd-tier (through another sub)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Validation error -->
+  <div data-sc-error class="hidden rounded-2xl border border-red-300 bg-red-50 px-5 py-4 text-sm text-red-800" role="alert">
+    <strong>Please correct the following: </strong><span data-sc-error-msg></span>
+  </div>
+
+  <!-- Results -->
+  <div data-sc-results class="hidden space-y-5">
+
+    <!-- Plan requirement notice -->
+    <div data-sc-plan-notice class="hidden rounded-2xl border border-[var(--color-border)] bg-amber-50 px-5 py-4 text-sm text-[var(--color-ink)]">
+      <strong>Subcontracting plan required:</strong> Contracts over $750,000 (DoD) or $1,500,000 (civilian agencies) typically require an approved small business subcontracting plan as a condition of award. ISS can support both first-tier and second-tier subcontracting plan commitments.
+    </div>
+
+    <!-- 2nd-tier notice -->
+    <div data-sc-tier-notice class="hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] px-5 py-4 text-sm text-[var(--color-ink-soft)]">
+      <strong class="text-[var(--color-ink)]">2nd-tier subcontract:</strong> Credit counting rules for 2nd-tier subs vary by agency and plan structure. The figures below show the full ISS engagement value as an estimate — confirm applicable credit with your contracting officer.
+    </div>
+
+    <!-- WOSB Goal -->
+    <div class="panel-static rounded-3xl border border-[var(--color-border)] p-6 md:p-8">
+      <h3 class="mb-5 font-display text-lg font-bold text-[var(--color-ink)]">WOSB Goal (5% of contract value)</h3>
+      <div class="grid gap-6 md:grid-cols-2">
+        <div>
+          <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">Before ISS</p>
+          <p class="mb-1 text-2xl font-bold text-[var(--color-ink)]" data-sc-out="wosbBefore">—</p>
+          <p class="mb-3 text-sm text-[var(--color-ink-soft)]">Goal required: <span data-sc-out="wosbRequired">—</span></p>
+          <div class="h-2.5 w-full overflow-hidden rounded-full bg-[var(--color-surface-muted)]">
+            <div class="h-full rounded-full bg-[var(--color-secondary)] transition-all duration-500" data-sc-bar="wosbBefore" style="width:0%"></div>
+          </div>
+          <p class="mt-1 text-xs text-[var(--color-ink-soft)]" data-sc-out="wosbBeforePct">—</p>
+        </div>
+        <div>
+          <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">With ISS</p>
+          <p class="mb-1 text-2xl font-bold text-[var(--color-ink)]" data-sc-out="wosbAfter">—</p>
+          <p class="mb-3 text-sm text-[var(--color-ink-soft)]">ISS contribution: <span class="text-[var(--color-secondary)]" data-sc-out="wosbContrib">—</span></p>
+          <div class="h-2.5 w-full overflow-hidden rounded-full bg-[var(--color-surface-muted)]">
+            <div class="h-full rounded-full bg-[var(--color-success)] transition-all duration-500" data-sc-bar="wosbAfter" style="width:0%"></div>
+          </div>
+          <p class="mt-1 text-xs font-semibold" data-sc-out="wosbAfterStatus">—</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SDVOSB Goal -->
+    <div class="panel-static rounded-3xl border border-[var(--color-border)] p-6 md:p-8">
+      <h3 class="mb-5 font-display text-lg font-bold text-[var(--color-ink)]">SDVOSB Goal (3% of contract value)</h3>
+      <div class="grid gap-6 md:grid-cols-2">
+        <div>
+          <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">Before ISS</p>
+          <p class="mb-1 text-2xl font-bold text-[var(--color-ink)]" data-sc-out="sdvosbBefore">—</p>
+          <p class="mb-3 text-sm text-[var(--color-ink-soft)]">Goal required: <span data-sc-out="sdvosbRequired">—</span></p>
+          <div class="h-2.5 w-full overflow-hidden rounded-full bg-[var(--color-surface-muted)]">
+            <div class="h-full rounded-full bg-[var(--color-secondary)] transition-all duration-500" data-sc-bar="sdvosbBefore" style="width:0%"></div>
+          </div>
+          <p class="mt-1 text-xs text-[var(--color-ink-soft)]" data-sc-out="sdvosbBeforePct">—</p>
+        </div>
+        <div>
+          <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">With ISS</p>
+          <p class="mb-1 text-2xl font-bold text-[var(--color-ink)]" data-sc-out="sdvosbAfter">—</p>
+          <p class="mb-3 text-sm text-[var(--color-ink-soft)]">ISS contribution: <span class="text-[var(--color-secondary)]" data-sc-out="sdvosbContrib">—</span></p>
+          <div class="h-2.5 w-full overflow-hidden rounded-full bg-[var(--color-surface-muted)]">
+            <div class="h-full rounded-full bg-[var(--color-success)] transition-all duration-500" data-sc-bar="sdvosbAfter" style="width:0%"></div>
+          </div>
+          <p class="mt-1 text-xs font-semibold" data-sc-out="sdvosbAfterStatus">—</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dual credit banner -->
+    <div class="rounded-3xl border-2 border-[var(--color-secondary)] bg-[var(--color-secondary)]/5 p-6 md:p-8">
+      <p class="mb-1 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-secondary)]">Dual Certification Advantage</p>
+      <p class="text-[var(--color-ink)]" data-sc-out="dualBanner">
+        ISS holds both WOSB and SDVOSB certifications. A single ISS engagement counts toward <strong>both</strong> goals simultaneously — not one or the other.
+      </p>
+    </div>
+
+    <!-- CTA -->
+    <div class="overflow-hidden rounded-3xl bg-[var(--color-ink)]">
+      <div class="px-8 py-10 text-center md:px-12 md:py-12">
+        <p class="mb-2 text-sm font-semibold uppercase tracking-[0.14em] text-white/60">Add ISS to your team</p>
+        <h3 class="mb-4 font-display text-2xl font-bold text-white md:text-3xl">
+          Discuss an ISS subcontract engagement
+        </h3>
+        <p class="mx-auto mb-8 max-w-lg text-base text-white/75">
+          ISS's dual WOSB + SDVOSB certification advances two SBA annual goals from a single engagement. Let's talk about how ISS fits your next contract.
+        </p>
+        <a
+          href={withBase('/partners')}
+          class="inline-flex rounded-full bg-[var(--color-secondary)] px-8 py-3.5 text-base font-semibold !text-white shadow-lg transition hover:bg-[var(--color-primary)] hover:shadow-xl"
+          data-track-event="tool_cta_click"
+          data-track-label="subcontract_calculator_partners"
+        >
+          Contact the ISS partnerships team →
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  function initSubcontractCalc() {
+    document.querySelectorAll('[data-subcontract-calc]').forEach(function (root) {
+      if (!(root instanceof HTMLElement)) return;
+
+      var inputs = {};
+      root.querySelectorAll('[data-sc-input]').forEach(function (el) {
+        inputs[el.getAttribute('data-sc-input')] = el;
+      });
+
+      function parseDollar(val) {
+        var n = parseFloat(String(val).replace(/[^0-9.]/g, ''));
+        return isNaN(n) ? 0 : n;
+      }
+
+      function fmtDollar(n) {
+        if (n >= 1000000) return '$' + (n / 1000000).toFixed(2).replace(/\.?0+$/, '') + 'M';
+        if (n >= 1000) return '$' + (n / 1000).toFixed(0) + 'K';
+        return '$' + n.toFixed(0);
+      }
+
+      function fmtPct(n) {
+        return Math.round(Math.min(n, 999)) + '%';
+      }
+
+      function barWidth(pct) {
+        return Math.min(Math.round(pct), 100) + '%';
+      }
+
+      function setOut(key, val) {
+        root.querySelectorAll('[data-sc-out="' + key + '"]').forEach(function (el) {
+          el.textContent = val;
+        });
+      }
+
+      function setBar(key, pct) {
+        root.querySelectorAll('[data-sc-bar="' + key + '"]').forEach(function (el) {
+          el.style.width = barWidth(pct);
+        });
+      }
+
+      function recalc() {
+        var contractValue = parseDollar(inputs.contractValue.value);
+        var subValue = parseDollar(inputs.subValue.value);
+        var issValue = parseDollar(inputs.issValue.value);
+        var currentWosb = parseDollar(inputs.currentWosb.value);
+        var currentSdvosb = parseDollar(inputs.currentSdvosb.value);
+        var tier = parseInt(inputs.tier.value, 10);
+
+        var results = root.querySelector('[data-sc-results]');
+        var errorDiv = root.querySelector('[data-sc-error]');
+        var errorMsg = root.querySelector('[data-sc-error-msg]');
+        var planNotice = root.querySelector('[data-sc-plan-notice]');
+        var tierNotice = root.querySelector('[data-sc-tier-notice]');
+
+        if (contractValue <= 0 || issValue <= 0) {
+          results.classList.add('hidden');
+          errorDiv.classList.add('hidden');
+          return;
+        }
+
+        // Validation checks
+        var validationError = null;
+        if (subValue > 0 && subValue > contractValue) {
+          validationError = 'The planned subcontract work value ($' + subValue.toLocaleString('en-US') + ') cannot exceed the total prime contract value ($' + contractValue.toLocaleString('en-US') + ').';
+        } else if (issValue > contractValue) {
+          validationError = 'The proposed ISS engagement value ($' + issValue.toLocaleString('en-US') + ') cannot exceed the total prime contract value ($' + contractValue.toLocaleString('en-US') + ').';
+        } else if (subValue > 0 && issValue > subValue) {
+          validationError = 'The proposed ISS engagement value ($' + issValue.toLocaleString('en-US') + ') cannot exceed the planned subcontract work value ($' + subValue.toLocaleString('en-US') + ').';
+        } else if (subValue > 0 && currentWosb > subValue) {
+          validationError = 'Current WOSB spend ($' + currentWosb.toLocaleString('en-US') + ') cannot exceed the planned subcontract work value ($' + subValue.toLocaleString('en-US') + ').';
+        } else if (subValue > 0 && currentSdvosb > subValue) {
+          validationError = 'Current SDVOSB spend ($' + currentSdvosb.toLocaleString('en-US') + ') cannot exceed the planned subcontract work value ($' + subValue.toLocaleString('en-US') + ').';
+        }
+
+        if (validationError) {
+          errorMsg.textContent = validationError;
+          errorDiv.classList.remove('hidden');
+          results.classList.add('hidden');
+          return;
+        }
+
+        errorDiv.classList.add('hidden');
+        results.classList.remove('hidden');
+
+        // Plan requirement notice
+        if (contractValue > 750000) {
+          planNotice.classList.remove('hidden');
+        } else {
+          planNotice.classList.add('hidden');
+        }
+
+        // Tier notice
+        if (tier === 2) {
+          tierNotice.classList.remove('hidden');
+        } else {
+          tierNotice.classList.add('hidden');
+        }
+
+        // SBA goals
+        var wosbGoal = contractValue * 0.05;
+        var sdvosbGoal = contractValue * 0.03;
+
+        // Before ISS
+        var wosbBeforePct = wosbGoal > 0 ? (currentWosb / wosbGoal) * 100 : 0;
+        var sdvosbBeforePct = sdvosbGoal > 0 ? (currentSdvosb / sdvosbGoal) * 100 : 0;
+
+        // After ISS (dual credit)
+        var wosbAfterAmt = currentWosb + issValue;
+        var sdvosbAfterAmt = currentSdvosb + issValue;
+        var wosbAfterPct = wosbGoal > 0 ? (wosbAfterAmt / wosbGoal) * 100 : 0;
+        var sdvosbAfterPct = sdvosbGoal > 0 ? (sdvosbAfterAmt / sdvosbGoal) * 100 : 0;
+
+        // WOSB
+        setOut('wosbBefore', fmtDollar(currentWosb));
+        setOut('wosbRequired', fmtDollar(wosbGoal));
+        setOut('wosbBeforePct', fmtPct(wosbBeforePct) + ' toward goal');
+        setBar('wosbBefore', wosbBeforePct);
+
+        setOut('wosbAfter', fmtDollar(wosbAfterAmt));
+        setOut('wosbContrib', '+' + fmtDollar(issValue));
+        setBar('wosbAfter', wosbAfterPct);
+        if (wosbAfterPct >= 100) {
+          setOut('wosbAfterStatus', fmtPct(wosbAfterPct) + ' — GOAL MET');
+          root.querySelectorAll('[data-sc-bar="wosbAfter"]').forEach(function (el) {
+            el.style.backgroundColor = 'var(--color-success)';
+          });
+          root.querySelectorAll('[data-sc-out="wosbAfterStatus"]').forEach(function (el) {
+            el.style.color = 'var(--color-success)';
+          });
+        } else {
+          setOut('wosbAfterStatus', fmtPct(wosbAfterPct) + ' toward goal · Shortfall: ' + fmtDollar(wosbGoal - wosbAfterAmt));
+          root.querySelectorAll('[data-sc-bar="wosbAfter"]').forEach(function (el) {
+            el.style.backgroundColor = 'var(--color-secondary)';
+          });
+          root.querySelectorAll('[data-sc-out="wosbAfterStatus"]').forEach(function (el) {
+            el.style.color = 'var(--color-ink-soft)';
+          });
+        }
+
+        // SDVOSB
+        setOut('sdvosbBefore', fmtDollar(currentSdvosb));
+        setOut('sdvosbRequired', fmtDollar(sdvosbGoal));
+        setOut('sdvosbBeforePct', fmtPct(sdvosbBeforePct) + ' toward goal');
+        setBar('sdvosbBefore', sdvosbBeforePct);
+
+        setOut('sdvosbAfter', fmtDollar(sdvosbAfterAmt));
+        setOut('sdvosbContrib', '+' + fmtDollar(issValue));
+        setBar('sdvosbAfter', sdvosbAfterPct);
+        if (sdvosbAfterPct >= 100) {
+          setOut('sdvosbAfterStatus', fmtPct(sdvosbAfterPct) + ' — GOAL MET');
+          root.querySelectorAll('[data-sc-bar="sdvosbAfter"]').forEach(function (el) {
+            el.style.backgroundColor = 'var(--color-success)';
+          });
+          root.querySelectorAll('[data-sc-out="sdvosbAfterStatus"]').forEach(function (el) {
+            el.style.color = 'var(--color-success)';
+          });
+        } else {
+          setOut('sdvosbAfterStatus', fmtPct(sdvosbAfterPct) + ' toward goal · Shortfall: ' + fmtDollar(sdvosbGoal - sdvosbAfterAmt));
+          root.querySelectorAll('[data-sc-bar="sdvosbAfter"]').forEach(function (el) {
+            el.style.backgroundColor = 'var(--color-secondary)';
+          });
+          root.querySelectorAll('[data-sc-out="sdvosbAfterStatus"]').forEach(function (el) {
+            el.style.color = 'var(--color-ink-soft)';
+          });
+        }
+
+        // Dual banner
+        setOut('dualBanner', 'ISS\u2019s ' + fmtDollar(issValue) + ' engagement counts toward both goals simultaneously \u2014 not one or the other. WOSB credit: ' + fmtDollar(issValue) + '. SDVOSB credit: ' + fmtDollar(issValue) + '.');
+      }
+
+      // Format dollar inputs with commas on blur
+      Object.keys(inputs).forEach(function (key) {
+        var el = inputs[key];
+        if (el.tagName !== 'INPUT') return;
+        el.addEventListener('input', recalc);
+        el.addEventListener('blur', function () {
+          var n = parseDollar(el.value);
+          if (n > 0) el.value = n.toLocaleString('en-US');
+        });
+      });
+
+      inputs.tier.addEventListener('change', recalc);
+    });
+  }
+
+  document.addEventListener('astro:page-load', initSubcontractCalc);
+</script>

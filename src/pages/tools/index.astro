@@ -1,0 +1,156 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/ui/Container.astro';
+import { withBase } from '@/lib/paths';
+import { buildBreadcrumbSchema, buildOrganizationSchema } from '@/lib/seo';
+---
+
+<BaseLayout
+  title="Procurement Tools & Calculators"
+  description="Free tools for federal contracting officers and prime contractors: Set-Aside Eligibility Checker, Subcontract Plan WOSB/SDVOSB Credit Calculator, and IT Modernization Readiness Assessment."
+  canonicalPath="/tools"
+  structuredData={[
+    buildOrganizationSchema(),
+    buildBreadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Tools & Calculators', path: '/tools' },
+    ]),
+  ]}
+>
+  <section class="section-space">
+    <Container>
+      <div class="mx-auto max-w-3xl text-center fade-up">
+        <h1 class="mb-5 font-display text-4xl font-bold text-[var(--color-ink)] md:text-5xl">
+          Tools built for federal buyers and prime contractors
+        </h1>
+        <p class="text-lg text-[var(--color-ink-soft)]">
+          Free, client-side tools — no account, no data collected. Use them before an RFP, during a subcontracting plan, or to benchmark program maturity.
+        </p>
+      </div>
+
+      <div class="mt-14 space-y-6">
+
+        <!-- Tool 1: Set-Aside Checker -->
+        <a
+          href={withBase('/tools/set-aside-checker')}
+          class="group flex overflow-hidden rounded-3xl border border-[var(--color-border)] bg-white shadow-sm transition hover:shadow-md hover:-translate-y-0.5 fade-up"
+          data-track-event="tool_card_click"
+          data-track-label="set_aside_checker"
+        >
+          <!-- Accent panel -->
+          <div class="flex w-40 shrink-0 flex-col items-center justify-center gap-3 bg-[var(--color-secondary)] px-6 py-8 md:w-52">
+            <span class="text-4xl text-white" aria-hidden="true">✓</span>
+            <span class="rounded-full bg-white/20 px-3 py-1 text-center text-xs font-semibold text-white">
+              Contracting Officers
+            </span>
+          </div>
+          <!-- Content -->
+          <div class="flex flex-1 flex-col justify-between gap-4 p-6 md:flex-row md:items-center md:p-8">
+            <div class="flex-1">
+              <p class="mb-1 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-secondary)]">Set-Aside Eligibility</p>
+              <h2 class="mb-2 font-display text-xl font-bold text-[var(--color-ink)] group-hover:text-[var(--color-primary)] transition md:text-2xl">
+                Set-Aside Eligibility Checker
+              </h2>
+              <p class="text-sm text-[var(--color-ink-soft)] md:text-base">
+                Select a NAICS code, awarding agency, and contract value. Instantly see ISS registration status, WOSB and SDVOSB eligibility, the VA Vets First mandate, and sole-source authority thresholds.
+              </p>
+              <ul class="mt-3 flex flex-wrap gap-2">
+                {['18 registered NAICS codes', 'All US federal agencies', 'Sole-source authority', 'VA Vets First'].map((tag) => (
+                  <li class="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-1 text-xs font-medium text-[var(--color-ink-soft)]">{tag}</li>
+                ))}
+              </ul>
+            </div>
+            <div class="shrink-0">
+              <span class="inline-flex items-center gap-2 rounded-full bg-[var(--color-secondary)] px-5 py-2.5 text-sm font-semibold !text-white shadow-sm transition group-hover:bg-[var(--color-primary)]">
+                Open tool →
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Tool 2: Subcontract Calculator -->
+        <a
+          href={withBase('/tools/subcontract-calculator')}
+          class="group flex overflow-hidden rounded-3xl border border-[var(--color-border)] bg-white shadow-sm transition hover:shadow-md hover:-translate-y-0.5 fade-up"
+          data-track-event="tool_card_click"
+          data-track-label="subcontract_calculator"
+        >
+          <!-- Accent panel -->
+          <div class="flex w-40 shrink-0 flex-col items-center justify-center gap-3 bg-[var(--color-accent)] px-6 py-8 md:w-52">
+            <span class="text-4xl text-white" aria-hidden="true">%</span>
+            <span class="rounded-full bg-white/20 px-3 py-1 text-center text-xs font-semibold text-white">
+              Prime Contractors
+            </span>
+          </div>
+          <!-- Content -->
+          <div class="flex flex-1 flex-col justify-between gap-4 p-6 md:flex-row md:items-center md:p-8">
+            <div class="flex-1">
+              <p class="mb-1 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-accent)]">Subcontracting Plan</p>
+              <h2 class="mb-2 font-display text-xl font-bold text-[var(--color-ink)] group-hover:text-[var(--color-primary)] transition md:text-2xl">
+                Subcontract Plan WOSB/SDVOSB Credit Calculator
+              </h2>
+              <p class="text-sm text-[var(--color-ink-soft)] md:text-base">
+                Enter your contract and subcontract values alongside current SB spend. See exactly how an ISS engagement advances your WOSB and SDVOSB annual goals — simultaneously, from a single vendor.
+              </p>
+              <ul class="mt-3 flex flex-wrap gap-2">
+                {['Live goal progress bars', 'Dual WOSB + SDVOSB credit', 'Sole-source thresholds', 'Validation built-in'].map((tag) => (
+                  <li class="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-1 text-xs font-medium text-[var(--color-ink-soft)]">{tag}</li>
+                ))}
+              </ul>
+            </div>
+            <div class="shrink-0">
+              <span class="inline-flex items-center gap-2 rounded-full bg-[var(--color-accent)] px-5 py-2.5 text-sm font-semibold !text-white shadow-sm transition group-hover:opacity-90">
+                Open calculator →
+              </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- Tool 3: Readiness Assessment -->
+        <a
+          href={withBase('/tools/assessment')}
+          class="group flex overflow-hidden rounded-3xl border border-[var(--color-border)] bg-white shadow-sm transition hover:shadow-md hover:-translate-y-0.5 fade-up"
+          data-track-event="tool_card_click"
+          data-track-label="readiness_assessment"
+        >
+          <!-- Accent panel -->
+          <div class="flex w-40 shrink-0 flex-col items-center justify-center gap-3 bg-[var(--color-ink)] px-6 py-8 md:w-52">
+            <span class="text-4xl text-white" aria-hidden="true">◎</span>
+            <span class="rounded-full bg-white/20 px-3 py-1 text-center text-xs font-semibold text-white">
+              Program Managers
+            </span>
+          </div>
+          <!-- Content -->
+          <div class="flex flex-1 flex-col justify-between gap-4 p-6 md:flex-row md:items-center md:p-8">
+            <div class="flex-1">
+              <p class="mb-1 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-ink-soft)]">Readiness Profile</p>
+              <h2 class="mb-2 font-display text-xl font-bold text-[var(--color-ink)] group-hover:text-[var(--color-primary)] transition md:text-2xl">
+                IT Modernization Readiness Assessment
+              </h2>
+              <p class="text-sm text-[var(--color-ink-soft)] md:text-base">
+                Eight steps covering sector, legacy systems, cloud adoption, data maturity, cybersecurity posture, requirements management, and geospatial capability. Results map to ISS capability areas with named past performance. Share via URL.
+              </p>
+              <ul class="mt-3 flex flex-wrap gap-2">
+                {['8-step guided wizard', 'Maps to ISS capabilities', 'Named past performance', 'URL-shareable results'].map((tag) => (
+                  <li class="rounded-full border border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-1 text-xs font-medium text-[var(--color-ink-soft)]">{tag}</li>
+                ))}
+              </ul>
+            </div>
+            <div class="shrink-0">
+              <span class="inline-flex items-center gap-2 rounded-full bg-[var(--color-ink)] px-5 py-2.5 text-sm font-semibold !text-white shadow-sm transition group-hover:opacity-80">
+                Take assessment →
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <div class="mt-12 rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-8 text-center fade-up">
+        <p class="mb-1 text-sm font-semibold text-[var(--color-ink-soft)]">All tools are client-side only</p>
+        <p class="text-sm text-[var(--color-ink-soft)]">
+          No data is transmitted, stored, or collected. Every calculation and result runs entirely in your browser. No login required.
+        </p>
+      </div>
+    </Container>
+  </section>
+</BaseLayout>

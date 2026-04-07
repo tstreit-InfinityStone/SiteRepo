@@ -1,0 +1,400 @@
+---
+import { capabilityStatementData } from '@/data/capability-statement';
+import { withBase } from '@/lib/paths';
+
+const { naicsWithDescriptions } = capabilityStatementData.registration;
+const uei = 'QMM4G5XMSMD7';
+const cage = '0B9Q0';
+---
+
+<div data-set-aside-checker>
+  <!-- Inputs -->
+  <div class="panel-static mb-6 rounded-3xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 md:p-8">
+    <h2 class="mb-6 font-display text-xl font-bold text-[var(--color-ink)]">Check your acquisition</h2>
+    <div class="grid gap-5 md:grid-cols-3">
+
+      <!-- NAICS — combobox (type or pick) -->
+      <div>
+        <label class="mb-1.5 block text-sm font-semibold text-[var(--color-ink)]" for="sa-naics-input">
+          NAICS Code
+        </label>
+        <input
+          id="sa-naics-input"
+          type="text"
+          inputmode="numeric"
+          maxlength="6"
+          placeholder="Type or search (e.g. 541512)"
+          autocomplete="off"
+          list="sa-naics-list"
+          class="w-full rounded-xl border border-[var(--color-border)] bg-white py-2.5 pl-4 pr-4 text-sm text-[var(--color-ink)] focus:border-[var(--color-primary)] focus:outline-none"
+          data-sa-input="naics"
+        />
+        <datalist id="sa-naics-list">
+          {naicsWithDescriptions.map((n) => (
+            <option value={n.code}>{n.code} — {n.description}</option>
+          ))}
+        </datalist>
+        <p class="mt-1 text-xs text-[var(--color-ink-soft)]">ISS has 18 registered codes. Any other code is checked for eligibility.</p>
+      </div>
+
+      <!-- Agency — full US federal agency list -->
+      <div>
+        <label class="mb-1.5 block text-sm font-semibold text-[var(--color-ink)]" for="sa-agency">
+          Awarding Agency
+        </label>
+        <select
+          id="sa-agency"
+          class="w-full rounded-xl border border-[var(--color-border)] bg-white py-2.5 pl-4 pr-4 text-sm text-[var(--color-ink)] focus:border-[var(--color-primary)] focus:outline-none"
+          data-sa-input="agency"
+        >
+          <option value="">— Select agency —</option>
+          <option value="va">★ Department of Veterans Affairs (VA)</option>
+          <optgroup label="Cabinet Departments">
+            <option value="other">Department of Agriculture (USDA)</option>
+            <option value="other">Department of Commerce</option>
+            <option value="dod">Department of Defense (DoD)</option>
+            <option value="other">Department of Education</option>
+            <option value="other">Department of Energy (DOE)</option>
+            <option value="other">Department of Health and Human Services (HHS)</option>
+            <option value="dhs">Department of Homeland Security (DHS)</option>
+            <option value="other">Department of Housing and Urban Development (HUD)</option>
+            <option value="doi">Department of the Interior (DOI)</option>
+            <option value="other">Department of Justice (DOJ)</option>
+            <option value="other">Department of Labor (DOL)</option>
+            <option value="other">Department of State</option>
+            <option value="other">Department of Transportation (DOT)</option>
+            <option value="other">Department of the Treasury</option>
+          </optgroup>
+          <optgroup label="DoD Components">
+            <option value="dod">U.S. Army</option>
+            <option value="dod">U.S. Navy</option>
+            <option value="dod">U.S. Air Force / Space Force</option>
+            <option value="dod">U.S. Marine Corps</option>
+            <option value="dod">Defense Information Systems Agency (DISA)</option>
+            <option value="dod">Defense Logistics Agency (DLA)</option>
+            <option value="dod">Defense Advanced Research Projects Agency (DARPA)</option>
+            <option value="dod">Missile Defense Agency (MDA)</option>
+            <option value="dod">National Geospatial-Intelligence Agency (NGA)</option>
+            <option value="dod">National Security Agency (NSA)</option>
+            <option value="dod">NAVWAR / SPAWAR</option>
+            <option value="dod">U.S. Special Operations Command (SOCOM)</option>
+          </optgroup>
+          <optgroup label="DHS Components">
+            <option value="dhs">U.S. Customs and Border Protection (CBP)</option>
+            <option value="dhs">U.S. Immigration and Customs Enforcement (ICE / HSI)</option>
+            <option value="dhs">Transportation Security Administration (TSA)</option>
+            <option value="dhs">U.S. Coast Guard</option>
+            <option value="dhs">U.S. Secret Service</option>
+            <option value="dhs">Federal Emergency Management Agency (FEMA)</option>
+            <option value="dhs">Cybersecurity and Infrastructure Security Agency (CISA)</option>
+          </optgroup>
+          <optgroup label="HHS Components">
+            <option value="other">Centers for Disease Control and Prevention (CDC)</option>
+            <option value="other">Centers for Medicare & Medicaid Services (CMS)</option>
+            <option value="other">Food and Drug Administration (FDA)</option>
+            <option value="other">National Institutes of Health (NIH)</option>
+            <option value="other">Indian Health Service (IHS)</option>
+            <option value="other">SAMHSA</option>
+            <option value="other">Health Resources and Services Administration (HRSA)</option>
+          </optgroup>
+          <optgroup label="DOI Components">
+            <option value="doi">Bureau of Land Management (BLM)</option>
+            <option value="doi">U.S. Geological Survey (USGS)</option>
+            <option value="doi">National Park Service (NPS)</option>
+            <option value="doi">Bureau of Indian Affairs (BIA)</option>
+            <option value="doi">Bureau of Reclamation</option>
+            <option value="doi">U.S. Fish and Wildlife Service</option>
+          </optgroup>
+          <optgroup label="DOJ Components">
+            <option value="other">Federal Bureau of Investigation (FBI)</option>
+            <option value="other">Drug Enforcement Administration (DEA)</option>
+            <option value="other">Bureau of Alcohol, Tobacco, Firearms and Explosives (ATF)</option>
+            <option value="other">Bureau of Prisons (BOP)</option>
+            <option value="other">U.S. Marshals Service (USMS)</option>
+          </optgroup>
+          <optgroup label="USDA Components">
+            <option value="other">U.S. Forest Service</option>
+            <option value="other">Natural Resources Conservation Service (NRCS)</option>
+            <option value="other">Food Safety and Inspection Service (FSIS)</option>
+            <option value="other">Agricultural Research Service (ARS)</option>
+          </optgroup>
+          <optgroup label="Commerce Components">
+            <option value="other">National Oceanic and Atmospheric Administration (NOAA)</option>
+            <option value="other">National Institute of Standards and Technology (NIST)</option>
+            <option value="other">Census Bureau</option>
+            <option value="other">Bureau of Industry and Security (BIS)</option>
+          </optgroup>
+          <optgroup label="DOT Components">
+            <option value="other">Federal Aviation Administration (FAA)</option>
+            <option value="other">Federal Highway Administration (FHWA)</option>
+            <option value="other">Federal Transit Administration (FTA)</option>
+            <option value="other">National Highway Traffic Safety Administration (NHTSA)</option>
+          </optgroup>
+          <optgroup label="Treasury Components">
+            <option value="other">Internal Revenue Service (IRS)</option>
+            <option value="other">Office of the Comptroller of the Currency (OCC)</option>
+            <option value="other">Financial Crimes Enforcement Network (FinCEN)</option>
+          </optgroup>
+          <optgroup label="Independent Agencies">
+            <option value="other">Environmental Protection Agency (EPA)</option>
+            <option value="other">General Services Administration (GSA)</option>
+            <option value="other">National Aeronautics and Space Administration (NASA)</option>
+            <option value="other">National Science Foundation (NSF)</option>
+            <option value="other">Office of Personnel Management (OPM)</option>
+            <option value="other">Small Business Administration (SBA)</option>
+            <option value="other">Social Security Administration (SSA)</option>
+            <option value="other">Nuclear Regulatory Commission (NRC)</option>
+            <option value="other">U.S. Agency for International Development (USAID)</option>
+            <option value="other">Federal Trade Commission (FTC)</option>
+            <option value="other">Securities and Exchange Commission (SEC)</option>
+            <option value="other">Federal Communications Commission (FCC)</option>
+            <option value="other">National Labor Relations Board (NLRB)</option>
+            <option value="other">U.S. Postal Service (USPS)</option>
+          </optgroup>
+        </select>
+      </div>
+
+      <!-- Contract Value -->
+      <div>
+        <label class="mb-1.5 block text-sm font-semibold text-[var(--color-ink)]" for="sa-value">
+          Estimated Contract Value
+        </label>
+        <select
+          id="sa-value"
+          class="w-full rounded-xl border border-[var(--color-border)] bg-white py-2.5 pl-4 pr-4 text-sm text-[var(--color-ink)] focus:border-[var(--color-primary)] focus:outline-none"
+          data-sa-input="value"
+        >
+          <option value="">— Select range —</option>
+          <option value="micro">Under $10,000 (micro-purchase)</option>
+          <option value="simplified">$10,000 – $250,000 (simplified acquisition)</option>
+          <option value="mid">$250,000 – $4.5M</option>
+          <option value="upper">$4.5M – $7M</option>
+          <option value="large">Over $7M</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results area -->
+  <div data-sa-results class="hidden space-y-4">
+
+    <!-- Card 1: ISS Registration Status -->
+    <div data-sa-card="registration" class="rounded-2xl border p-5 hidden">
+      <p class="mb-1 text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">ISS Registration Status</p>
+      <p class="font-semibold text-[var(--color-ink)]" data-sa-out="regStatus"></p>
+      <p class="mt-1 text-sm text-[var(--color-ink-soft)]" data-sa-out="regDetail"></p>
+      <p class="mt-2 text-xs text-[var(--color-ink-soft)]">
+        UEI: {uei} · CAGE: {cage} · SAM profile active
+      </p>
+    </div>
+
+    <!-- Card 2: WOSB Set-Aside -->
+    <div data-sa-card="wosb" class="rounded-2xl border p-5 hidden">
+      <p class="mb-1 text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">WOSB Set-Aside</p>
+      <p class="font-semibold text-[var(--color-ink)]" data-sa-out="wosbStatus"></p>
+      <p class="mt-1 text-sm text-[var(--color-ink-soft)]" data-sa-out="wosbDetail"></p>
+    </div>
+
+    <!-- Card 3: SDVOSB Set-Aside -->
+    <div data-sa-card="sdvosb" class="rounded-2xl border p-5 hidden">
+      <p class="mb-1 text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">SDVOSB Set-Aside</p>
+      <p class="font-semibold text-[var(--color-ink)]" data-sa-out="sdvosbStatus"></p>
+      <p class="mt-1 text-sm text-[var(--color-ink-soft)]" data-sa-out="sdvosbDetail"></p>
+    </div>
+
+    <!-- Card 4: Sole-Source Authority (shown when value < $4.5M) — before dual cert -->
+    <div data-sa-card="solesource" class="hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
+      <p class="mb-1 text-xs font-semibold uppercase tracking-wide text-[var(--color-ink-soft)]">Sole-Source Authority</p>
+      <p class="font-semibold text-[var(--color-ink)]" data-sa-out="ssStatus"></p>
+      <p class="mt-1 text-sm text-[var(--color-ink-soft)]">
+        At this contract value, ISS may be engaged via sole-source award under either the WOSB or SDVOSB program without competitive solicitation, provided the contracting officer determines ISS is capable and the price is fair and reasonable.
+      </p>
+    </div>
+
+    <!-- Card 5: Dual Certification (shown when both apply) -->
+    <div data-sa-card="dual" class="hidden rounded-2xl border-2 border-[var(--color-secondary)] bg-[var(--color-secondary)]/5 p-5">
+      <p class="mb-1 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-secondary)]">Dual Certification Advantage</p>
+      <p class="font-semibold text-[var(--color-ink)]">ISS satisfies two SBA annual goals from a single engagement.</p>
+      <p class="mt-1 text-sm text-[var(--color-ink-soft)]">
+        ISS holds both WOSB and SDVOSB certifications — a rare combination. Awarding to ISS provides credit toward the mandatory 5% WOSB goal <em>and</em> the mandatory 3% SDVOSB goal simultaneously.
+      </p>
+    </div>
+
+    <!-- CTA -->
+    <div class="overflow-hidden rounded-3xl bg-[var(--color-ink)]">
+      <div class="px-8 py-10 text-center md:px-12 md:py-12">
+        <p class="mb-2 text-sm font-semibold uppercase tracking-[0.14em] text-white/60">Ready to move forward?</p>
+        <h3 class="mb-4 font-display text-2xl font-bold text-white md:text-3xl">
+          Ready to discuss your requirement? Contact ISS.
+        </h3>
+        <p class="mx-auto mb-8 max-w-lg text-base text-white/75">
+          ISS is procurement-ready with active SAM registration, dual WOSB + SDVOSB certifications, and named past performance across defense, intelligence, and civilian programs.
+        </p>
+        <a
+          href={withBase('/contact')}
+          class="inline-flex rounded-full bg-[var(--color-secondary)] px-8 py-3.5 text-base font-semibold !text-white shadow-lg transition hover:bg-[var(--color-primary)] hover:shadow-xl"
+          data-track-event="tool_cta_click"
+          data-track-label="set_aside_checker_contact"
+        >
+          Contact ISS →
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var ISS_NAICS = [
+      '541512','541511','541519','541513','541330',
+      '541360','541370','541618','541613','541620',
+      '541690','541910','518210','561499','561611',
+      '561920','611420','611430'
+    ];
+
+    var NAICS_LABELS = {
+      '541512': 'Computer Systems Design Services',
+      '541511': 'Custom Computer Programming Services',
+      '541519': 'Other Computer Related Services',
+      '541513': 'Computer Facilities Management Services',
+      '541330': 'Engineering Services',
+      '541360': 'Geophysical Surveying and Mapping Services',
+      '541370': 'Surveying and Mapping Services',
+      '541618': 'Other Management Consulting Services',
+      '541613': 'Marketing Consulting Services',
+      '541620': 'Environmental Consulting Services',
+      '541690': 'Other Scientific and Technical Consulting Services',
+      '541910': 'Marketing Research and Public Opinion Polling',
+      '518210': 'Data Processing, Hosting, and Related Services',
+      '561499': 'All Other Business Support Services',
+      '561611': 'Investigation Services',
+      '561920': 'Convention and Trade Show Organizers',
+      '611420': 'Computer Training',
+      '611430': 'Professional and Management Development Training'
+    };
+
+    function initSetAsideChecker() {
+      document.querySelectorAll('[data-set-aside-checker]').forEach(function (root) {
+        if (!(root instanceof HTMLElement)) return;
+
+        var inpNaics = root.querySelector('[data-sa-input="naics"]');
+        var selAgency = root.querySelector('[data-sa-input="agency"]');
+        var selValue = root.querySelector('[data-sa-input="value"]');
+        var resultsDiv = root.querySelector('[data-sa-results]');
+
+        function getActiveNaics() {
+          // Extract just the 6-digit code from whatever the user typed or selected
+          var raw = inpNaics.value.trim();
+          // If user selected a datalist option like "541512 — Computer Systems Design Services"
+          // we need just the numeric part
+          var match = raw.match(/^\d{6}/);
+          return match ? match[0] : raw;
+        }
+
+        function setOut(key, val) {
+          root.querySelectorAll('[data-sa-out="' + key + '"]').forEach(function (el) {
+            el.textContent = val;
+          });
+        }
+
+        function showCard(name, show) {
+          var card = root.querySelector('[data-sa-card="' + name + '"]');
+          if (!card) return;
+          card.classList.toggle('hidden', !show);
+        }
+
+        function styleCard(name, type) {
+          var card = root.querySelector('[data-sa-card="' + name + '"]');
+          if (!card) return;
+          card.classList.remove(
+            'border-green-300', 'bg-green-50',
+            'border-red-300', 'bg-red-50',
+            'border-[var(--color-border)]', 'bg-white'
+          );
+          if (type === 'success') {
+            card.classList.add('border-green-300', 'bg-green-50');
+          } else if (type === 'warn') {
+            card.classList.add('border-red-300', 'bg-red-50');
+          } else {
+            card.classList.add('border-[var(--color-border)]', 'bg-white');
+          }
+        }
+
+        function update() {
+          var naics = getActiveNaics();
+          var agency = selAgency.value;
+          var value = selValue.value;
+
+          // Need at least a 6-digit code (or any typed value), agency, and value
+          if (!naics || naics.length < 4 || !agency || !value) {
+            resultsDiv.classList.add('hidden');
+            return;
+          }
+
+          resultsDiv.classList.remove('hidden');
+
+          var isRegistered = ISS_NAICS.indexOf(naics) !== -1;
+          var naicsLabel = NAICS_LABELS[naics] || ('NAICS ' + naics);
+          var isSoleSourcable = (value === 'micro' || value === 'simplified' || value === 'mid');
+          var isVA = agency === 'va';
+          var wosbApplies = isRegistered;
+
+          // Card 1 — Registration
+          showCard('registration', true);
+          if (isRegistered) {
+            styleCard('registration', 'success');
+            setOut('regStatus', '\u2713 ISS is registered under NAICS ' + naics + ' (' + naicsLabel + ')');
+            setOut('regDetail', 'ISS holds active SAM registration for this NAICS code and is procurement-ready for federal work under this classification.');
+          } else {
+            styleCard('registration', 'warn');
+            setOut('regStatus', '\u2717 NAICS ' + naics + ' is outside ISS\u2019s current registrations.');
+            setOut('regDetail', 'ISS\u2019s registered codes cover computer systems design, custom programming, engineering, geospatial, data processing, IT management, and related consulting services. Contact ISS to discuss whether the work scope aligns with a registered code.');
+          }
+
+          // Card 2 — WOSB
+          showCard('wosb', true);
+          if (wosbApplies) {
+            styleCard('wosb', 'success');
+            setOut('wosbStatus', '\u2713 A WOSB set-aside is available for this acquisition.');
+            setOut('wosbDetail', 'NAICS ' + naics + ' falls within ISS\u2019s registrations under the SBA WOSB Federal Contract Program. A contracting officer may restrict competition to eligible WOSB firms, helping your agency meet the mandatory 5% WOSB annual goal. Sole-source authority available up to $4.5M.');
+          } else {
+            styleCard('wosb', 'neutral');
+            setOut('wosbStatus', 'WOSB set-aside eligibility depends on NAICS registration.');
+            setOut('wosbDetail', 'ISS holds WOSB certification. Contact ISS to determine whether this acquisition\u2019s scope aligns with a registered NAICS code where a WOSB set-aside would apply.');
+          }
+
+          // Card 3 — SDVOSB
+          showCard('sdvosb', true);
+          styleCard('sdvosb', 'success');
+          setOut('sdvosbStatus', '\u2713 An SDVOSB set-aside is available for this acquisition.');
+          if (isVA) {
+            setOut('sdvosbDetail', 'The VA\u2019s Vets First program legally requires SDVOSB/VOSB consideration before any other procurement method \u2014 including open competition. ISS qualifies as a verified SDVOSB. This is a mandatory pre-step, not optional. SDVOSB sole-source authority available up to $4.5M.');
+          } else {
+            setOut('sdvosbDetail', 'SDVOSB set-aside is available at any dollar value and any NAICS code. Competitive set-asides help your agency meet the mandatory 3% SDVOSB annual goal. SDVOSB sole-source authority available up to $4.5M without competitive solicitation.');
+          }
+
+          // Card 4 — Sole-Source (before dual cert)
+          showCard('solesource', isSoleSourcable);
+          if (isSoleSourcable) {
+            var valueLabel = {
+              micro: 'Under $10,000',
+              simplified: '$10,000\u2013$250,000',
+              mid: '$250,000\u2013$4.5M'
+            }[value] || '';
+            setOut('ssStatus', 'At ' + valueLabel + ', ISS may be sole-sourced under the WOSB or SDVOSB program.');
+          }
+
+          // Card 5 — Dual cert
+          showCard('dual', isRegistered);
+        }
+
+        inpNaics.addEventListener('input', update);
+        inpNaics.addEventListener('change', update); // fires when datalist option selected
+        selAgency.addEventListener('change', update);
+        selValue.addEventListener('change', update);
+      });
+    }
+
+    document.addEventListener('astro:page-load', initSetAsideChecker);
+  })();
+</script>

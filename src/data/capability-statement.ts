@@ -95,6 +95,7 @@ export const capabilityStatementData: CapabilityStatementData = {
     'Proven innovation track record, including patented technology, early adoption of mobile apps, and AI-enabled analytics',
     'Multi-sector expertise spanning defense, intelligence, law enforcement, energy, healthcare, and public sector modernization',
     'Compliance-focused delivery aligned with NIST, FedRAMP, ITIL, and federal security standards',
+    'Actively pursuing CMMC Level 2 certification',
     'Veteran-led and mission-aligned with the Department of Veterans Affairs\' goals for service, modernization, and accountability',
   ],
 

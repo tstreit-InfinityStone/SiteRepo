@@ -7,21 +7,43 @@ import SectionHeading from '@/components/ui/SectionHeading.astro';
 
 interface Props {
   capabilities: CollectionEntry<'capabilities'>[];
+  title?: string;
+  description?: string;
+  sectionClass?: string;
 }
 
-const { capabilities } = Astro.props;
+const {
+  capabilities,
+  title = 'Diverse capabilities',
+  description,
+  sectionClass = 'section-space',
+} = Astro.props;
 ---
 
-<section class="section-space">
+<section class={sectionClass}>
   <Container className="space-y-10">
     <SectionHeading
-      title="Diverse capabilities"
+      title={title}
+      description={description}
     />
 
-    <div class="section-grid stagger-children">
+    <div class="section-grid items-start stagger-children">
       {capabilities.map((capability) => (
         <CapabilityCard capability={capability} />
       ))}
     </div>
   </Container>
 </section>
+
+<script is:inline>
+  document.addEventListener('astro:page-load', function () {
+    document.querySelectorAll('.section-grid').forEach(function (grid) {
+      var cards = grid.querySelectorAll('[data-accordion-card]');
+      if (cards.length < 2) return;
+      cards.forEach(function (card) { card.style.minHeight = ''; });
+      var maxH = 0;
+      cards.forEach(function (card) { maxH = Math.max(maxH, card.offsetHeight); });
+      cards.forEach(function (card) { card.style.minHeight = maxH + 'px'; });
+    });
+  });
+</script>

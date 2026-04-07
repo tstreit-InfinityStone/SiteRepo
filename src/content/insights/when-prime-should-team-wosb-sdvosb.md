@@ -1,7 +1,7 @@
 ---
 title: "When a Prime Should Team With a WOSB or SDVOSB IT Firm"
 description: "A strategic guide for prime contractors on when teaming with a Women-Owned or Service-Disabled Veteran-Owned Small Business creates competitive advantage — covering set-aside access, subcontracting compliance, Mentor-Protégé mechanics, and real-world IT teaming patterns."
-publishDate: 2026-03-21
+publishDate: 2026-01-28
 draft: false
 ---
 
@@ -52,7 +52,7 @@ Failure to make a good-faith effort to meet these goals can result in:
 - **Negative past performance ratings** in CPARS
 - **Reduced competitiveness** on future bids where small business participation is an evaluation factor
 
-A prime that is consistently missing its WOSB or SDVOSB subcontracting targets has a concrete financial incentive to team with certified firms.
+A prime that is consistently missing its WOSB or SDVOSB subcontracting targets has a concrete financial incentive to team with certified firms. A dual-certified partner — one holding both WOSB and SDVOSB — is especially efficient here, since subcontract dollars to that firm count toward both plan categories simultaneously.
 
 ### 4. Sole-Source Opportunities Under $4.5M
 
@@ -142,7 +142,7 @@ Teaming with a WOSB/SDVOSB firm is not always the right strategy. Consider compe
 
 5. **Organizational conflict of interest** — if the prime is performing SETA/advisory work on the same program, teaming to compete for implementation work creates OCI issues regardless of the teaming structure
 
-6. **No capable WOSB/SDVOSB partner exists** in the technical domain — teaming for compliance without genuine technical contribution creates performance risk
+6. **No capable WOSB/SDVOSB partner exists** in the technical domain — teaming for compliance without genuine technical contribution creates performance risk. The best partners bring multi-domain capability and leadership with hands-on contract delivery experience, not just certification status
 
 ## How to Structure the Teaming Agreement
 
@@ -181,6 +181,10 @@ Under cloud-specific BPAs and task orders on OASIS SB or Alliant 2 SB, the WOSB/
 
 The Technology Modernization Fund, FITARA scorecard pressures, and agency CIO mandates drive significant application modernization spending through set-aside vehicles. WOSB/SDVOSB firms provide agile development teams and DevSecOps capability; large primes contribute systems engineering, testing, and ATO support.
 
+### Data Analytics and Geospatial
+
+Agencies with geospatial, intelligence analysis, or data visualization requirements increasingly route this work through set-aside vehicles. WOSB/SDVOSB firms with platform expertise in tools like Palantir, ArcGIS, or Tableau provide the analytical capability; large primes contribute data engineering infrastructure, enterprise integration, and security architecture. This domain rewards firms that combine analytics expertise with broader IT delivery capability — cloud, cybersecurity, and program support — under one team.
+
 ### Help Desk and End-User Services
 
 Staff-intensive contracts that fit within WOSB/SDVOSB-eligible NAICS codes. The 50% personnel cost limitation is critical here — the small business must ensure its employees perform the majority of the labor. These contracts are often LPTA, which compresses margins and makes workshare allocation financially challenging.
@@ -199,6 +203,7 @@ Staff-intensive contracts that fit within WOSB/SDVOSB-eligible NAICS codes. The 
 - Team when the agency is behind on socioeconomic goals, when the vehicle has small business pools, or when sole-source authority under $4.5M creates an alternative acquisition path
 - The Mentor-Protégé program's affiliation waiver lets a large prime and small protégé compete as small through a joint venture — the most powerful teaming structure available
 - Limitations on subcontracting require the small business to perform at least 50% of personnel cost; the similarly situated entity exception allows WOSB-to-WOSB or SDVOSB-to-SDVOSB subcontracting to count
+- Dual-certified partners (WOSB + SDVOSB) maximize subcontracting plan credit by satisfying two socioeconomic categories from a single relationship
 - Do not team when the arrangement would make the WOSB/SDVOSB a pass-through — the ostensible subcontractor rule creates real disqualification risk
 - Structure the teaming agreement to address workshare, IP, past performance credit, and compliance obligations before the proposal is due
-- The strongest teaming arrangements pair the large prime's infrastructure and scale with the small firm's set-aside eligibility and genuine technical capability
+- The strongest teaming arrangements pair the large prime's infrastructure and scale with a small firm that brings genuine multi-domain delivery capability, verifiable credentials, and set-aside eligibility — not certification alone

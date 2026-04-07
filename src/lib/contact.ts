@@ -41,22 +41,22 @@ export async function verifyTurnstileToken(token: string | undefined) {
     return { ok: false, skipped: false };
   }
 
-  const response = await fetch(turnstileVerifyUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: new URLSearchParams({
-      secret,
-      response: token,
-    }),
-  });
-
-  const result = await response.json() as { success?: boolean };
-  return {
-    ok: Boolean(result.success),
-    skipped: false,
-  };
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
+  try {
+    const response = await fetch(turnstileVerifyUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ secret, response: token }),
+      signal: controller.signal,
+    });
+    clearTimeout(timeout);
+    const result = await response.json() as { success?: boolean };
+    return { ok: Boolean(result.success), skipped: false };
+  } catch {
+    clearTimeout(timeout);
+    return { ok: false, skipped: false };
+  }
 }
 
 export async function sendInquiryEmail(input: InquiryInput) {
@@ -202,7 +202,7 @@ export async function sendCareersEmail(input: CareersInput) {
   }
 }
 
-function escapeHtml(value: string) {
+export function escapeHtml(value: string) {
   return value
     .replaceAll('&', '&amp;')
     .replaceAll('<', '&lt;')

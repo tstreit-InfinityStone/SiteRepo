@@ -1,7 +1,7 @@
 ---
 title: "How to Find Qualified Small IT Subcontractors for Federal Programs"
 description: "A practical guide for prime contractors on where to find, how to vet, and how to manage small IT subcontractors for federal work — covering subcontracting plan compliance, reporting requirements, and the good faith effort standard."
-publishDate: 2026-03-19
+publishDate: 2025-12-31
 draft: false
 ---
 
@@ -34,7 +34,7 @@ The SBA grades each agency annually on small business goal achievement. Agencies
 
 ### Technical Capability
 
-Small IT firms frequently hold niche capabilities in cybersecurity, cloud-native development, AI/ML, data analytics, and specialized platform administration that complement a prime's broader program management infrastructure. Subcontracting provides access to this expertise without maintaining bench staff year-round.
+Small IT firms frequently hold niche capabilities in cybersecurity, cloud-native development, AI/ML, data analytics, geospatial platforms, and specialized platform administration that complement a prime's broader program management infrastructure. Firms that span multiple domains — cloud, cybersecurity, analytics, and program support under one team — are particularly valuable because they reduce the integration risk and vendor management overhead of engaging separate single-capability subcontractors. Subcontracting provides access to this expertise without maintaining bench staff year-round.
 
 ### Cleared Personnel Access
 
@@ -89,6 +89,7 @@ The capability statement is the standard document small businesses use to introd
 - **No prime contract experience** — while subcontracting experience is valid, a firm with no prime delivery history may lack contract administration maturity
 - **Expired certifications or lapsed SAM registration** — indicates the firm is not actively managing its federal compliance posture
 - **Generic language** — capability statements that could describe any IT company signal that the firm has not defined its differentiation
+- **No evidence of leadership delivery experience** — the strongest small IT firms are led by principals who have personally executed on contracts similar to the ones they bid, not just managed business development. A capability statement that names only corporate credentials without connecting them to the people who delivered the work is less credible
 
 ### Reference Checks
 
@@ -229,6 +230,7 @@ The most effective primes treat small business subcontracting as an ongoing capa
 - **Provide formal performance feedback** — under 13 CFR 125.11, primes are required to provide past performance ratings to first-tier small business subs within **15 days** of request, using the standard five-tier CPARS scale
 - **Help subs build past performance** by assigning meaningful, independently identifiable scope rather than generic staff augmentation roles
 - **Consider the Mentor-Protégé program** for high-potential small business partners — the developmental relationship builds a more capable, more loyal teaming partner
+- **Prioritize dual-certified subcontractors** — a subcontractor holding both WOSB and SDVOSB certifications allows the prime to count the same subcontract dollars toward two separate subcontracting plan categories, which is a significant compliance efficiency when managing multiple socioeconomic targets
 - **Share contract intelligence** — when you see upcoming requirements that fit a sub's capabilities, alert them early so they can prepare
 
 ## Key Takeaways
@@ -239,4 +241,5 @@ The most effective primes treat small business subcontracting as an ongoing capa
 - Flow down FAR 52.219-8 and FAR 52.219-9 as required; pay within 7 days of receiving government payment
 - Subcontracting reporting has moved from eSRS to SAM.gov as of February 2026
 - The good faith standard evaluates the totality of your actions — missing a goal is not a violation, but failing to try is
-- The strongest subcontracting programs build long-term pipelines of qualified small IT firms, not one-off compliance arrangements
+- Dual-certified subcontractors (e.g., both WOSB and SDVOSB) let the prime count one relationship toward multiple subcontracting plan goals — a significant efficiency for firms managing several socioeconomic targets
+- The strongest subcontracting programs build long-term pipelines of qualified small IT firms with multi-domain capability and accountable staffing — not one-off compliance arrangements with single-niche vendors

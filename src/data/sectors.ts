@@ -83,7 +83,7 @@ export const sectors: SectorEntry[] = [
     title: 'Regulated Infrastructure & Energy',
     summary:
       'When private-sector organizations face the same security, continuity, and compliance pressures as government programs, ISS brings public-sector-aligned delivery discipline to their environment.',
-    agencies: ['Natural gas & electric utilities', 'Pipeline operators', 'Water infrastructure', 'Healthcare systems', 'Financial services'],
+    agencies: ['Natural gas & electric utilities', 'Pipeline operators', 'Water infrastructure', 'Financial services'],
     buyerConcerns: [
       'Service desk modernization across distributed corporate and field locations with tight SLAs',
       'Infrastructure migrations and server upgrades without taking operations offline',
@@ -95,5 +95,24 @@ export const sectors: SectorEntry[] = [
       'digital-experience-and-custom-solutions',
     ],
     proofReferences: ['cloud-modernization', 'named-past-performance'],
+  },
+  {
+    id: 'federal-healthcare',
+    icon: '🏥',
+    title: 'Federal Healthcare & Life Sciences',
+    summary:
+      'ISS supports healthcare agencies modernizing clinical systems, health data platforms, and interoperability infrastructure — bringing the same compliance-first delivery discipline that federal programs require.',
+    agencies: ['Department of Veterans Affairs', 'HHS', 'Indian Health Service', 'SAMHSA', 'CDC'],
+    buyerConcerns: [
+      'EHR modernization and health data interoperability across distributed facilities',
+      'HIPAA-compliant cloud migration and infrastructure hardening',
+      'Analytics and reporting platforms for clinical and operational outcomes',
+    ],
+    relevantCapabilities: [
+      'enterprise-it-modernization',
+      'cloud-and-infrastructure',
+      'ai-data-and-geospatial-intelligence',
+    ],
+    proofReferences: ['government-delivery', 'cloud-modernization'],
   },
 ];

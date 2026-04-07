@@ -2,6 +2,8 @@ export type NavigationItem = {
   label: string;
   href: string;
   description?: string;
+  indent?: boolean;
+  children?: NavigationItem[];
 };
 
 export type BrandConfig = {

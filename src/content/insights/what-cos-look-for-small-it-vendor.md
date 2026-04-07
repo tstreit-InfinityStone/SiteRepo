@@ -1,7 +1,7 @@
 ---
 title: "What Contracting Officers Look for in a Small IT Vendor"
 description: "An inside look at how federal contracting officers evaluate small IT firms — from responsibility determinations and CPARS ratings to security compliance and financial capacity — so vendors can position themselves to win."
-publishDate: 2026-03-23
+publishDate: 2026-02-25
 draft: false
 ---
 
@@ -105,6 +105,8 @@ Common evaluation factors for IT contracts:
 | **Past performance** | 20–30% | Relevancy, recency, quality of prior work on similar contracts |
 | **Price / cost** | 15–25% | Reasonableness, realism, completeness — not just lowest number |
 
+For complex IT requirements spanning cybersecurity, cloud, analytics, geospatial, or program support, COs increasingly value firms that can deliver across multiple domains under one team — reducing vendor management overhead and integration risk compared to assembling separate single-capability vendors.
+
 FAR 15.304(e) requires the solicitation to disclose the relative importance. For complex IT services, technical and past performance combined are typically **significantly more important** than price.
 
 ## Security and Compliance: The Threshold Gates
@@ -142,6 +144,8 @@ COs evaluate hundreds of proposals. The firms that stand out share common charac
 - **Active security clearances** already in place — facility and personnel
 - **Clean CPARS history** with Satisfactory or better ratings
 - **SPRS score at or near 110** with a credible POA&M for any gaps
+- **Multi-domain delivery capability** — firms that can handle cloud, cybersecurity, analytics, and program support under one team reduce vendor management complexity for the CO
+- **Leadership with hands-on delivery experience** — principals who have personally executed on similar contracts, not just managed business development, make more credible offerors
 - **Responsive, professional engagement** during the pre-award process — attending industry days, asking informed questions, submitting complete and on-time responses
 
 ## What Makes a CO Hesitant
@@ -186,6 +190,8 @@ Understanding the CO's evaluation lens allows small IT firms to position themsel
 - **Keep SAM.gov registration current** and accurate — an expired registration at proposal time is an unforced error
 - **Post your SPRS score** before pursuing DoD work; begin CMMC preparation early
 - **Name your people** — proposals with specific, committed key personnel score higher than those with placeholders
+- **Demonstrate personnel accountability** — show that your firm directly manages and retains its key personnel, with continuity plans for the performance period
+- **Leverage dual certifications** — if your firm holds both WOSB and SDVOSB (or other dual certifications), make that visible in your capability statement and proposal; it gives COs more acquisition flexibility and helps the agency satisfy multiple scorecard goals from a single award
 - **Write to the evaluation criteria** — every sentence in your proposal should map to a factor in Section M
 - **Engage early** — attend industry days, respond to RFIs, meet with the OSDBU, and ask informed questions that demonstrate domain understanding
 
@@ -196,4 +202,5 @@ Understanding the CO's evaluation lens allows small IT firms to position themsel
 - Best-value tradeoff evaluations favor small IT firms with deep technical expertise and relevant past performance over lowest-price competitors
 - Security compliance (NIST 800-171, CMMC, facility clearances) is increasingly a threshold gate, not a scored differentiator
 - The SBA's Certificate of Competency process protects small businesses from non-responsibility determinations — know your rights
-- COs gain confidence from specificity: named personnel, named clients, named platforms, and realistic plans backed by verifiable evidence
+- Dual-certified firms (e.g., both WOSB and SDVOSB) give COs more set-aside options and help agencies meet multiple scorecard goals from a single award
+- COs gain confidence from specificity: named personnel, named clients, named platforms, verifiable credentials, accountable staffing, and leadership that has personally delivered on similar contracts

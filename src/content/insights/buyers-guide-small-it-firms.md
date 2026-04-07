@@ -1,7 +1,7 @@
 ---
 title: "A Buyer's Guide to Finding Small IT Firms for Government Work"
 description: "A practical guide for contracting officers, program managers, and acquisition professionals on how to identify, evaluate, and engage qualified small IT firms for federal programs."
-publishDate: 2026-03-22
+publishDate: 2026-02-11
 draft: false
 ---
 
@@ -37,6 +37,8 @@ A capability statement is the standard document small businesses use to introduc
 - **Specific platform experience** — Named platforms (Palantir, ServiceNow, AWS, Azure) rather than generic "cloud" or "IT modernization" language.
 - **Personnel credentials** — PMP, CISSP, SAFe, AWS certifications tied to actual staff, not aspirational hiring plans.
 - **Security clearance posture** — Indication of facility clearance level (FCL) or individual clearance readiness, if applicable.
+- **Multi-domain delivery** — Firms that deliver across cloud, cybersecurity, analytics, and program support under one team reduce vendor management complexity and integration risk compared to engaging separate single-capability vendors.
+- **Leadership with delivery experience** — Principals who have personally executed on contracts similar to the ones the firm bids on — not just managed business development — tend to produce more credible capability statements and more realistic proposals.
 - **CAGE code and UEI** — Active identifiers that show the firm is SAM-registered and ready to contract.
 
 ### Red Flags
@@ -60,6 +62,7 @@ When comparing multiple small IT firms for a potential engagement, a structured 
 | **Staffing model** | Medium | Does the firm employ its key personnel directly, or rely heavily on subcontractors? Direct employees indicate stability. |
 | **Financial health** | Medium | Adequate revenue history relative to contract size. A firm doing $1M/year may struggle to ramp for a $5M contract. |
 | **Geographic presence** | Low–Medium | Relevant if on-site work is required. Less important for remote-capable engagements. |
+| **Dual certification** | Medium | Firms holding both WOSB and SDVOSB (or other dual certifications) increase acquisition flexibility — a single award can count toward multiple socioeconomic goals. |
 | **Teaming relationships** | Low–Medium | Established relationships with complementary firms or primes that can provide surge capacity. |
 
 ## How to Structure an RFI for Small Business Outreach
@@ -99,6 +102,7 @@ A well-written Request for Information (RFI) is one of the most effective tools 
 - **Relying solely on SAM.gov profiles** — SAM.gov registration is necessary but not sufficient. Registration only confirms that a company exists and is eligible to bid — it says nothing about capability.
 - **Skipping reference checks** — Past performance questionnaires exist for a reason. Call the references. Ask about quality, timeliness, cost control, and whether they would work with the firm again.
 - **Moving too fast on sole-source** — Sole-source authority for WOSB/SDVOSB firms is a powerful tool, but it requires a documented determination that the firm can perform the work at a fair and reasonable price.
+- **Searching only one certification category** — A firm holding both WOSB and SDVOSB certifications lets a single award count toward both the 5% WOSB goal and the 3% SDVOSB goal. Buyers who filter by only one category at a time may miss dual-certified firms that offer compounding procurement value.
 
 ## Key Takeaways
 
@@ -106,4 +110,5 @@ A well-written Request for Information (RFI) is one of the most effective tools 
 - Prioritize named past performance and verifiable credentials over marketing language
 - Use structured RFIs to surface qualified firms before issuing solicitations
 - Engage early and engage specifically — generic outreach attracts generic vendors
-- Small firms that name their clients, their platforms, and their people are the ones most likely to deliver
+- Dual-certified firms (e.g., both WOSB and SDVOSB) let a single award count toward multiple scorecard goals — search across certification categories, not within them
+- Small firms that name their clients, their platforms, and their people — and whose leadership has personally delivered on similar contracts — are the ones most likely to deliver

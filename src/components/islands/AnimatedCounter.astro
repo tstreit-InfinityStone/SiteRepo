@@ -68,7 +68,17 @@ const id = `counter-${Math.random().toString(36).slice(2, 8)}`;
 
     document.querySelectorAll('[data-counter]:not([data-counted])').forEach(function (el) {
       el.setAttribute('data-counted', '');
-      observer.observe(el);
+
+      // If the counter is inside a fade-up element, wait for the fade to complete before observing
+      var fadeParent = el.closest('.fade-up');
+      if (fadeParent && !fadeParent.classList.contains('is-visible')) {
+        fadeParent.addEventListener('transitionend', function handler() {
+          fadeParent.removeEventListener('transitionend', handler);
+          observer.observe(el);
+        });
+      } else {
+        observer.observe(el);
+      }
     });
   });
 </script>

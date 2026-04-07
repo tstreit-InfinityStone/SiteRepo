@@ -1,0 +1,39 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/ui/Container.astro';
+import SubcontractCalculatorIsland from '@/components/islands/SubcontractCalculator.astro';
+import { buildBreadcrumbSchema, buildOrganizationSchema } from '@/lib/seo';
+---
+
+<BaseLayout
+  title="Subcontract Plan WOSB/SDVOSB Credit Calculator"
+  description="Calculate how an ISS subcontract engagement advances your small business subcontracting plan. ISS's dual WOSB + SDVOSB certification counts toward two separate SBA annual goals simultaneously."
+  canonicalPath="/tools/subcontract-calculator"
+  structuredData={[
+    buildOrganizationSchema(),
+    buildBreadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Tools & Calculators', path: '/tools' },
+      { name: 'Subcontract Calculator', path: '/tools/subcontract-calculator' },
+    ]),
+  ]}
+>
+  <section class="section-space">
+    <Container className="max-w-4xl">
+      <div class="mb-10 fade-up">
+        <a href="/tools" class="mb-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-secondary)] hover:text-[var(--color-primary)] transition">
+          ← All Tools
+        </a>
+        <p class="eyebrow mb-3">Prime Contractors</p>
+        <h1 class="mb-4 font-display text-3xl font-bold text-[var(--color-ink)] md:text-4xl">
+          Subcontract Plan WOSB/SDVOSB Credit Calculator
+        </h1>
+        <p class="max-w-2xl text-lg text-[var(--color-ink-soft)]">
+          Every new prime contract with a value over $750K (DoD) or $1.5M (civilian) requires an approved small business subcontracting plan. ISS's dual WOSB + SDVOSB certification means a single engagement simultaneously advances two separate SBA annual goals — the 5% WOSB goal and the 3% SDVOSB goal.
+        </p>
+      </div>
+
+      <SubcontractCalculatorIsland />
+    </Container>
+  </section>
+</BaseLayout>

@@ -5,6 +5,7 @@ export interface TeamMember {
   bio: string;
   credentials: string[];
   background: string;
+  image?: string;
 }
 
 export const teamMembers: TeamMember[] = [
@@ -25,10 +26,19 @@ export const teamMembers: TeamMember[] = [
   },
   {
     id: 'co-founder',
-    name: '[Name]',
+    name: 'Tyler Streit',
     title: '[Title TBD]',
-    bio: '',
-    credentials: [],
-    background: '',
+    image: '/team/tyler-streit.png',
+    bio: "Tyler Streit leads program delivery and strategic operations at ISS. His background spans federal modernization planning in the DOI/BLM environment, architecting a DOI IT Intake Process that shaped how modernization problems are evaluated and routed, and leading the documentation strategy behind a multi-million-dollar General Land Office modernization initiative spanning website modernization, GIS systems, and document-digitization workflows. He brings the operational discipline, reporting rigor, and commercial acumen that turn capability into measurable program outcomes.",
+    credentials: [
+      'Bachelor of Business Administration in Finance',
+      '4 years of project management support in the DOI/BLM environment',
+      'Major contributor to a DOI IT Intake Process for evaluating modernization needs',
+      'Documentation support tied to a successful $9M+ modernization grant effort',
+      'Business analysis, KPI reporting, pricing, and executive decision-support background',
+      'Supplier relationship management and commercial operations experience',
+      'Practical AI tool use and AI-assisted workflow integration',
+    ],
+    background: 'DOI / BLM Project Management · IT Intake & Modernization Planning · Procurement · Supplier Operations',
   },
 ];

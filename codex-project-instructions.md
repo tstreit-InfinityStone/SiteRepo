@@ -32,6 +32,7 @@ Use these terms consistently:
 - `proof signals`
 - `brand system`
 - `owner-editable content`
+- `Insights` for blog/article content
 
 ## First-Pass Response Requirements
 Before proposing or implementing code, first identify:
@@ -56,14 +57,17 @@ When proposing implementation, organize into:
 - use React only for clearly justified interactive islands
 - place hydrated interactive components in `src/components/islands`
 - do not turn the whole site into a React app by habit
-- keep JavaScript minimal by default
+- keep JavaScript minimal by default — prefer `is:inline` scripts for simple interactivity
 - prefer static rendering unless a real need justifies something dynamic
 
-Use React islands only when plain Astro is not the cleaner solution for items such as:
+Use `is:inline` scripts for:
 - mobile navigation state
 - accordions or disclosures
-- lightweight filters
-- carousels or other truly interactive modules
+- tab groups
+- scroll-based animations and counters
+- dropdown menu interactions
+
+Use React islands only when Astro + vanilla JS is not the cleaner solution.
 
 ## Coding Rules
 - use TypeScript
@@ -72,10 +76,14 @@ Use React islands only when plain Astro is not the cleaner solution for items su
 - place reusable page sections in `src/components/sections`
 - place layout pieces in `src/components/layout`
 - place small reusable UI pieces in `src/components/ui`
-- place long-form structured content in `src/content`
+- place shared form components in `src/components/form`
+- place long-form structured content in `src/content` (Astro content collections)
 - place short structured business data in `src/data`
 - place shared layouts in `src/layouts`
 - place shared style tokens and global styles in `src/styles`
+- place shared utility libraries in `src/lib`
+- place form action handlers in `src/pages/api/forms`
+- place tests alongside the code they test in `__tests__` directories
 - do not create giant all-purpose utility files
 - do not duplicate the same markup pattern across pages if it should be reusable
 - avoid unnecessary libraries when Astro and Tailwind are enough
@@ -93,19 +101,20 @@ Hard rules:
 - do not scatter trust badges and marketing assets across unrelated files
 
 Expected ownership:
-- brand assets should live in `public/brand`
-- brand settings should live in a dedicated data file
+- brand assets should live in `src/assets/brand`
+- brand settings should live in `src/data/brand.ts`
 - reusable sections should read brand values from shared data, not local constants
 
 Owner-editable content should include:
 - logo variants
-- color tokens
+- color tokens (CSS custom properties in `src/styles/global.css`)
 - typography choices
 - CTA labels
 - hero/support copy where practical
 - proof-strip items
 - trust badges
 - downloadable marketing collateral
+- team member data (`src/data/team.ts`)
 
 ## Content Rules
 - write concise, professional copy
@@ -147,31 +156,49 @@ Owner-editable content should include:
 
 ## Security And Trust Rules
 - implement sensible marketing-site security practices without unnecessary complexity
-- use secure defaults
+- use secure defaults (CSP, HSTS, X-Frame-Options, Referrer-Policy)
 - keep forms simple and trustworthy
+- protect forms with honeypot fields and Cloudflare Turnstile verification
+- implement server-side rate limiting on all form endpoints
+- validate file uploads by checking magic numbers, not just MIME types
+- sanitize error messages — log details server-side, return generic messages to users
 - avoid exposing unnecessary internals
 - do not add heavy backend complexity unless a clear business need emerges
 - present the company as security-aware through quality, clarity, and professionalism
 
+## Navigation Rules
+- navigation is configured centrally in `src/data/navigation.ts`
+- top-level nav uses dropdown menus for grouping: Solutions, Insights, About, Contact
+- `NavigationItem` type supports optional `children` array for dropdowns
+- desktop dropdowns open on hover using CSS `group-hover:`
+- mobile nav uses collapsible groups with tap-to-expand
+- footer navigation is separate from main navigation and does not use dropdowns
+
 ## Architecture Rules
 - use a content-driven structure when possible
-- generate Capability detail pages from structured content where practical
+- generate Capability detail pages from structured content collections
+- generate Insight article pages from markdown content collections
 - keep navigation configuration centralized
 - keep SEO metadata intentional per page
 - separate site-wide settings from page-specific content
-- design the structure so adding another Capability later is easy
+- design the structure so adding another Capability or Insight later is easy
 
-## Suggested Folder Responsibilities
+## Folder Responsibilities
 - `src/pages/` = routes and page composition
-- `src/layouts/` = shared page and document layouts
-- `src/components/layout/` = header, footer, navigation, wrappers
+- `src/pages/api/forms/` = server-side form handlers
+- `src/layouts/` = shared page and document layouts (`BaseLayout`, `PrintLayout`)
+- `src/components/layout/` = header, footer, navigation
 - `src/components/sections/` = reusable page sections
 - `src/components/ui/` = buttons, cards, badges, containers, section headers
-- `src/components/islands/` = hydrated interactive components only
-- `src/content/` = long-form content collections
-- `src/data/` = structured business, navigation, proof, and brand data
-- `src/styles/` = tokens and global styles
-- `public/brand/` = logos and marketing assets
+- `src/components/islands/` = interactive components with `is:inline` scripts
+- `src/components/form/` = shared form components (status banners, honeypot, Turnstile, field errors, form scripts)
+- `src/content/` = content collections (capabilities, insights)
+- `src/data/` = structured business, navigation, proof, brand, team, and sector data
+- `src/lib/` = shared utility libraries (contact email, content helpers, rate-limit, sentry, SEO, paths)
+- `src/styles/` = global styles and CSS custom properties
+- `src/assets/brand/` = logos and brand images (processed by Astro)
+- `public/team/` = team member photos
+- `public/.well-known/` = security.txt and web standards files
 
 ## Anti-Patterns To Avoid
 - one massive homepage file
@@ -183,7 +210,8 @@ Owner-editable content should include:
 - styling each page differently without a shared system
 - using AI output without simplifying it
 - building desktop-first layouts that break down on mobile
-- defaulting to React when Astro would be simpler
+- defaulting to React when Astro + `is:inline` scripts would be simpler
+- leaking internal error details to users in form responses
 
 ## Workflow Rules
 Before starting a new feature:
@@ -195,17 +223,22 @@ Before starting a new feature:
 6. decide whether brand or marketing content should live in shared editable data
 
 After meaningful changes:
-1. update `context-tracker.md`
+1. update `docs/context-tracker.md`
 2. confirm the next recommended step
-3. keep alignment with `website-development-plan.md`
+3. keep alignment with `docs/website-development-plan.md`
 4. keep the code beginner-readable
 
-## Good Default Stack Assumptions
-- Astro
-- TypeScript
-- Tailwind CSS
-- selective React islands only where clearly needed
-- Cloudflare Workers deployment
+## Technology Stack
+- **Framework:** Astro 6.x with TypeScript
+- **Styling:** Tailwind CSS 4.x with CSS custom properties
+- **Deployment:** Cloudflare Pages with Cloudflare Workers adapter
+- **Testing:** Vitest (unit tests for form validation, rate limiting, utilities)
+- **CI/CD:** GitHub Actions (type check → tests → build → deploy)
+- **Email:** Resend for form notification emails
+- **CAPTCHA:** Cloudflare Turnstile for form spam protection
+- **Error Monitoring:** Sentry via `@sentry/cloudflare` (dynamic import, no-op without DSN)
+- **Content:** Astro content collections with Zod schemas for capabilities and insights
+- **Dependency Updates:** Dependabot for weekly npm and GitHub Actions updates
 
 ## Good Default Build Mindset
 - build the shared layout and brand system first

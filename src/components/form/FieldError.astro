@@ -1,0 +1,13 @@
+---
+interface Props {
+  name: string;
+}
+
+const { name } = Astro.props;
+---
+
+<span
+  class="hidden text-sm font-normal text-red-700"
+  data-field-error={name}
+  aria-live="polite"
+></span>

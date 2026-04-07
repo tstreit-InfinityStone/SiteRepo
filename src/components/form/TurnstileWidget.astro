@@ -1,0 +1,70 @@
+---
+interface Props {
+  tokenInputId: string;
+}
+
+const { tokenInputId } = Astro.props;
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+const containerId = `${tokenInputId}-widget`;
+---
+
+<input name="turnstileToken" id={tokenInputId} type="hidden" />
+
+{turnstileSiteKey ? (
+  <>
+    <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer />
+    <div
+      id={containerId}
+      data-turnstile-container
+      class="min-h-16"
+    />
+    <script is:inline define:vars={{ containerId, tokenInputId, turnstileSiteKey }}>
+      function renderIssTurnstile() {
+        var container = document.getElementById(containerId);
+        var input = document.getElementById(tokenInputId);
+
+        if (!container || !input || !window.turnstile || container.dataset.widgetId) {
+          return;
+        }
+
+        var widgetId = window.turnstile.render('#' + containerId, {
+          sitekey: turnstileSiteKey,
+          callback: function (token) {
+            input.value = token;
+          },
+          'expired-callback': function () {
+            input.value = '';
+          },
+          'error-callback': function () {
+            input.value = '';
+          },
+        });
+
+        container.dataset.widgetId = String(widgetId);
+      }
+
+      function renderWhenReady() {
+        var attempts = 0;
+        var timer = window.setInterval(function () {
+          attempts += 1;
+
+          if (window.turnstile) {
+            window.clearInterval(timer);
+            renderIssTurnstile();
+          }
+
+          if (attempts >= 50) {
+            window.clearInterval(timer);
+          }
+        }, 100);
+      }
+
+      renderWhenReady();
+      document.addEventListener('astro:page-load', renderWhenReady, { once: true });
+    </script>
+  </>
+) : (
+  <p class="rounded-2xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm">
+    Turnstile is not configured in this environment yet. Add <code>PUBLIC_TURNSTILE_SITE_KEY</code> and <code>TURNSTILE_SECRET_KEY</code> before launch.
+  </p>
+)}

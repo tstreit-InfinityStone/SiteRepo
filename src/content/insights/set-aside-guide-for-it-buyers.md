@@ -1,7 +1,7 @@
 ---
 title: "The Set-Aside Guide for IT Buyers"
 description: "A comprehensive reference for federal IT buyers on how small business set-asides work, when to use them, which thresholds apply, and how to avoid the most common acquisition mistakes."
-publishDate: 2026-03-24
+publishDate: 2026-03-11
 draft: false
 ---
 

@@ -3,9 +3,9 @@ import { getCollection, render } from 'astro:content';
 
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Button from '@/components/ui/Button.astro';
+import CapabilityHighlights from '@/components/sections/CapabilityHighlights.astro';
 import Container from '@/components/ui/Container.astro';
 import PageHero from '@/components/ui/PageHero.astro';
-import CapabilityCard from '@/components/ui/CapabilityCard.astro';
 import CapabilityStatementCta from '@/components/sections/CapabilityStatementCta.astro';
 import FinalCtaSection from '@/components/sections/FinalCtaSection.astro';
 import AnimatedCounter from '@/components/islands/AnimatedCounter.astro';
@@ -144,19 +144,11 @@ const relatedProof = proofSignals.filter((signal) => entry.data.proofReferences.
   <CapabilityStatementCta />
 
   {relatedCapabilities.length > 0 && (
-    <section class="section-space-tight">
-      <Container className="space-y-8">
-        <div class="max-w-3xl fade-up">
-          <h2 class="text-3xl">Explore adjacent areas that often connect to this work.</h2>
-        </div>
-
-        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3 stagger-children">
-          {relatedCapabilities.map((capability) => (
-            <CapabilityCard capability={capability} />
-          ))}
-        </div>
-      </Container>
-    </section>
+    <CapabilityHighlights
+      capabilities={relatedCapabilities}
+      title="Explore adjacent areas that often connect to this work."
+      sectionClass="section-space-tight"
+    />
   )}
 
   <!-- Final CTA -->

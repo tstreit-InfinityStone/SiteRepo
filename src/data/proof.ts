@@ -20,7 +20,7 @@ export const proofSignals: ProofSignal[] = [
   },
   {
     id: 'credentialed-team',
-    label: 'Credentials across our Delivery Team',
+    label: 'Collective credentials across team members',
     shortDescription: 'PMP, ScrumMaster, SAFe, ITIL, and Azure-aligned credentials — the delivery team holds the certifications the work requires.',
     category: 'credential',
     detail:

@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Container from '@/components/ui/Container.astro';
+import InsightCta from '@/components/sections/InsightCta.astro';
 import PageHero from '@/components/ui/PageHero.astro';
 import FinalCtaSection from '@/components/sections/FinalCtaSection.astro';
 import { buildBreadcrumbSchema, buildOrganizationSchema } from '@/lib/seo';
@@ -59,8 +60,19 @@ const { Content } = await render(entry);
           Back to all insights
         </a>
       </div>
+
+      <InsightCta />
     </Container>
   </section>
 
   <FinalCtaSection />
 </BaseLayout>
+
+<script>
+  document.querySelectorAll('.rich-copy table').forEach((table) => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'table-scroll';
+    table.parentNode!.insertBefore(wrapper, table);
+    wrapper.appendChild(table);
+  });
+</script>

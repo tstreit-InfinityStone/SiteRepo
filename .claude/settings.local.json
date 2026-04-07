@@ -192,7 +192,14 @@
       "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --print-to-pdf=\"/c/Users/admin/Desktop/iss-cap-v4.pdf\" --print-to-pdf-no-header \"http://localhost:4322/capability-statement/one-page\")",
       "Bash(\"/c/Program Files/Google/Chrome/Application/chrome.exe\" --headless=new --screenshot=\"/c/Users/admin/Desktop/iss-cap-final.png\" --window-size=816,1056 \"http://localhost:4322/capability-statement/one-page\")",
       "Bash(find 'c:\\\\Users\\\\admin\\\\Infinity Stone Solutions Website' -type f -name astro.config.*)",
-      "Bash(grep -r sitemap '/c/Users/admin/Infinity Stone Solutions Website/src' --include=*.ts --include=*.astro)"
+      "Bash(grep -r sitemap '/c/Users/admin/Infinity Stone Solutions Website/src' --include=*.ts --include=*.astro)",
+      "Bash(grep -r \"sanitize\\\\|xss\\\\|escape\" /c/Users/admin/Infinity Stone Solutions Website/src --include=*.ts --include=*.tsx)",
+      "Bash(grep -r \"set:html\\\\|setInnerHTML\\\\|innerHTML\" /c/Users/admin/Infinity Stone Solutions Website/src --include=*.astro --include=*.ts --include=*.tsx)",
+      "Bash(npm audit:*)",
+      "Bash(grep -r \"fields\\\\[\\\\|fieldDefinitions\\\\|formFields\\\\|fieldConfig\" '/c/Users/admin/Infinity Stone Solutions Website/src' --include=*.ts --include=*.astro)",
+      "Bash(grep -r \"generat\\\\|template\\\\|builder\\\\|prompt\\\\|anthropic\\\\|openai\\\\|llm\\\\|ai.*form\\\\|form.*ai\" '/c/Users/admin/Infinity Stone Solutions Website' --include=*.ts --include=*.tsx --include=*.astro --include=*.mjs --include=*.js --exclude-dir=node_modules --exclude-dir=dist)",
+      "Bash(xargs head:*)",
+      "Bash(npx vitest:*)"
     ]
   }
 }

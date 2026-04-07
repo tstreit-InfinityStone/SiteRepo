@@ -1,0 +1,184 @@
+---
+interface Props {
+  formSelector: string;
+  endpoint: string;
+  analyticsEvent: string;
+}
+
+const { formSelector, endpoint, analyticsEvent } = Astro.props;
+---
+
+<script is:inline define:vars={{ analyticsEvent, endpoint, formSelector }}>
+  function clearStatus(root) {
+    if (!root) return;
+    var successBanner = root.querySelector('[data-form-success]');
+    var errorBanner = root.querySelector('[data-form-error]');
+    var errorMessage = root.querySelector('[data-form-error-message]');
+
+    if (successBanner) successBanner.classList.add('hidden');
+    if (errorBanner) errorBanner.classList.add('hidden');
+    if (errorMessage) {
+      errorMessage.textContent = 'Please try again or email ISS directly.';
+    }
+  }
+
+  function showSuccess(root) {
+    if (!root) return;
+    var successBanner = root.querySelector('[data-form-success]');
+    if (successBanner) successBanner.classList.remove('hidden');
+  }
+
+  function showError(root, message) {
+    if (!root) return;
+    var errorBanner = root.querySelector('[data-form-error]');
+    var errorMessage = root.querySelector('[data-form-error-message]');
+
+    if (errorMessage) {
+      errorMessage.textContent = message || 'Please try again or email ISS directly.';
+    }
+
+    if (errorBanner) errorBanner.classList.remove('hidden');
+  }
+
+  function clearFieldErrors(form) {
+    form.querySelectorAll('[data-field-error]').forEach(function (fieldError) {
+      fieldError.textContent = '';
+      fieldError.classList.add('hidden');
+    });
+
+    form.querySelectorAll('[aria-invalid="true"]').forEach(function (field) {
+      field.removeAttribute('aria-invalid');
+    });
+  }
+
+  function showFieldErrors(form, fieldErrors) {
+    Object.entries(fieldErrors || {}).forEach(function (entry) {
+      var fieldName = entry[0];
+      var messages = entry[1];
+      var fieldError = form.querySelector('[data-field-error="' + fieldName + '"]');
+      var field = form.querySelector('[name="' + fieldName + '"]');
+
+      if (field) {
+        field.setAttribute('aria-invalid', 'true');
+      }
+
+      if (!fieldError || !Array.isArray(messages) || messages.length === 0) return;
+
+      fieldError.textContent = messages.join(', ');
+      fieldError.classList.remove('hidden');
+    });
+  }
+
+  function resetTurnstile(form) {
+    var tokenInput = form.querySelector('[name="turnstileToken"]');
+    if (tokenInput) tokenInput.value = '';
+
+    var container = form.querySelector('[data-turnstile-container]');
+    var widgetId = container && container.dataset ? container.dataset.widgetId : undefined;
+
+    if (widgetId && window.turnstile && typeof window.turnstile.reset === 'function') {
+      window.turnstile.reset(widgetId);
+    }
+  }
+
+  function trackSuccess() {
+    if (window.google_tag_manager) {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: analyticsEvent });
+    }
+
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', analyticsEvent, {
+        event_category: 'engagement',
+      });
+    }
+  }
+
+  document.addEventListener('astro:page-load', function () {
+    var form = document.querySelector(formSelector);
+    if (!form || form.dataset.asyncBound === 'true') return;
+
+    form.dataset.asyncBound = 'true';
+
+    var root = form.closest('[data-form-root]') || form.parentElement || form;
+    var submitButton = form.querySelector('[type="submit"]');
+
+    if (submitButton && !submitButton.dataset.defaultLabel) {
+      submitButton.dataset.defaultLabel = submitButton.textContent || 'Submit';
+    }
+
+    form.addEventListener('submit', async function (event) {
+      event.preventDefault();
+
+      clearStatus(root);
+      clearFieldErrors(form);
+
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = 'Sending\u2026';
+      }
+
+      try {
+        var response = await fetch(endpoint, {
+          method: 'POST',
+          body: new FormData(form),
+        });
+        var payload = await response.json();
+
+        if (!response.ok) {
+          showFieldErrors(form, payload.fieldErrors);
+
+          if (payload.formError) {
+            showError(root, payload.formError);
+          }
+
+          if (!payload.formError && (!payload.fieldErrors || Object.keys(payload.fieldErrors).length === 0)) {
+            showError(root, 'Please try again or email ISS directly.');
+          }
+
+          resetTurnstile(form);
+          return;
+        }
+
+        form.reset();
+        clearFieldErrors(form);
+        clearStatus(root);
+        showSuccess(root);
+        resetTurnstile(form);
+        trackSuccess();
+      } catch (error) {
+        console.error('Async form submission failed:', error);
+        showError(root, 'The form could not be submitted. Please try again or email ISS directly.');
+        resetTurnstile(form);
+      } finally {
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = submitButton.dataset.defaultLabel || 'Submit';
+        }
+      }
+    });
+  });
+</script>
+
+<script is:inline define:vars={{ formSelector }}>
+  document.addEventListener('astro:page-load', function () {
+    var form = document.querySelector(formSelector);
+    if (!form) return;
+
+    form.querySelectorAll('input, textarea, select').forEach(function (field) {
+      if (field.dataset.errorBound === 'true') return;
+      field.dataset.errorBound = 'true';
+
+      var eventName = field.tagName === 'SELECT' || field.type === 'file' ? 'change' : 'input';
+
+      field.addEventListener(eventName, function () {
+        var fieldError = form.querySelector('[data-field-error="' + field.name + '"]');
+        if (fieldError) {
+          fieldError.textContent = '';
+          fieldError.classList.add('hidden');
+        }
+        field.removeAttribute('aria-invalid');
+      });
+    });
+  });
+</script>

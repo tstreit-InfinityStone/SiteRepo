@@ -1,0 +1,584 @@
+---
+import { withBase } from '@/lib/paths';
+---
+
+<div data-assessment>
+  <!-- Progress bar -->
+  <div class="mb-8 fade-up" data-assessment-progress>
+    <div class="mb-2 flex items-center justify-between text-xs font-semibold text-[var(--color-ink-soft)]">
+      <span data-assessment-step-label>Step 1 of 8</span>
+      <span data-assessment-pct>0%</span>
+    </div>
+    <div class="h-2 w-full overflow-hidden rounded-full bg-[var(--color-surface-muted)]">
+      <div
+        class="h-full rounded-full bg-[var(--color-secondary)] transition-all duration-400"
+        data-assessment-bar
+        style="width: 0%"
+      ></div>
+    </div>
+  </div>
+
+  <!-- Steps container -->
+  <div data-assessment-steps>
+
+    <!-- Step 1: Sector -->
+    <div data-step="0" class="panel-static rounded-3xl border border-[var(--color-border)] p-6 md:p-8 hidden">
+      <p class="eyebrow mb-3">Step 1 of 8</p>
+      <h2 class="mb-2 font-display text-2xl font-bold text-[var(--color-ink)]">Which sector best describes your program?</h2>
+      <p class="mb-6 text-[var(--color-ink-soft)]">Choose the sector that most closely matches your agency's mission area.</p>
+      <div class="grid gap-3 sm:grid-cols-2">
+        {[
+          ['defense-military', 'Defense & Military Programs', 'U.S. Navy, SPAWAR, MDA, Army, DISA'],
+          ['intelligence-investigative', 'Intelligence & Investigative Agencies', 'ICE/HSI, FBI, DEA, ATF, NSA, DIA'],
+          ['federal-land-science', 'Federal Land, Resource & Science', 'DOI/BLM, USGS, EPA, NGA, Forest Service'],
+          ['federal-civilian-modernization', 'Federal Civilian Modernization', 'VA, HHS, USDA, Treasury, GSA'],
+          ['regulated-infrastructure', 'Regulated Infrastructure & Energy', 'Utilities, pipelines, energy infrastructure'],
+          ['federal-healthcare', 'Federal Healthcare & Life Sciences', 'VA, HHS, Indian Health Service, CDC'],
+        ].map(([id, label, sub]) => (
+          <button
+            type="button"
+            class="sector-option flex flex-col items-start gap-1 rounded-2xl border border-[var(--color-border)] px-5 py-4 text-left transition hover:border-[var(--color-secondary)] hover:bg-[var(--color-surface)]"
+            data-value={id}
+          >
+            <span class="text-sm font-semibold text-[var(--color-ink)]">{label}</span>
+            <span class="text-xs text-[var(--color-ink-soft)]">{sub}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- Step 2: Legacy Systems -->
+    <div data-step="1" class="panel-static rounded-3xl border border-[var(--color-border)] p-6 md:p-8 hidden">
+      <p class="eyebrow mb-3">Step 2 of 8 — Enterprise IT Modernization</p>
+      <h2 class="mb-2 font-display text-2xl font-bold text-[var(--color-ink)]">How would you describe your program's legacy system situation?</h2>
+      <p class="mb-6 text-[var(--color-ink-soft)]">Consider systems that support mission operations, reporting, or data management.</p>
+      <div class="space-y-3">
+        {[
+          [0, 'Modern platforms in place — enterprise systems (ERP, service desk, case management) are current and well-supported.'],
+          [1, 'Mix of modern and legacy — some systems have been updated, others are aging but functional.'],
+          [2, 'Significant legacy burden — key systems are outdated, on end-of-life software, or require workarounds.'],
+          [3, 'Critical modernization need — mission-essential systems are at risk; modernization is overdue or blocked.'],
+        ].map(([val, label]) => (
+          <label class="radio-option flex cursor-pointer items-start gap-4 rounded-2xl border border-[var(--color-border)] px-5 py-4 transition hover:border-[var(--color-secondary)] hover:bg-[var(--color-surface)]">
+            <input type="radio" name="q1" value={String(val)} class="mt-0.5 accent-[var(--color-secondary)]" data-question="1" />
+            <span class="text-sm text-[var(--color-ink)]">{label}</span>
+          </label>
+        ))}
+      </div>
+    </div>
+
+    <!-- Step 3: Cloud Adoption -->
+    <div data-step="2" class="panel-static rounded-3xl border border-[var(--color-border)] p-6 md:p-8 hidden">
+      <p class="eyebrow mb-3">Step 3 of 8 — Cloud Infrastructure</p>
+      <h2 class="mb-2 font-display text-2xl font-bold text-[var(--color-ink)]">What is your program's current cloud adoption status?</h2>
+      <p class="mb-6 text-[var(--color-ink-soft)]">Consider where mission workloads currently run and what transitions are underway.</p>
+      <div class="space-y-3">
+        {[
+          [0, 'Cloud-native — workloads fully in Azure, AWS, or a FedRAMP-authorized cloud environment.'],
+          [1, 'Hybrid — mix of on-premises and cloud; actively managing both environments.'],
+          [2, 'Migration underway — cloud transition in progress, partial workloads moved.'],
+          [3, 'On-premises only — no cloud migration underway yet; planning or evaluation stage.'],
+        ].map(([val, label]) => (
+          <label class="radio-option flex cursor-pointer items-start gap-4 rounded-2xl border border-[var(--color-border)] px-5 py-4 transition hover:border-[var(--color-secondary)] hover:bg-[var(--color-surface)]">
+            <input type="radio" name="q2" value={String(val)} class="mt-0.5 accent-[var(--color-secondary)]" data-question="2" />
+            <span class="text-sm text-[var(--color-ink)]">{label}</span>
+          </label>
+        ))}
+      </div>
+    </div>
+
+    <!-- Step 4: Data & Analytics -->
+    <div data-step="3" class="panel-static rounded-3xl border border-[var(--color-border)] p-6 md:p-8 hidden">
+      <p class="eyebrow mb-3">Step 4 of 8 — AI, Data & Geospatial Intelligence</p>
+      <h2 class="mb-2 font-display text-2xl font-bold text-[var(--color-ink)]">How mature is your program's data and analytics capability?</h2>
+      <p class="mb-6 text-[var(--color-ink-soft)]">Consider your ability to use data for mission decisions, reporting, and anomaly detection.</p>
+      <div class="space-y-3">
+        {[
+          [0, 'Advanced analytics in place — AI/ML models, dashboards, or predictive intelligence actively support decisions.'],
+          [1, 'Structured reporting — standard dashboards and reports exist; limited advanced analytics.'],
+          [2, 'Data available but fragmented — data exists in silos; difficult to aggregate or analyze across sources.'],
+          [3, 'Limited data capability — minimal reporting; decisions largely based on manual processes or anecdotal inputs.'],
+        ].map(([val, label]) => (
+          <label class="radio-option flex cursor-pointer items-start gap-4 rounded-2xl border border-[var(--color-border)] px-5 py-4 transition hover:border-[var(--color-secondary)] hover:bg-[var(--color-surface)]">
+            <input type="radio" name="q3" value={String(val)} class="mt-0.5 accent-[var(--color-secondary)]" data-question="3" />
+            <span class="text-sm text-[var(--color-ink)]">{label}</span>
+          </label>
+        ))}
+      </div>
+    </div>
+
+    <!-- Step 5: Cybersecurity -->
+    <div data-step="4" class="panel-static rounded-3xl border border-[var(--color-border)] p-6 md:p-8 hidden">
+      <p class="eyebrow mb-3">Step 5 of 8 — Cybersecurity & Compliance</p>
+      <h2 class="mb-2 font-display text-2xl font-bold text-[var(--color-ink)]">What best describes your program's compliance posture?</h2>
+      <p class="mb-6 text-[var(--color-ink-soft)]">Consider your current ATO status, RMF progress, and FISMA/FedRAMP posture.</p>
+      <div class="space-y-3">
+        {[
+          [0, 'ATO in place — FISMA Moderate or High, FedRAMP-authorized where applicable; controls are current.'],
+          [1, 'ATO in progress — RMF underway, controls implemented, authorization package under review.'],
+          [2, 'Early RMF — process started, significant implementation work remaining before authorization.'],
+          [3, 'Not yet started — no formal compliance framework in place; compliance work has not begun.'],
+        ].map(([val, label]) => (
+          <label class="radio-option flex cursor-pointer items-start gap-4 rounded-2xl border border-[var(--color-border)] px-5 py-4 transition hover:border-[var(--color-secondary)] hover:bg-[var(--color-surface)]">
+            <input type="radio" name="q4" value={String(val)} class="mt-0.5 accent-[var(--color-secondary)]" data-question="4" />
+            <span class="text-sm text-[var(--color-ink)]">{label}</span>
+          </label>
+        ))}
+      </div>
+    </div>
+
+    <!-- Step 6: Program Management -->
+    <div data-step="5" class="panel-static rounded-3xl border border-[var(--color-border)] p-6 md:p-8 hidden">
+      <p class="eyebrow mb-3">Step 6 of 8 — Program & Requirements Support</p>
+      <h2 class="mb-2 font-display text-2xl font-bold text-[var(--color-ink)]">How would you describe your program's requirements and management process?</h2>
+      <p class="mb-6 text-[var(--color-ink-soft)]">Consider how well requirements are documented, tracked, and aligned with delivery.</p>
+      <div class="space-y-3">
+        {[
+          [0, 'Structured and agile — requirements are clearly defined, tracked in sprints, and aligned with delivery teams.'],
+          [1, 'Documented but manual — requirements exist but are managed in documents rather than a structured system.'],
+          [2, 'Requirements are evolving — scope changes frequently; requirements management is reactive rather than planned.'],
+          [3, 'Requirements are unclear — significant ambiguity in scope; delivery teams frequently encounter undefined requirements.'],
+        ].map(([val, label]) => (
+          <label class="radio-option flex cursor-pointer items-start gap-4 rounded-2xl border border-[var(--color-border)] px-5 py-4 transition hover:border-[var(--color-secondary)] hover:bg-[var(--color-surface)]">
+            <input type="radio" name="q5" value={String(val)} class="mt-0.5 accent-[var(--color-secondary)]" data-question="5" />
+            <span class="text-sm text-[var(--color-ink)]">{label}</span>
+          </label>
+        ))}
+      </div>
+    </div>
+
+    <!-- Step 7: Geospatial -->
+    <div data-step="6" class="panel-static rounded-3xl border border-[var(--color-border)] p-6 md:p-8 hidden">
+      <p class="eyebrow mb-3">Step 7 of 8 — Geospatial & Location Intelligence</p>
+      <h2 class="mb-2 font-display text-2xl font-bold text-[var(--color-ink)]">How does your program currently use geospatial or location data?</h2>
+      <p class="mb-6 text-[var(--color-ink-soft)]">Consider GIS, mapping, spatial analysis, or location-aware operational tools.</p>
+      <div class="space-y-3">
+        {[
+          [0, 'Enterprise GIS in place — ArcGIS Enterprise or equivalent is deployed and integrated with mission workflows.'],
+          [1, 'GIS tools available — mapping tools exist but are not fully integrated with enterprise systems.'],
+          [2, 'Geospatial data exists but is unmanaged — spatial data is held in legacy formats (CAD, PDFs, spreadsheets) without a GIS platform.'],
+          [3, 'No geospatial capability — location data is not systematically captured or used in mission operations.'],
+        ].map(([val, label]) => (
+          <label class="radio-option flex cursor-pointer items-start gap-4 rounded-2xl border border-[var(--color-border)] px-5 py-4 transition hover:border-[var(--color-secondary)] hover:bg-[var(--color-surface)]">
+            <input type="radio" name="q6" value={String(val)} class="mt-0.5 accent-[var(--color-secondary)]" data-question="6" />
+            <span class="text-sm text-[var(--color-ink)]">{label}</span>
+          </label>
+        ))}
+      </div>
+    </div>
+
+    <!-- Step 8: Results -->
+    <div data-step="7" class="hidden">
+      <div class="mb-6">
+        <p class="eyebrow mb-2">Your Results</p>
+        <h2 class="mb-2 font-display text-2xl font-bold text-[var(--color-ink)]">Program Modernization Profile</h2>
+        <p class="text-[var(--color-ink-soft)]">Based on your answers, here is a readiness profile across ISS's six capability areas. Shareable link below.</p>
+      </div>
+
+      <div class="space-y-4" data-assessment-result-cards></div>
+
+      <div class="mt-6 rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-5">
+        <p class="mb-2 text-sm font-semibold text-[var(--color-ink)]">Share or bookmark these results</p>
+        <div class="flex gap-3">
+          <input
+            type="text"
+            readonly
+            class="flex-1 rounded-xl border border-[var(--color-border)] bg-white px-4 py-2 text-xs text-[var(--color-ink-soft)]"
+            data-assessment-share-url
+          />
+          <button
+            type="button"
+            class="rounded-xl border border-[var(--color-border)] bg-white px-4 py-2 text-xs font-semibold text-[var(--color-ink)] transition hover:bg-[var(--color-surface-muted)]"
+            data-assessment-copy-btn
+          >
+            Copy
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-8 overflow-hidden rounded-3xl bg-[var(--color-ink)]">
+        <div class="px-8 py-10 text-center md:px-12 md:py-12">
+          <p class="mb-2 text-sm font-semibold uppercase tracking-[0.14em] text-white/60">Ready to move forward?</p>
+          <h3 class="mb-4 font-display text-2xl font-bold text-white md:text-3xl">
+            Discuss your program's profile with ISS
+          </h3>
+          <p class="mx-auto mb-8 max-w-lg text-base text-white/75">
+            Share your results, walk through the gaps, and find out how ISS can support your program — no commitment required.
+          </p>
+          <a
+            href={withBase('/contact')}
+            class="inline-flex rounded-full bg-[var(--color-secondary)] px-8 py-3.5 text-base font-semibold !text-white shadow-lg transition hover:bg-[var(--color-primary)] hover:shadow-xl"
+            data-track-event="tool_cta_click"
+            data-track-label="assessment_contact"
+          >
+            Contact ISS →
+          </a>
+        </div>
+      </div>
+      <p class="mt-5 text-center">
+        <button
+          type="button"
+          class="text-sm font-semibold text-[var(--color-secondary)] hover:text-[var(--color-primary)] transition"
+          data-assessment-restart
+        >
+          ← Start over
+        </button>
+      </p>
+    </div>
+
+  </div>
+
+  <!-- Navigation buttons -->
+  <div class="mt-6 flex items-center justify-between" data-assessment-nav>
+    <button
+      type="button"
+      class="rounded-full border border-[var(--color-border)] bg-white px-5 py-2.5 text-sm font-semibold text-[var(--color-ink)] shadow-sm transition hover:bg-[var(--color-surface-muted)] disabled:opacity-40"
+      data-assessment-back
+      disabled
+    >
+      ← Back
+    </button>
+    <button
+      type="button"
+      class="rounded-full bg-[var(--color-secondary)] px-6 py-2.5 text-sm font-semibold !text-white shadow-sm transition hover:bg-[var(--color-primary)] disabled:opacity-40"
+      data-assessment-next
+      disabled
+    >
+      Next →
+    </button>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var CAPABILITIES = [
+      {
+        key: 'enterprise-it',
+        title: 'Enterprise IT Modernization',
+        questionIndex: 1,
+        proofRef: 'DOI / BLM enterprise modernization: HR benefits system adoption, UNIX-to-Linux migration, enterprise ticketing deployment, and ePlanning modernization requirements.',
+        findings: [
+          'Your enterprise systems are current and well-supported — strong foundation for new capability integration.',
+          'A mixed environment is manageable. ISS has delivered modernization initiatives alongside functioning legacy systems.',
+          'A significant legacy burden creates delivery risk. ISS\u2019s experience with platform migrations and system transitions is directly relevant.',
+          'A critical modernization need requires structured planning and phased execution. ISS has led enterprise-wide modernization programs in federal environments.',
+        ],
+        indicators: ['Strong', 'Developing', 'Gap', 'Gap'],
+      },
+      {
+        key: 'cloud-infrastructure',
+        title: 'Cloud Infrastructure & Migration',
+        questionIndex: 2,
+        proofRef: 'DOI / BLM: Cloud migration preparation, UNIX-to-Linux server migrations, DFS restructure, and secure governance framework implementation.',
+        findings: [
+          'Cloud-native status is strong. ISS supports hybrid governance, FedRAMP-aligned architecture, and ongoing cloud operations.',
+          'Managing a hybrid environment requires governance discipline. ISS has experience designing secure hybrid-cloud architectures.',
+          'Mid-migration is a high-risk phase. ISS has managed cloud transitions while maintaining operational continuity.',
+          'Pre-migration planning is where ISS adds the most strategic value — architecture decisions made now shape the entire program.',
+        ],
+        indicators: ['Strong', 'Developing', 'Developing', 'Gap'],
+      },
+      {
+        key: 'ai-data-geospatial',
+        title: 'AI, Data & Geospatial Intelligence',
+        questionIndex: 3,
+        proofRef: 'ICE / HSI: Palantir-enabled investigative analytics and mobile device forensics. DOI / BLM: ArcGIS Enterprise implementation and GIS data conversion from legacy formats.',
+        findings: [
+          'Advanced analytics capability is strong. ISS can extend AI/ML models, integrate additional data sources, or add Palantir-enabled workflows.',
+          'Structured reporting is a solid base. ISS can help advance from dashboards to predictive analytics and cross-source intelligence.',
+          'Fragmented data is the most common barrier to mission intelligence. ISS has experience consolidating, converting, and integrating disparate data sources.',
+          'Building a data foundation requires both technical and process work. ISS can support from data architecture through to operational analytics.',
+        ],
+        indicators: ['Strong', 'Developing', 'Gap', 'Gap'],
+      },
+      {
+        key: 'cybersecurity',
+        title: 'Cybersecurity & Compliance',
+        questionIndex: 4,
+        proofRef: 'ISS delivers NIST RMF, FISMA, and FedRAMP-aligned secure architecture. Accessibility compliance includes VPAT and WCAG 2.1 AA adherence.',
+        findings: [
+          'ATO in place is a strong posture. ISS supports ongoing compliance maintenance, control assessments, and FedRAMP-aligned operations.',
+          'ATO in progress requires careful management. ISS has experience supporting RMF processes and preparing authorization packages.',
+          'Early RMF requires structured support. ISS can help implement controls, document the system boundary, and accelerate the authorization timeline.',
+          'Starting a compliance program from scratch is resource-intensive. ISS brings RMF implementation experience and can help prioritize the highest-impact controls first.',
+        ],
+        indicators: ['Strong', 'Developing', 'Gap', 'Gap'],
+      },
+      {
+        key: 'program-requirements',
+        title: 'Program & Requirements Support',
+        questionIndex: 5,
+        proofRef: 'ISS brings PMP, SAFe, Scrum, and Kanban-certified project leaders providing full lifecycle oversight, risk analysis, and multi-stakeholder coordination across federal programs.',
+        findings: [
+          'A structured, agile process is strong. ISS can integrate as a delivery partner with minimal ramp-up.',
+          'Manual documentation is manageable but creates risk as programs scale. ISS can introduce lightweight tooling and sprint structures without disrupting existing patterns.',
+          'Evolving requirements signal a scope management challenge. ISS\u2019s requirements elicitation and change control processes are designed for this environment.',
+          'Unclear requirements are the root cause of most federal program delays. ISS\u2019s requirements support work starts here — before a single line of code is written.',
+        ],
+        indicators: ['Strong', 'Developing', 'Gap', 'Gap'],
+      },
+      {
+        key: 'geospatial',
+        title: 'Geospatial Solutions',
+        questionIndex: 6,
+        proofRef: 'DOI / BLM: ArcGIS Enterprise implementation, GIS data conversion from CAD/PDF/JPEG to enterprise formats, and integration of location intelligence into agency workflows. U.S. Navy / ICE: Geospatial intelligence integration into mission workflows.',
+        findings: [
+          'Enterprise GIS is strong. ISS supports schema design, QA/QC, custom application development, and workflow integration on top of ArcGIS Enterprise.',
+          'Partially integrated GIS can be extended. ISS has connected standalone mapping tools into enterprise workflows and case management systems.',
+          'Unmanaged geospatial data is a common starting point. ISS has converted large volumes of legacy spatial data into ArcGIS-ready formats.',
+          'Building a geospatial capability from the ground up requires infrastructure, data, and workflow design. ISS has done this for federal agencies.',
+        ],
+        indicators: ['Strong', 'Developing', 'Gap', 'Gap'],
+      },
+    ];
+
+    var INDICATOR_STYLES = {
+      'Strong': { border: 'border-green-300', bg: 'bg-green-50', badge: 'bg-green-100 text-green-800' },
+      'Developing': { border: 'border-amber-300', bg: 'bg-amber-50', badge: 'bg-amber-100 text-amber-800' },
+      'Gap': { border: 'border-red-200', bg: 'bg-red-50', badge: 'bg-red-100 text-red-800' },
+    };
+
+    function initAssessment() {
+      document.querySelectorAll('[data-assessment]').forEach(function (root) {
+        if (!(root instanceof HTMLElement)) return;
+
+        var stepEls = root.querySelectorAll('[data-step]');
+        var backBtn = root.querySelector('[data-assessment-back]');
+        var nextBtn = root.querySelector('[data-assessment-next]');
+        var navDiv = root.querySelector('[data-assessment-nav]');
+        var bar = root.querySelector('[data-assessment-bar]');
+        var stepLabel = root.querySelector('[data-assessment-step-label]');
+        var pctLabel = root.querySelector('[data-assessment-pct]');
+        var resultCards = root.querySelector('[data-assessment-result-cards]');
+        var shareUrl = root.querySelector('[data-assessment-share-url]');
+        var copyBtn = root.querySelector('[data-assessment-copy-btn]');
+        var restartBtn = root.querySelector('[data-assessment-restart]');
+
+        var currentStep = 0;
+        var totalSteps = 8; // 0=sector, 1-6=questions, 7=results
+        var answers = {}; // { 0: 'sector-id', 1: '2', ... }
+
+        // Restore from URL hash
+        function parseHash() {
+          try {
+            var hash = window.location.hash.replace('#', '');
+            if (!hash) return;
+            var params = {};
+            hash.split('&').forEach(function (part) {
+              var kv = part.split('=');
+              if (kv.length === 2) params[kv[0]] = decodeURIComponent(kv[1]);
+            });
+            if (params.s) answers[0] = params.s;
+            if (params.q) {
+              params.q.split(',').forEach(function (v, i) {
+                if (v !== '') answers[i + 1] = v;
+              });
+            }
+          } catch (e) {}
+        }
+
+        function buildHash() {
+          var parts = [];
+          if (answers[0]) parts.push('s=' + encodeURIComponent(answers[0]));
+          var qs = [];
+          for (var i = 1; i <= 6; i++) {
+            qs.push(answers[i] !== undefined ? answers[i] : '');
+          }
+          if (qs.some(function (v) { return v !== ''; })) {
+            parts.push('q=' + qs.join(','));
+          }
+          return parts.length ? '#' + parts.join('&') : '';
+        }
+
+        function updateHash() {
+          var hash = buildHash();
+          history.replaceState(null, '', window.location.pathname + hash);
+          if (shareUrl) shareUrl.value = window.location.href;
+        }
+
+        function getStepEl(index) {
+          return root.querySelector('[data-step="' + index + '"]');
+        }
+
+        function showStep(index) {
+          stepEls.forEach(function (el) { el.classList.add('hidden'); });
+          var el = getStepEl(index);
+          if (el) el.classList.remove('hidden');
+
+          var isResults = index === 7;
+          navDiv.classList.toggle('hidden', isResults);
+
+          // Progress
+          var pct = Math.round((index / (totalSteps - 1)) * 100);
+          bar.style.width = pct + '%';
+          stepLabel.textContent = isResults ? 'Results' : 'Step ' + (index + 1) + ' of ' + (totalSteps - 1);
+          pctLabel.textContent = pct + '%';
+
+          backBtn.disabled = index === 0;
+          updateNextButton(index);
+
+          if (isResults) {
+            renderResults();
+            updateHash();
+          }
+        }
+
+        function updateNextButton(index) {
+          var hasAnswer = answers[index] !== undefined;
+          nextBtn.textContent = index === 6 ? 'View Results →' : 'Next →';
+          nextBtn.disabled = !hasAnswer;
+        }
+
+        function isAnswered(index) {
+          return answers[index] !== undefined;
+        }
+
+        // Sector selection
+        root.querySelectorAll('.sector-option').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            answers[0] = btn.getAttribute('data-value');
+            root.querySelectorAll('.sector-option').forEach(function (b) {
+              b.classList.toggle('border-[var(--color-secondary)]', b === btn);
+              b.classList.toggle('bg-[var(--color-surface)]', b === btn);
+            });
+            updateNextButton(0);
+          });
+        });
+
+        // Radio selections
+        root.querySelectorAll('input[type="radio"]').forEach(function (radio) {
+          radio.addEventListener('change', function () {
+            var qIndex = parseInt(radio.getAttribute('data-question'), 10);
+            answers[qIndex] = radio.value;
+            // Style the selected option
+            var name = radio.name;
+            root.querySelectorAll('input[name="' + name + '"]').forEach(function (r) {
+              var label = r.closest('.radio-option');
+              if (!label) return;
+              label.classList.toggle('border-[var(--color-secondary)]', r.checked);
+              label.classList.toggle('bg-[var(--color-surface)]', r.checked);
+            });
+            updateNextButton(currentStep);
+          });
+        });
+
+        // Restore existing answers visually
+        function restoreAnswers() {
+          if (answers[0]) {
+            var sectorBtn = root.querySelector('.sector-option[data-value="' + answers[0] + '"]');
+            if (sectorBtn) {
+              sectorBtn.classList.add('border-[var(--color-secondary)]', 'bg-[var(--color-surface)]');
+            }
+          }
+          for (var i = 1; i <= 6; i++) {
+            if (answers[i] !== undefined) {
+              var radio = root.querySelector('input[data-question="' + i + '"][value="' + answers[i] + '"]');
+              if (radio) {
+                radio.checked = true;
+                var label = radio.closest('.radio-option');
+                if (label) {
+                  label.classList.add('border-[var(--color-secondary)]', 'bg-[var(--color-surface)]');
+                }
+              }
+            }
+          }
+        }
+
+        backBtn.addEventListener('click', function () {
+          if (currentStep > 0) {
+            currentStep--;
+            showStep(currentStep);
+          }
+        });
+
+        nextBtn.addEventListener('click', function () {
+          if (currentStep < totalSteps - 1 && isAnswered(currentStep)) {
+            currentStep++;
+            showStep(currentStep);
+          }
+        });
+
+        if (restartBtn) {
+          restartBtn.addEventListener('click', function () {
+            answers = {};
+            currentStep = 0;
+            root.querySelectorAll('.sector-option').forEach(function (b) {
+              b.classList.remove('border-[var(--color-secondary)]', 'bg-[var(--color-surface)]');
+            });
+            root.querySelectorAll('.radio-option').forEach(function (l) {
+              l.classList.remove('border-[var(--color-secondary)]', 'bg-[var(--color-surface)]');
+            });
+            root.querySelectorAll('input[type="radio"]').forEach(function (r) { r.checked = false; });
+            history.replaceState(null, '', window.location.pathname);
+            showStep(0);
+          });
+        }
+
+        if (copyBtn && shareUrl) {
+          copyBtn.addEventListener('click', function () {
+            navigator.clipboard.writeText(shareUrl.value).then(function () {
+              copyBtn.textContent = 'Copied!';
+              setTimeout(function () { copyBtn.textContent = 'Copy'; }, 2000);
+            }).catch(function () {
+              shareUrl.select();
+              document.execCommand('copy');
+              copyBtn.textContent = 'Copied!';
+              setTimeout(function () { copyBtn.textContent = 'Copy'; }, 2000);
+            });
+          });
+        }
+
+        function renderResults() {
+          if (!resultCards) return;
+          resultCards.innerHTML = '';
+
+          CAPABILITIES.forEach(function (cap) {
+            var answerVal = parseInt(answers[cap.questionIndex] || '0', 10);
+            var indicator = cap.indicators[answerVal] || 'Developing';
+            var finding = cap.findings[answerVal] || cap.findings[0];
+            var style = INDICATOR_STYLES[indicator] || INDICATOR_STYLES['Developing'];
+
+            var card = document.createElement('div');
+            card.className = 'rounded-2xl border ' + style.border + ' ' + style.bg + ' p-5';
+            card.innerHTML =
+              '<div class="mb-3 flex items-start justify-between gap-4">' +
+                '<h3 class="font-display text-base font-bold text-[var(--color-ink)]">' + cap.title + '</h3>' +
+                '<span class="shrink-0 rounded-full px-3 py-1 text-xs font-semibold ' + style.badge + '">' + indicator + '</span>' +
+              '</div>' +
+              '<p class="mb-3 text-sm text-[var(--color-ink-soft)]">' + finding + '</p>' +
+              '<p class="text-xs text-[var(--color-ink-soft)]"><strong class="text-[var(--color-ink)]">Past performance reference:</strong> ' + cap.proofRef + '</p>';
+
+            resultCards.appendChild(card);
+          });
+        }
+
+        // Init
+        parseHash();
+
+        // If all answers restored, jump to results
+        var allAnswered = isAnswered(0);
+        for (var i = 1; i <= 6; i++) {
+          if (!isAnswered(i)) { allAnswered = false; break; }
+        }
+        if (allAnswered) {
+          restoreAnswers();
+          currentStep = 7;
+          showStep(7);
+        } else {
+          // Find furthest answered step
+          restoreAnswers();
+          for (var j = 0; j <= 6; j++) {
+            if (!isAnswered(j)) {
+              currentStep = j;
+              break;
+            }
+            if (j === 6) currentStep = 7;
+          }
+          showStep(currentStep);
+        }
+      });
+    }
+
+    document.addEventListener('astro:page-load', initAssessment);
+  })();
+</script>

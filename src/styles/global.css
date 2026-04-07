@@ -116,6 +116,7 @@ img {
 
   .rich-copy {
     @apply space-y-5 text-lg;
+    overflow: hidden;
   }
 
   .rich-copy h2 {
@@ -146,16 +147,22 @@ img {
     @apply mt-8 text-xl font-semibold;
   }
 
+  .rich-copy .table-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 1.5rem;
+  }
+
   .rich-copy table {
-    @apply mt-6 w-full border-collapse text-sm;
+    @apply w-full border-collapse text-sm;
   }
 
   .rich-copy thead th {
-    @apply border-b-2 border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[var(--color-ink-soft)];
+    @apply border-b-2 border-[var(--color-border)] bg-[var(--color-surface)] px-3 py-2 text-left text-xs font-semibold uppercase tracking-wider whitespace-nowrap text-[var(--color-ink-soft)] md:px-4 md:py-3;
   }
 
   .rich-copy tbody td {
-    @apply border-b border-[var(--color-border)] px-4 py-3 text-[var(--color-ink)];
+    @apply border-b border-[var(--color-border)] px-3 py-2 text-[var(--color-ink)] md:px-4 md:py-3;
   }
 
   .rich-copy tbody tr:hover {

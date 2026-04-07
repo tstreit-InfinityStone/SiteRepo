@@ -1,0 +1,40 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Container from '@/components/ui/Container.astro';
+import SetAsideCheckerIsland from '@/components/islands/SetAsideChecker.astro';
+import { withBase } from '@/lib/paths';
+import { buildBreadcrumbSchema, buildOrganizationSchema } from '@/lib/seo';
+---
+
+<BaseLayout
+  title="Set-Aside Eligibility Checker"
+  description="Verify whether a WOSB or SDVOSB set-aside applies to your federal acquisition. Enter a NAICS code, awarding agency, and contract value for instant eligibility cards — including the VA Vets First mandate and sole-source authority thresholds."
+  canonicalPath="/tools/set-aside-checker"
+  structuredData={[
+    buildOrganizationSchema(),
+    buildBreadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Tools & Calculators', path: '/tools' },
+      { name: 'Set-Aside Eligibility Checker', path: '/tools/set-aside-checker' },
+    ]),
+  ]}
+>
+  <section class="section-space">
+    <Container className="max-w-4xl">
+      <div class="mb-10 fade-up">
+        <a href={withBase('/tools')} class="mb-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-secondary)] hover:text-[var(--color-primary)] transition">
+          ← All Tools
+        </a>
+        <p class="eyebrow mb-3">Contracting Officers</p>
+        <h1 class="mb-4 font-display text-3xl font-bold text-[var(--color-ink)] md:text-4xl">
+          Set-Aside Eligibility Checker
+        </h1>
+        <p class="max-w-2xl text-lg text-[var(--color-ink-soft)]">
+          Select a NAICS code, agency, and contract value range. Instant cards show ISS's registration status, WOSB and SDVOSB set-aside availability, and sole-source authority thresholds — including the VA Vets First mandate where applicable.
+        </p>
+      </div>
+
+      <SetAsideCheckerIsland />
+    </Container>
+  </section>
+</BaseLayout>

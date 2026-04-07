@@ -1,15 +1,27 @@
 import type { NavigationItem } from '@/types/site';
 
 export const mainNavigation: NavigationItem[] = [
-  { label: 'Home', href: '/' },
-  { label: 'Capabilities', href: '/capabilities' },
-  { label: 'Who We Serve', href: '/who-we-serve' },
-  { label: 'Past Performance', href: '/past-performance' },
+  {
+    label: 'Solutions',
+    href: '/capabilities',
+    children: [
+      { label: 'Capabilities', href: '/capabilities' },
+      { label: 'Capability Statement', href: '/capability-statement', indent: true },
+      { label: 'Who We Serve', href: '/who-we-serve' },
+      { label: 'Past Performance', href: '/past-performance' },
+    ],
+  },
   { label: 'Insights', href: '/insights' },
-  { label: 'Capability Statement', href: '/capability-statement' },
   { label: 'About', href: '/about' },
-  { label: 'Partners', href: '/partners' },
-  { label: 'Contact', href: '/contact' },
+  {
+    label: 'Contact',
+    href: '/contact',
+    children: [
+      { label: 'Contact', href: '/contact' },
+      { label: 'Partners', href: '/partners' },
+      { label: 'Careers', href: '/careers' },
+    ],
+  },
 ];
 
 export const footerNavigation: NavigationItem[] = [
@@ -25,6 +37,12 @@ export const contactNavigation: NavigationItem[] = [
   { label: 'Contact', href: '/contact' },
   { label: 'Partners', href: '/partners' },
   { label: 'Careers', href: '/careers' },
+];
+
+export const toolsNavigation: NavigationItem[] = [
+  { label: 'Set-Aside Checker', href: '/tools/set-aside-checker' },
+  { label: 'Subcontract Calculator', href: '/tools/subcontract-calculator' },
+  { label: 'Readiness Assessment', href: '/tools/assessment' },
 ];
 
 export const legalNavigation: NavigationItem[] = [

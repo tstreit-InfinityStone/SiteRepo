@@ -1,7 +1,7 @@
 ---
 title: "What WOSB and SDVOSB Certifications Mean for a Prime"
 description: "Understand how Women-Owned Small Business and Service-Disabled Veteran-Owned Small Business certifications create teaming advantages, unlock set-aside opportunities, and strengthen competitive positioning for prime contractors."
-publishDate: 2026-03-20
+publishDate: 2026-01-14
 draft: false
 ---
 
@@ -59,6 +59,9 @@ Most federal agencies track and report their small business goal achievement. Th
 ### 5. Mentor-Protege Eligibility
 The SBA's Mentor-Protege program allows large firms to form joint ventures with certified small businesses. These joint ventures can compete for set-aside contracts as small businesses while leveraging the mentor's resources and infrastructure. WOSB and SDVOSB firms are eligible protege candidates.
 
+### 6. Dual-Certification Efficiency
+A firm that holds both WOSB and SDVOSB certifications allows a prime to count the same subcontract dollars toward two separate subcontracting plan categories — and helps the agency credit a single award toward both the 5% WOSB goal and the 3% SDVOSB goal. This compounding effect makes dual-certified partners especially valuable for primes managing multiple socioeconomic targets across a portfolio of contracts.
+
 ## Comparison: WOSB vs SDVOSB vs 8(a) vs HUBZone
 
 Understanding where WOSB and SDVOSB fit relative to other SBA programs helps primes make informed teaming decisions.
@@ -92,15 +95,16 @@ Certification status should be verified at proposal time and again before contra
 
 The most sophisticated primes treat WOSB and SDVOSB teaming as a competitive strategy — not a compliance exercise. When a certified firm brings genuine technical capability, relevant past performance, and security-cleared personnel, the teaming arrangement strengthens the entire bid.
 
-Agencies are increasingly looking for small business partners that bring substance, not just certification status. A WOSB or SDVOSB firm with proven delivery in the relevant domain transforms a set-aside from a compliance mechanism into a genuine competitive advantage.
+Agencies are increasingly looking for small business partners that bring substance, not just certification status. A WOSB or SDVOSB firm with proven delivery in the relevant domain transforms a set-aside from a compliance mechanism into a genuine competitive advantage. The strongest partners combine certification with multi-domain delivery capability — cloud, cybersecurity, analytics, and program support under one team — along with leadership that has personally executed on similar contracts, not just managed business development.
 
-For primes evaluating potential teaming partners, the certification is the entry ticket — but the capability, clearances, and past performance behind that certification are what win the work.
+For primes evaluating potential teaming partners, the certification is the entry ticket — but the capability, clearances, verifiable credentials, and past performance behind that certification are what win the work.
 
 ## Key Takeaways
 
 - WOSB and SDVOSB certifications are now exclusively managed by the SBA
 - Both certifications support sole-source awards up to $4.5M for services
 - SDVOSB has no industry restriction; WOSB is limited to underrepresented NAICS codes
-- Primes benefit from teaming through set-aside access, subcontracting plan credit, and mentor-protege eligibility
+- Primes benefit from teaming through set-aside access, subcontracting plan credit, dual-certification efficiency, and mentor-protege eligibility
+- Dual-certified firms (holding both WOSB and SDVOSB) provide compounding value — one vendor relationship, two scorecard credits
 - Always verify certification status through SAM.gov or the SBA certification portal before executing teaming agreements
-- The strongest teaming arrangements pair certification with genuine technical depth and past performance
+- The strongest teaming arrangements pair certification with multi-domain delivery capability, accountable staffing, and verifiable past performance — not just certification status alone
